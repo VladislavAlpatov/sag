@@ -1,0 +1,11 @@
+discord.py
+requests
+bs4
+aiohttp
+websockets
+chardet
+colorama
+random2
+pyautogui
+datetime
+gTTS
