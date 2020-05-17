@@ -11,7 +11,8 @@ class Messages:
 **/cat** - send random cat image
 **/feature** - random cathook feature
 **/cathook** - send cathook github url
-**/joke** - send joke'''
+**/joke** - send joke
+**/steam** - check steam account'''
 
 
 class Cathook:
