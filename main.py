@@ -15,6 +15,19 @@ async def on_ready():
     await bot.change_presence(activity=discord.Game(config.Bot_info.game))
 
 
+@bot.event
+async def on_message(message):
+    await bot.process_commands(message)
+    author = message.author
+    print(author)
+    msg = message.content
+    if str(author) == 'cat-bot#4210' or message.guild.id == 665856387439656972:
+        pass
+    else:
+        channel = bot.get_channel(config.Nullserver.id)
+        await channel.send(f'<{message.guild.name}> **{author}** :{msg} ')
+
+
 @bot.command()
 async def help(ctx):
     await ctx.send(config.Messages.help_message, file=discord.File('cathook-banner.png'))
