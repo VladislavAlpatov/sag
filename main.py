@@ -54,9 +54,9 @@ async def cathook(ctx):
 
 @bot.command()
 async def joke(ctx):
-    url = requests.get('https://jokes.lol/random-jokes/', headers=config.Bot_info.heads)
+    url = requests.get('https://www.ajokeaday.com/jokes/random', headers=config.Bot_info.heads)
     soup = BeautifulSoup(url.text, 'html.parser')
-    soup = soup.find('div', {'class': 'query-field query-field-post_content'})
+    soup = soup.find('div', {'class': 'jd-body jubilat'})
     await ctx.send(soup.text)
 
 
