@@ -1,4 +1,4 @@
-#!/home/vlad/PycharmProjects/sag/venv/bin/python
+#!/home/vlad/Документы/GitHub/sag/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
