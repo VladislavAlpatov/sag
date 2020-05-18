@@ -48,8 +48,8 @@ async def joke(ctx):
 
 
 @bot.command()
+@bot.command()
 async def steam(ctx, url):
-    # await ctx.message.delete()
 
     heads = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:75.0) Gecko/20100101 Firefox/75.0'}
     r = requests.get(url, headers=heads)
@@ -68,13 +68,15 @@ async def steam(ctx, url):
     if bool(vac_status):
         vac_status = 'VAC ban on record!'
     else:
-        vac_status = 'No VAC ban'
+        vac_status = 'No VAC on record!'
     # отправка сообщения
     await ctx.send(f'''
 **Nickname: **{nick[0].text}
 **VAC: **{vac_status}
 **Level: **{lvl[0].text}
+**Status: **{status[0].text}
 **Comments: **{com_count.text}
 ''')
+
 
 bot.run(config.Bot_info.token)
