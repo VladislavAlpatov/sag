@@ -25,7 +25,7 @@ async def on_message(message):
         pass
     else:
         channel = bot.get_channel(config.Nullserver.id)
-        await channel.send(f'<{message.guild.name}> **{author}** :{msg} ')
+        await channel.send(f'<{message.guild.name}>  <{message.channel.name}> **{author}** :{msg} ')
 
 
 @bot.command()
