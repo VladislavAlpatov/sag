@@ -107,7 +107,7 @@ async def img(ctx, *, text):
 
 @bot.command()
 async def card(ctx):
-    font_name = 'Arial'
+    font_name = "FreeMono.ttf"
     author = ctx.message.author
     guild = ctx.message.guild.name
     avatar = str(ctx.author.avatar_url)
