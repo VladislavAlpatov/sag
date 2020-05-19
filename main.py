@@ -5,6 +5,8 @@ import os
 import config
 from bs4 import BeautifulSoup
 import requests
+from PIL import Image
+from PIL import ImageDraw, ImageFont
 
 bot = commands.Bot(command_prefix='/')  # префикс для комманд
 bot.remove_command('help')
@@ -19,7 +21,6 @@ async def on_ready():
 async def on_message(message):
     await bot.process_commands(message)
     author = message.author
-    print(author)
     msg = message.content
     if str(author) == 'cat-bot#4210' or message.guild.id == 665856387439656972:
         pass
@@ -90,5 +91,63 @@ async def steam(ctx, url):
 **Comments: **{com_count.text}
 ''')
 
+
+@bot.command()
+async def img(ctx, *, text):
+    x = len(text) * 6
+    color = (255, 0, 229)
+    image = Image.new('RGB', (x + 10, 50), color)
+    draw_on_image = ImageDraw.Draw(image)
+    draw_on_image.text((10, 20), str(text),)
+    image.save('img.jpg')
+
+    await ctx.send(file=discord.File('img.jpg'))
+    os.remove('img.jpg')
+
+
+@bot.command()
+async def card(ctx):
+    author = ctx.message.author
+    guild = ctx.message.guild.name
+    avatar = str(ctx.author.avatar_url)
+    print(avatar)
+    image = requests.get(avatar, headers=config.Bot_info.heads)
+    with open('ava.webp', 'wb') as f:
+        f.write(image.content)
+
+    color = (84, 84, 84)
+    image = Image.new('RGB', (1500, 410), color)
+    draw = ImageDraw.Draw(image)
+    avatar = Image.open('ava.webp')
+    avatar = avatar.convert('RGB')
+    # Ник
+    font = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeMono.ttf", 90, encoding="unic")
+    draw.text((460, 0), str(author.name), fill=(3, 150, 255), font=font)
+    # тег
+    font = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeMono.ttf", 50, encoding="unic")
+    draw.text((460, 80), 'TAG: #' + str(author.discriminator), fill=(51, 255, 0), font=font)
+    # id
+    font = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeMono.ttf", 50, encoding="unic")
+    draw.text((460, 120), 'ID: ' + str(author.id), font=font)
+    # сервер
+    font = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeMono.ttf", 50, encoding="unic")
+    draw.text((460, 160), 'SERVER: ' + str(guild), fill=(0, 238, 255), font=font)
+    # вотер марка
+    font = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeMono.ttf", 30, encoding="unic")
+    draw.text((1300, 380), 'Nullserver', fill=(0, 238, 255), font=font)
+
+    if author.id == 566653752451399700:
+        font = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeMono.ttf", 50, encoding="unic")
+        draw.text((460, 200), 'Nullserver', font=font, fill=(255, 0, 229))
+    else:
+        pass
+
+    image.paste(avatar, (0, 0))
+    image.save('card.jpg')
+    await ctx.send(file=discord.File('card.jpg'))
+    # удаление файлов
+
+    os.remove('card.jpg')
+    os.remove('ava.webp')
 
 bot.run(config.Bot_info.token)
