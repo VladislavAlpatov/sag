@@ -121,6 +121,7 @@ async def card(ctx):
     draw = ImageDraw.Draw(image)
     avatar = Image.open('ava.webp')
     avatar = avatar.convert('RGB')
+    avatar = avatar.resize((421, 421), Image.ANTIALIAS)
     # Ник
     font = ImageFont.truetype(font_name, 90, encoding="unic")
     draw.text((460, 0), str(author.name), fill=(3, 150, 255), font=font)
