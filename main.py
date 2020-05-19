@@ -121,23 +121,23 @@ async def card(ctx):
     avatar = Image.open('ava.webp')
     avatar = avatar.convert('RGB')
     # Ник
-    font = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeMono.ttf", 90, encoding="unic")
+    font = ImageFont.truetype("FreeMono.ttf", 90, encoding="unic")
     draw.text((460, 0), str(author.name), fill=(3, 150, 255), font=font)
     # тег
-    font = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeMono.ttf", 50, encoding="unic")
+    font = ImageFont.truetype("FreeMono.ttf", 50, encoding="unic")
     draw.text((460, 80), 'TAG: #' + str(author.discriminator), fill=(51, 255, 0), font=font)
     # id
-    font = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeMono.ttf", 50, encoding="unic")
+    font = ImageFont.truetype("FreeMono.ttf", 50, encoding="unic")
     draw.text((460, 120), 'ID: ' + str(author.id), font=font)
     # сервер
-    font = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeMono.ttf", 50, encoding="unic")
+    font = ImageFont.truetype("FreeMono.ttf", 50, encoding="unic")
     draw.text((460, 160), 'SERVER: ' + str(guild), fill=(0, 238, 255), font=font)
     # вотер марка
-    font = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeMono.ttf", 30, encoding="unic")
+    font = ImageFont.truetype("FreeMono.ttf", 30, encoding="unic")
     draw.text((1300, 380), 'Nullserver', fill=(0, 238, 255), font=font)
 
     if author.id == 566653752451399700:
-        font = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeMono.ttf", 50, encoding="unic")
+        font = ImageFont.truetype("FreeMono.ttf", 50, encoding="unic")
         draw.text((460, 200), 'Nullserver', font=font, fill=(255, 0, 229))
     else:
         pass
