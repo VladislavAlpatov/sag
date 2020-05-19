@@ -138,7 +138,7 @@ async def card(ctx):
 
     if author.id == 566653752451399700:
         font = ImageFont.truetype("FreeMono.ttf", 50, encoding="unic")
-        draw.text((460, 200), 'Nullserver', font=font, fill=(255, 0, 229))
+        draw.text((460, 200), 'Creator of this bot', font=font, fill=(255, 0, 229))
     else:
         pass
 
