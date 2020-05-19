@@ -108,20 +108,26 @@ async def img(ctx, *, text):
 @bot.command()
 async def card(ctx):
     font_name = "FreeMono.ttf"
+    # получаем инфу
     author = ctx.message.author
     guild = ctx.message.guild.name
     avatar = str(ctx.author.avatar_url)
-    print(avatar)
+
+    # парсим и сохраняем аву
     image = requests.get(avatar, headers=config.Bot_info.heads)
     with open('ava.webp', 'wb') as f:
         f.write(image.content)
 
+    # задаём цвет
     color = (84, 84, 84)
+    # создаём изображение
     image = Image.new('RGB', (1500, 410), color)
     draw = ImageDraw.Draw(image)
+    # получаем аватар и подгоняем размер
     avatar = Image.open('ava.webp')
     avatar = avatar.convert('RGB')
     avatar = avatar.resize((421, 421), Image.ANTIALIAS)
+
     # Ник
     font = ImageFont.truetype(font_name, 90, encoding="unic")
     draw.text((460, 0), str(author.name), fill=(3, 150, 255), font=font)
@@ -138,17 +144,19 @@ async def card(ctx):
     font = ImageFont.truetype(font_name, 30, encoding="unic")
     draw.text((1300, 380), 'Nullserver', fill=(0, 238, 255), font=font)
 
+    # проверка на создателя
     if author.id == 566653752451399700:
         font = ImageFont.truetype(font_name, 50, encoding="unic")
         draw.text((460, 200), 'Creator of this bot', font=font, fill=(255, 0, 229))
     else:
         pass
 
+    # вставляем фото
     image.paste(avatar, (0, 0))
     image.save('card.jpg')
     await ctx.send(file=discord.File('card.jpg'))
-    # удаление файлов
 
+    # удаление файлов
     os.remove('card.jpg')
     os.remove('ava.webp')
 
