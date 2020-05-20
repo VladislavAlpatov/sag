@@ -135,21 +135,21 @@ async def card(ctx):
     draw.text((460, 0), str(author.name), fill=(3, 150, 255), font=font)
     # тег
     font = ImageFont.truetype(font_name, 50, encoding="unic")
-    draw.text((460, 80), 'TAG: #' + str(author.discriminator), fill=(51, 255, 0), font=font)
+    draw.text((460, 90), 'TAG: #' + str(author.discriminator), fill=(51, 255, 0), font=font)
     # id
     font = ImageFont.truetype(font_name, 50, encoding="unic")
-    draw.text((460, 120), 'ID: ' + str(author.id), font=font)
+    draw.text((460, 130), 'ID: ' + str(author.id), font=font)
     # сервер
     font = ImageFont.truetype(font_name, 50, encoding="unic")
-    draw.text((460, 160), 'SERVER: ' + str(guild), fill=(0, 238, 255), font=font)
+    draw.text((460, 170), 'SERVER: ' + str(guild), fill=(0, 238, 255), font=font)
     # вотер марка
     font = ImageFont.truetype(font_name, 30, encoding="unic")
-    draw.text((1300, 380), 'Nullserver', fill=(0, 238, 255), font=font)
+    draw.text((1300, 390), 'Nullserver', fill=(0, 238, 255), font=font)
 
     # проверка на создателя
     if author.id == 566653752451399700:
         font = ImageFont.truetype(font_name, 50, encoding="unic")
-        draw.text((460, 200), 'Creator of this bot', font=font, fill=(255, 0, 229))
+        draw.text((460, 210), 'Creator of this bot', font=font, fill=(255, 0, 229))
     else:
         pass
 
