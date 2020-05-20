@@ -172,11 +172,12 @@ async def invite(ctx):
 async def nigga(ctx, *, text):
     print(len(text))
 
-    if int(len(text)) >= 8:
+    if 8 <= int(len(text)) <= 10:
         large = 60
-        print('ok')
+        print('60')
     elif int(len(text)) >= 10:
-        large = 30
+        print('30')
+        large = 50
     else:
         large = 90
 
