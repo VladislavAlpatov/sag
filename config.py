@@ -17,8 +17,8 @@ class Messages:
 **/cathook** - send cathook github url
 **/joke** - send joke
 **/steam** - check steam account
-**/card** - send your profile card'''
-
+**/card** - send your profile card
+**/invite** - send invitation'''
     invite = '''
     **You can add me on your server by this link:**
 ```https://discord.com/api/oauth2/authorize?client_id=709698597415026707&permissions=378880&scope=bot```'''
