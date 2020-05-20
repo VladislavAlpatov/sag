@@ -118,11 +118,13 @@ async def card(ctx):
     with open('ava.webp', 'wb') as f:
         f.write(image.content)
 
-    # задаём цвет
+    # задаём цвет фона
     color = (84, 84, 84)
+
     # создаём изображение
     image = Image.new('RGB', (1500, 410), color)
     draw = ImageDraw.Draw(image)
+
     # получаем аватар и подгоняем размер
     avatar = Image.open('ava.webp')
     avatar = avatar.convert('RGB')
@@ -159,5 +161,10 @@ async def card(ctx):
     # удаление файлов
     os.remove('card.jpg')
     os.remove('ava.webp')
+
+
+@bot.command()
+async def invite(ctx):
+    await ctx.send(config.Messages.invite)
 
 bot.run(config.Bot_info.token)
