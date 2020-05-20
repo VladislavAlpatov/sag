@@ -175,6 +175,8 @@ async def nigga(ctx, *, text):
     if int(len(text)) >= 8:
         large = 60
         print('ok')
+    elif int(len(text)) >= 12:
+        large = 40
     else:
         large = 90
 
