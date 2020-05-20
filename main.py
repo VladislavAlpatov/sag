@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 import requests
 from PIL import Image
 from PIL import ImageDraw, ImageFont
+import asyncio
 
 bot = commands.Bot(command_prefix='/')  # префикс для комманд
 bot.remove_command('help')
@@ -14,7 +15,12 @@ bot.remove_command('help')
 
 @bot.event
 async def on_ready():
-    await bot.change_presence(activity=discord.Game(config.Bot_info.game))
+    games = ['/help', 'CAT-BOT', 'cathook', 'cathook by nullworks',
+             'made by nullifiedvlad', 'we need some cats']
+    while True:
+        for game in games:
+            await bot.change_presence(activity=discord.Game(game))
+            await asyncio.sleep(10)
 
 
 @bot.event
