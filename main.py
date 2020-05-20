@@ -167,4 +167,26 @@ async def card(ctx):
 async def invite(ctx):
     await ctx.send(config.Messages.invite)
 
+
+@bot.command()
+async def nigga(ctx, *, text):
+    print(len(text))
+    if int(len(text)) >= 7:
+        large = 60
+        print('ok')
+    else:
+        large = 90
+    if int(len(text)) >= 4:
+        to_sum = 8
+    else:
+        to_sum = 3
+    image = Image.open('nigga.jpg')
+    draw = ImageDraw.Draw(image)
+    font_name = 'bit.ttf'
+    font = ImageFont.truetype(font_name, large, encoding="unic")
+    draw.text((200-int(len(text)) * to_sum, 600-large), str(text), fill=(0, 0, 0), font=font)
+    image.save('nigga-out.jpg')
+    await ctx.send(file=discord.File('nigga-out.jpg'))
+    os.remove('nigga-out.jpg')
+
 bot.run(config.Bot_info.token)
