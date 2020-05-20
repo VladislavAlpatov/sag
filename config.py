@@ -21,7 +21,7 @@ class Messages:
 **/img** (text) - send img with text
 **/invite** - send invitation
 **/nigga** (text) - make nigga meme'''
-    
+
     invite = '''
     **You can add me on your server by this link:**
 ```https://discord.com/api/oauth2/authorize?client_id=709698597415026707&permissions=378880&scope=bot```'''

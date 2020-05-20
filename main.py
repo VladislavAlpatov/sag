@@ -171,15 +171,18 @@ async def invite(ctx):
 @bot.command()
 async def nigga(ctx, *, text):
     print(len(text))
-    if int(len(text)) >= 7:
+
+    if int(len(text)) >= 8:
         large = 60
         print('ok')
     else:
         large = 90
+
     if int(len(text)) >= 4:
         to_sum = 8
     else:
         to_sum = 3
+
     image = Image.open('nigga.jpg')
     draw = ImageDraw.Draw(image)
     font_name = 'bit.ttf'
