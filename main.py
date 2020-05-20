@@ -21,7 +21,7 @@ async def on_ready():
 async def on_message(message):
     await bot.process_commands(message)
     author = message.author
-    msg = message.content
+    msg = message.content.replace('@everyone', 'everyone')
     if str(author) == 'cat-bot#4210' or message.guild.id == 665856387439656972:
         pass
     else:
