@@ -149,7 +149,7 @@ async def card(ctx):
     # проверка на создателя
     if author.id == 566653752451399700:
         font = ImageFont.truetype(font_name, 50, encoding="unic")
-        draw.text((460, 360), 'Creator of this bot', font=font, fill=(255, 0, 229))
+        draw.text((460, 350), 'Creator of this bot', font=font, fill=(255, 0, 229))
     else:
         pass
 
