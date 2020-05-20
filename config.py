@@ -16,8 +16,9 @@ class Messages:
 **/feature** - random cathook feature
 **/cathook** - send cathook github url
 **/joke** - send joke
-**/steam** - check steam account
+**/steam** (url) - check steam account
 **/card** - send your profile card
+**/img** (text) - send img with text
 **/invite** - send invitation'''
     invite = '''
     **You can add me on your server by this link:**
