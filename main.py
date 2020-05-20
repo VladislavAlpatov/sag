@@ -141,7 +141,7 @@ async def card(ctx):
     draw.text((460, 180), 'ID: ' + str(author.id), font=font)
     # сервер
     font = ImageFont.truetype(font_name, 50, encoding="unic")
-    draw.text((460, 240), 'SERVER: ' + str(guild), fill=(0, 238, 255), font=font)
+    draw.text((460, 270), 'SERVER: ' + str(guild), fill=(0, 238, 255), font=font)
     # вотер марка
     font = ImageFont.truetype(font_name, 30, encoding="unic")
     draw.text((1300, 390), 'Nullserver', fill=(0, 238, 255), font=font)
@@ -149,7 +149,7 @@ async def card(ctx):
     # проверка на создателя
     if author.id == 566653752451399700:
         font = ImageFont.truetype(font_name, 50, encoding="unic")
-        draw.text((460, 290), 'Creator of this bot', font=font, fill=(255, 0, 229))
+        draw.text((460, 360), 'Creator of this bot', font=font, fill=(255, 0, 229))
     else:
         pass
 
