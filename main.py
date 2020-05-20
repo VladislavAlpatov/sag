@@ -129,6 +129,10 @@ async def card(ctx):
     avatar = Image.open('ava.webp')
     avatar = avatar.convert('RGB')
     avatar = avatar.resize((421, 421), Image.ANTIALIAS)
+    # получаем фотку ботаи подгоняем по размеру
+    bot_avatar = Image.open('cat.jpg')
+    bot_avatar = bot_avatar.convert('RGB')
+    bot_avatar = bot_avatar.resize((124, 124), Image.ANTIALIAS)
 
     # Ник
     font = ImageFont.truetype(font_name, 90, encoding="unic")
@@ -155,6 +159,11 @@ async def card(ctx):
 
     # вставляем фото
     image.paste(avatar, (0, 0))
+
+    # вставляем фото бота
+    image.paste(bot_avatar, (1376, 0))
+
+    # сохраняем и отправляем карточку
     image.save('card.jpg')
     await ctx.send(file=discord.File('card.jpg'))
 
