@@ -24,7 +24,7 @@ class Messages:
 
     invite = '''
     **You can add me on your server by this link:**
-```https://discord.com/api/oauth2/authorize?client_id=709698597415026707&permissions=378880&scope=bot```'''
+`https://discord.com/api/oauth2/authorize?client_id=709698597415026707&permissions=378880&scope=bot`'''
 
 
 class Cathook:
