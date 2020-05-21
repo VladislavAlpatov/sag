@@ -37,7 +37,7 @@ async def on_message(message):
 
 
 @bot.command()
-async def help(ctx): # send help message
+async def help(ctx):  # send help message
     await ctx.send(config.Messages.help_message, file=discord.File('cathook-banner.png'))
 
 
@@ -114,7 +114,7 @@ async def img(ctx, *, text):
 
 @bot.command()
 async def card(ctx):
-    font_name = "bit.ttf"
+    font_name = 'media/fonts/bit.ttf'
     # получаем инфу
     author = ctx.message.author
     guild = ctx.message.guild.name
@@ -126,7 +126,7 @@ async def card(ctx):
         f.write(image.content)
 
     # создаём изображение
-    image = Image.open('background.jpg')
+    image = Image.open('media/card/background.jpg')
     draw = ImageDraw.Draw(image)
 
     # получаем аватар и подгоняем размер
@@ -134,7 +134,7 @@ async def card(ctx):
     avatar = avatar.convert('RGB')
     avatar = avatar.resize((421, 421), Image.ANTIALIAS)
     # получаем фотку ботаи подгоняем по размеру
-    bot_avatar = Image.open('cat.jpg')
+    bot_avatar = Image.open('media/card/cat.jpg')
     bot_avatar = bot_avatar.convert('RGB')
     bot_avatar = bot_avatar.resize((124, 124), Image.ANTIALIAS)
 
@@ -201,9 +201,9 @@ async def nigga(ctx, *, text):
     else:
         to_sum = 3
 
-    image = Image.open('nigga.jpg')
+    image = Image.open('media/nigga/nigga.jpg')
     draw = ImageDraw.Draw(image)
-    font_name = 'bit.ttf'
+    font_name = 'media/fonts/bit.ttf'
     font = ImageFont.truetype(font_name, large, encoding="unic")
     draw.text((200-int(len(text)) * to_sum, 600-large), str(text), fill=(0, 0, 0), font=font)
     image.save('nigga-out.jpg')
