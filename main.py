@@ -8,7 +8,7 @@ import requests
 from PIL import Image
 from PIL import ImageDraw, ImageFont
 import asyncio
-
+# stuff here
 bot = commands.Bot(command_prefix='/')  # префикс для комманд
 bot.remove_command('help')
 
@@ -124,9 +124,6 @@ async def card(ctx):
     image = requests.get(avatar, headers=config.Bot_info.heads)
     with open('ava.webp', 'wb') as f:
         f.write(image.content)
-
-    # задаём цвет фона
-    color = (84, 84, 84)
 
     # создаём изображение
     image = Image.open('background.jpg')
