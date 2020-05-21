@@ -8,7 +8,7 @@ import requests
 from PIL import Image
 from PIL import ImageDraw, ImageFont
 import asyncio
-
+# stuff
 bot = commands.Bot(command_prefix='/')  # префикс для комманд
 bot.remove_command('help')
 
