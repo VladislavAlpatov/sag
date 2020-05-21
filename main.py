@@ -129,7 +129,7 @@ async def card(ctx):
     color = (84, 84, 84)
 
     # создаём изображение
-    image = Image.new('RGB', (1500, 410), color)
+    image = Image.open('background.jpg')
     draw = ImageDraw.Draw(image)
 
     # получаем аватар и подгоняем размер
@@ -149,10 +149,10 @@ async def card(ctx):
     draw.text((460, 90), 'TAG: #' + str(author.discriminator), fill=(51, 255, 0), font=font)
     # id
     font = ImageFont.truetype(font_name, 50, encoding="unic")
-    draw.text((460, 180), 'ID: ' + str(author.id), font=font)
+    draw.text((460, 150), 'ID: ' + str(author.id), font=font)
     # сервер
     font = ImageFont.truetype(font_name, 50, encoding="unic")
-    draw.text((460, 270), 'SERVER: ' + str(guild), fill=(0, 238, 255), font=font)
+    draw.text((460, 210), 'SERVER: ' + str(guild), fill=(0, 238, 255), font=font)
     # вотер марка
     font = ImageFont.truetype(font_name, 30, encoding="unic")
     draw.text((1380, 370), 'CATHOOK', fill=(0, 238, 255), font=font)
@@ -162,7 +162,7 @@ async def card(ctx):
     # проверка на создателя
     if author.id == 566653752451399700:
         font = ImageFont.truetype(font_name, 50, encoding="unic")
-        draw.text((460, 360), 'Creator of this bot', font=font, fill=(255, 0, 229))
+        draw.text((460, 270), 'Creator of this bot', font=font, fill=(255, 0, 229))
     else:
         pass
 
