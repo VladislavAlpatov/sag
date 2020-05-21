@@ -37,7 +37,7 @@ async def on_message(message):
 
 
 @bot.command()
-async def help(ctx):
+async def help(ctx): # send help message
     await ctx.send(config.Messages.help_message, file=discord.File('cathook-banner.png'))
 
 
