@@ -150,9 +150,6 @@ async def card(ctx):
     # сервер
     font = ImageFont.truetype(font_name, 50, encoding="unic")
     draw.text((460, 210), 'SERVER: ' + str(guild), fill=(0, 238, 255), font=font)
-    # вотер марка
-    font = ImageFont.truetype(font_name, 30, encoding="unic")
-    draw.text((1380, 370), 'CATHOOK', fill=(0, 238, 255), font=font)
     # текс под фоткой бота
     font = ImageFont.truetype(font_name, 30, encoding="unic")
     draw.text((1380, 128), 'CAT-BOT', fill=(255, 255, 255), font=font)
