@@ -17,11 +17,7 @@ bot.remove_command('help')
 async def on_ready():
     games = ['/help', 'CAT-BOT', 'cathook', 'cathook by nullworks',
              'made by nullifiedvlad', 'we need some cats']
-
-    while True:
-        for game in games:
-            await bot.change_presence(activity=discord.Game(game))
-            await asyncio.sleep(10)
+    await bot.change_presence(activity=discord.Game(games[0]))
 
 
 @bot.event
