@@ -7,7 +7,8 @@ from bs4 import BeautifulSoup
 import requests
 from PIL import Image
 from PIL import ImageDraw, ImageFont
-import asyncio
+
+# import asyncio
 
 bot = commands.Bot(command_prefix='/')  # префикс для комманд
 bot.remove_command('help')
@@ -127,10 +128,12 @@ async def card(ctx):
     draw = ImageDraw.Draw(image)
 
     # получаем аватар и подгоняем размер
+
     avatar = Image.open('ava.webp')
     avatar = avatar.convert('RGB')
     avatar = avatar.resize((421, 421), Image.ANTIALIAS)
-    # получаем фотку ботаи подгоняем по размеру
+
+    # получаем фотку бота и подгоняем по размеру
     bot_avatar = Image.open('media/card/cat.jpg')
     bot_avatar = bot_avatar.convert('RGB')
     bot_avatar = bot_avatar.resize((124, 124), Image.ANTIALIAS)
