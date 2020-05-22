@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 import requests
 from PIL import Image
 from PIL import ImageDraw, ImageFont
+import qrcode
 
 # import asyncio
 
@@ -68,7 +69,6 @@ async def joke(ctx):
 
 @bot.command()
 async def steam(ctx, url):
-
     heads = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:75.0) Gecko/20100101 Firefox/75.0'}
     r = requests.get(url, headers=heads)
     soup = BeautifulSoup(r.text, 'html.parser')
@@ -103,7 +103,7 @@ async def img(ctx, *, text):
     color = (255, 0, 229)
     image = Image.new('RGB', (x + 10, 50), color)
     draw_on_image = ImageDraw.Draw(image)
-    draw_on_image.text((10, 20), str(text),)
+    draw_on_image.text((10, 20), str(text), )
     image.save('img.jpg')
 
     await ctx.send(file=discord.File('img.jpg'))
@@ -200,9 +200,9 @@ async def nigga(ctx, *, text):
 
     image = Image.open('media/nigga/nigga.jpg')
     draw = ImageDraw.Draw(image)
-    font_name = 'media/fonts/bit.ttf'
+    font_name = 'media/fonts/arialbd.ttf'
     font = ImageFont.truetype(font_name, large, encoding="unic")
-    draw.text((200-int(len(text)) * to_sum, 600-large), str(text), fill=(0, 0, 0), font=font)
+    draw.text((200 - int(len(text)) * to_sum, 600 - large), str(text), fill=(0, 0, 0), font=font)
     image.save('nigga-out.jpg')
     await ctx.send(file=discord.File('nigga-out.jpg'))
     os.remove('nigga-out.jpg')
@@ -210,7 +210,6 @@ async def nigga(ctx, *, text):
 
 @bot.command()
 async def rename(ctx, *, name):
-
     if ctx.message.author.id == 566653752451399700:
         try:
             await bot.user.edit(username=name)
@@ -219,5 +218,14 @@ async def rename(ctx, *, name):
             await ctx.send(e)
     else:
         await ctx.send('Access denied!')
+
+
+@bot.command()
+async def qr(ctx, *, text):
+    image = qrcode.make(str(text))
+    image.save('code.png')
+
+    await ctx.send(file=discord.File('code.png'))
+    os.remove('code.png')
 
 bot.run(config.Bot_info.token)

@@ -6,3 +6,4 @@ websockets
 chardet
 random2
 Pillow
+qrcode

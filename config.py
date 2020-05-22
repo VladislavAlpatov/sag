@@ -20,7 +20,8 @@ class Messages:
 **/card** - send your profile card
 **/img** (text) - send img with text
 **/invite** - send invitation
-**/nigga** (text) - make nigga meme'''
+**/nigga** (text) - make nigga meme
+**/qr** (text) - make qrcode'''
 
     invite = '''
     **You can add me on your server by this link:**
