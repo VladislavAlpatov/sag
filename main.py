@@ -77,20 +77,20 @@ async def steam(ctx, url):
     lvl = soup.findAll('span', {'class': 'friendPlayerLevelNum'})
     # получаем статус и вак статус
     status = soup.findAll('div', {'class': 'profile_in_game_header'})
-    vac_status = soup.find('div', {'class': 'profile_ban_status'})
+    isVAC = soup.find('div', {'class': 'profile_ban_status'})
     # получаем коллтчество коментариев
     comments_block = soup.find('a', {'class': 'commentthread_allcommentslink'})
     com_count = comments_block.find('span')
 
     # проверка вак бана
-    if bool(vac_status):
-        vac_status = 'VAC ban on record!'
+    if bool(isVAC):
+        isVAC = 'VAC ban on record!'
     else:
-        vac_status = 'No VAC on record!'
+        isVAC = 'No VAC on record!'
     # отправка сообщения
     await ctx.send(f'''
 **Nickname: **{nick[0].text}
-**VAC: **{vac_status}
+**VAC: **{isVAC}
 **Level: **{lvl[0].text}
 **Status: **{status[0].text}
 **Comments: **{com_count.text}
@@ -112,7 +112,7 @@ async def img(ctx, *, text):
 
 @bot.command()
 async def card(ctx):
-    font_name = 'media/fonts/bit.ttf'
+    font_name = 'media/fonts/arialbd.ttf'
     # получаем инфу
     author = ctx.message.author
     guild = ctx.message.guild.name
@@ -151,8 +151,8 @@ async def card(ctx):
     font = ImageFont.truetype(font_name, 50, encoding="unic")
     draw.text((460, 210), 'SERVER: ' + str(guild), fill=(0, 238, 255), font=font)
     # текс под фоткой бота
-    font = ImageFont.truetype(font_name, 30, encoding="unic")
-    draw.text((1380, 128), 'CAT-BOT', fill=(255, 255, 255), font=font)
+    font = ImageFont.truetype(font_name, 25, encoding="unic")
+    draw.text((1385, 128), 'CAT-BOT', fill=(255, 255, 255), font=font)
     # проверка на создателя
     if author.id == 566653752451399700:
         font = ImageFont.truetype(font_name, 50, encoding="unic")
@@ -183,29 +183,29 @@ async def invite(ctx):
 @bot.command()
 async def nigga(ctx, *, text):
     print(len(text))
+    if int(len(text)) < 40:
+        if 8 <= int(len(text)) <= 10:
+            large = 65
+        elif int(len(text)) >= 12:
+            large = 50
+        else:
+            large = 90
 
-    if 8 <= int(len(text)) <= 10:
-        large = 65
-        print('60')
-    elif int(len(text)) >= 12:
-        print('30')
-        large = 50
+        if int(len(text)) >= 4:
+            to_sum = 8
+        else:
+            to_sum = 3
+
+        image = Image.open('media/nigga/nigga.jpg')
+        draw = ImageDraw.Draw(image)
+        font_name = 'media/fonts/arialbd.ttf'
+        font = ImageFont.truetype(font_name, large, encoding="unic")
+        draw.text((200 - int(len(text)) * to_sum, 600 - large), str(text), fill=(0, 0, 0), font=font)
+        image.save('nigga-out.jpg')
+        await ctx.send(file=discord.File('nigga-out.jpg'))
+        os.remove('nigga-out.jpg')
     else:
-        large = 90
-
-    if int(len(text)) >= 4:
-        to_sum = 8
-    else:
-        to_sum = 3
-
-    image = Image.open('media/nigga/nigga.jpg')
-    draw = ImageDraw.Draw(image)
-    font_name = 'media/fonts/arialbd.ttf'
-    font = ImageFont.truetype(font_name, large, encoding="unic")
-    draw.text((200 - int(len(text)) * to_sum, 600 - large), str(text), fill=(0, 0, 0), font=font)
-    image.save('nigga-out.jpg')
-    await ctx.send(file=discord.File('nigga-out.jpg'))
-    os.remove('nigga-out.jpg')
+        await ctx.send('To many symbols')
 
 
 @bot.command()
@@ -222,10 +222,40 @@ async def rename(ctx, *, name):
 
 @bot.command()
 async def qr(ctx, *, text):
-    image = qrcode.make(str(text))
-    image.save('code.png')
 
-    await ctx.send(file=discord.File('code.png'))
-    os.remove('code.png')
+    if int(len(text)) <= 100:
+        image = qrcode.make(str(text))
+        image.save('code.png')
+
+        await ctx.send(file=discord.File('code.png'))
+        os.remove('code.png')
+    else:
+        await ctx.send('You cant create qrcode with 100 symbols or more!')
+
+
+@bot.command()
+async def banner(ctx, *, text):
+    symbols = int(len(text))
+    print(str(symbols))
+    if symbols < 30:
+
+        if 1 <= symbols < 12:
+            y = 30
+        elif 12 <= symbols < 24:
+            y = 37
+        else:
+            y = 15
+        image = Image.new('RGB', ((symbols * y), 70), (59, 196, 255))
+        draw = ImageDraw.Draw(image)
+        font_name = 'media/fonts/arialbd.ttf'
+        large = 40
+        font = ImageFont.truetype(font_name, large, encoding="unic")
+        draw.text((10, 20), str(text), font=font)
+
+        image.save('banner.jpg')
+        await ctx.send(file=discord.File('banner.jpg'))
+        os.remove('banner.jpg')
+    else:
+        await ctx.send('You cant create banner with 30 symbols or more!')
 
 bot.run(config.Bot_info.token)

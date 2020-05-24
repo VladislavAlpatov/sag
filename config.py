@@ -21,7 +21,8 @@ class Messages:
 **/img** (text) - send img with text
 **/invite** - send invitation
 **/nigga** (text) - make nigga meme
-**/qr** (text) - make qrcode'''
+**/qr** (text) - make qrcode
+**/banner (text) - make banner'''
 
     invite = '''
     **You can add me on your server by this link:**
