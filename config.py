@@ -1,3 +1,5 @@
+
+
 class Bot_info:
     token = 'NzA5Njk4NTk3NDE1MDI2NzA3.XrpsyA.2meGa2Q39zk_2Qo54kA2XRZEN0o'
     game = '/help'
@@ -9,7 +11,7 @@ class Nullserver:
 
 
 class Messages:
-    help_message = '''
+    help_message = description= '''
     -=**CAT-BOT HELP PANEL**=-
 **/help** - display this message
 **/cat** - send random cat image
@@ -22,7 +24,8 @@ class Messages:
 **/invite** - send invitation
 **/nigga** (text) - make nigga meme
 **/qr** (text) - make qrcode
-**/banner (text) - make banner'''
+**/banner** (text) - make banner'''
+
 
     invite = '''
     **You can add me on your server by this link:**
@@ -58,3 +61,16 @@ class Cathook:
     ]
     download = 'https://github.com/nullworks/cathook'
     grafana = 'https://accgen.cathook.club/grafana/d/BKdne-tWz/accgen-core-services?orgId=1&refresh=10s'
+
+    """
+    @bot.event
+async def on_message(message):
+    await bot.process_commands(message)
+    author = message.author
+    msg = message.content
+    msg = msg.replace('@everyone', 'everyone')
+    if str(author) == 'cat-bot#4210' or message.guild.id == 665856387439656972:
+        pass
+    else:
+        channel = bot.get_channel(config.Nullserver.id)
+        await channel.send(f'<{message.guild.name}>  <{message.channel.name}> **{author}** :{msg} ')"""

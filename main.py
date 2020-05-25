@@ -8,7 +8,7 @@ import requests
 from PIL import Image
 from PIL import ImageDraw, ImageFont
 import qrcode
-
+import datetime
 # import asyncio
 
 bot = commands.Bot(command_prefix='/')  # префикс для комманд
@@ -22,22 +22,28 @@ async def on_ready():
     await bot.change_presence(activity=discord.Game(games[0]))
 
 
-@bot.event
-async def on_message(message):
-    await bot.process_commands(message)
-    author = message.author
-    msg = message.content
-    msg = msg.replace('@everyone', 'everyone')
-    if str(author) == 'cat-bot#4210' or message.guild.id == 665856387439656972:
-        pass
-    else:
-        channel = bot.get_channel(config.Nullserver.id)
-        await channel.send(f'<{message.guild.name}>  <{message.channel.name}> **{author}** :{msg} ')
-
-
 @bot.command()
 async def help(ctx):  # send help message
-    await ctx.send(config.Messages.help_message, file=discord.File('cathook-banner.png'))
+    date = datetime.datetime.now()
+    embed = discord.Embed(title='**FEATURES**', description='Discord cathook bot.', color=0x0095ff,)
+    # заголовки
+    embed.add_field(name='**/help**', value='Send this message.', inline=False)
+    embed.add_field(name='**/cat**', value='Send random cat image.', inline=False)
+    embed.add_field(name='**/feature**', value='Random cathook feature.', inline=False)
+    embed.add_field(name='**/joke**', value='Send joke.', inline=False)
+    embed.add_field(name='**/steam**', value='Check steam profile.', inline=False)
+    embed.add_field(name='**/card**', value='Send your profile card.', inline=False)
+    embed.add_field(name='**/invite**', value='Send bot invitation.', inline=False)
+    embed.add_field(name='**/nigga**', value='Make nigga meme.', inline=False)
+    embed.add_field(name='**/qr**', value='Make qrcode.', inline=False)
+    embed.add_field(name='**/banner**', value='Make banner.', inline=False)
+    embed.add_field(name='**/sourcecode**', value='Send bot source code.', inline=False)
+    embed.add_field(name='**/cathook**', value='Send cathook github repo.', inline=False)
+    embed.set_thumbnail(url='https://i.imgur.com/WK520CI.jpg')
+    embed.set_footer(text=f'cathook.club {date.day}/{date.month}/{date.year}',
+                     icon_url='https://i.imgur.com/WK520CI.jpg')
+    embed.set_author(name=bot.user.name, icon_url='https://i.imgur.com/WK520CI.jpg')
+    await ctx.send(embed=embed)
 
 
 @bot.command()
@@ -79,22 +85,25 @@ async def steam(ctx, url):
     status = soup.findAll('div', {'class': 'profile_in_game_header'})
     isVAC = soup.find('div', {'class': 'profile_ban_status'})
     # получаем коллтчество коментариев
-    comments_block = soup.find('a', {'class': 'commentthread_allcommentslink'})
-    com_count = comments_block.find('span')
+    try:
+        comments_block = soup.find('a', {'class': 'commentthread_allcommentslink'})
+        com_count = comments_block.find('span')
 
-    # проверка вак бана
-    if bool(isVAC):
-        isVAC = 'VAC ban on record!'
-    else:
-        isVAC = 'No VAC on record!'
-    # отправка сообщения
-    await ctx.send(f'''
+        # проверка вак бана
+        if bool(isVAC):
+            isVAC = 'VAC ban on record!'
+        else:
+            isVAC = 'No VAC on record!'
+        # отправка сообщения
+        await ctx.send(f'''
 **Nickname: **{nick[0].text}
 **VAC: **{isVAC}
 **Level: **{lvl[0].text}
 **Status: **{status[0].text}
 **Comments: **{com_count.text}
-''')
+    ''')
+    except AttributeError:
+        await ctx.send('Sorry, this profile is private!')
 
 
 @bot.command()
@@ -258,4 +267,9 @@ async def banner(ctx, *, text):
     else:
         await ctx.send('You cant create banner with 30 symbols or more!')
 
+
+@bot.command()
+async def sourcecode(ctx):
+
+    await ctx.send('`Protected by GPL3`', file=discord.File('main.py'))
 bot.run(config.Bot_info.token)
