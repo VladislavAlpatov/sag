@@ -10,6 +10,7 @@ from PIL import ImageDraw, ImageFont
 import qrcode
 import datetime
 from fuzzywuzzy import fuzz
+
 wins = ['windows', 'шиндовс', 'видоувз', 'виндоус', 'винда']
 
 
@@ -34,11 +35,12 @@ async def on_message(message):
 
     for i in wins:
         chaise = fuzz.partial_ratio(msg, i)
-        print(str(chaise))
-
-    if chaise >= 35 and message.author.id != 709698597415026707:
+        if chaise >= 50:
+            break
+    print(str(chaise))
+    if chaise >= 50 and message.author.id != 709698597415026707:
         await message.delete()
-        await message.channel.send('We dont like windows here!')
+        await message.channel.send("We don't like windows here!")
 
 
 @bot.command()
