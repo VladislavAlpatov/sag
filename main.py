@@ -9,7 +9,9 @@ from PIL import Image
 from PIL import ImageDraw, ImageFont
 import qrcode
 import datetime
-# import asyncio
+from fuzzywuzzy import fuzz
+wins = ['windows', 'шиндовс', 'видоувз', 'виндоус', 'винда']
+
 
 bot = commands.Bot(command_prefix='/')  # префикс для комманд
 bot.remove_command('help')
@@ -20,6 +22,23 @@ async def on_ready():
     games = ['/help', 'CAT-BOT', 'cathook', 'cathook by nullworks',
              'made by nullifiedvlad', 'we need some cats']
     await bot.change_presence(activity=discord.Game(games[0]))
+
+
+@bot.event
+async def on_message(message):
+    global chaise
+    await bot.process_commands(message)
+    msg = message.content
+    if fuzz.partial_ratio(msg, 'cat') >= 50 and message.author.id != 709698597415026707:
+        await message.channel.send('Someone said the cat?')
+
+    for i in wins:
+        chaise = fuzz.partial_ratio(msg, i)
+        print(str(chaise))
+
+    if chaise >= 35 and message.author.id != 709698597415026707:
+        await message.delete()
+        await message.channel.send('We dont like windows here!')
 
 
 @bot.command()
@@ -36,9 +55,9 @@ async def help(ctx):  # send help message
     embed.add_field(name='**/invite**', value='Send bot invitation.', inline=False)
     embed.add_field(name='**/nigga**', value='Make nigga meme.', inline=False)
     embed.add_field(name='**/qr**', value='Make qrcode.', inline=False)
-    embed.add_field(name='**/banner**', value='Make banner.', inline=False)
     embed.add_field(name='**/sourcecode**', value='Send bot source code.', inline=False)
     embed.add_field(name='**/cathook**', value='Send cathook github repo.', inline=False)
+    embed.add_field(name='**/howiamgay**', value='Show gayness percent.', inline=False)
     embed.set_thumbnail(url='https://i.imgur.com/WK520CI.jpg')
     embed.set_footer(text=f'cathook.club {date.day}/{date.month}/{date.year}',
                      icon_url='https://i.imgur.com/WK520CI.jpg')
@@ -67,14 +86,15 @@ async def cathook(ctx):
 
 @bot.command()
 async def joke(ctx):
-    url = requests.get('https://www.ajokeaday.com/jokes/random', headers=config.Bot_info.heads)
+    url = requests.get('https://jokes.lol/random-jokes/', headers=config.Bot_info.heads)
     soup = BeautifulSoup(url.text, 'html.parser')
-    soup = soup.find('div', {'class': 'jd-body jubilat'})
+    soup = soup.find('div', {'class': 'query-field query-field-post_content'})
     await ctx.send(soup.text)
 
 
 @bot.command()
 async def steam(ctx, url):
+    await ctx.message.delete()
     heads = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:75.0) Gecko/20100101 Firefox/75.0'}
     r = requests.get(url, headers=heads)
     soup = BeautifulSoup(r.text, 'html.parser')
@@ -269,7 +289,6 @@ async def banner(ctx, *, text):
 
 
 @bot.command()
-async def sourcecode(ctx):
-
-    await ctx.send('`Protected by GPL3`', file=discord.File('main.py'))
+async def howiamgay(ctx):
+    await ctx.send(f'Look! {ctx.message.author} is {str(random2.randint(0,100))}% gay!')
 bot.run(config.Bot_info.token)
