@@ -33,7 +33,7 @@ async def on_message(message):
     msg = message.content
     if fuzz.ratio(msg, 'cat') >= 50 and message.author.id != 709698597415026707 and message.content != '/card' or \
             message.content != 'cat':
-        await message.channel.send('Someone said the cat? :zoomer:')
+        await message.channel.send('Someone said the cat?')
 
     for _ in _wins:
         chaise = fuzz.ratio(msg, _)
