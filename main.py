@@ -15,7 +15,7 @@ import subprocess
 _wins = ['windows', 'шиндовс', 'видоувз', 'виндоус', 'винда']
 
 _games = ['/help', 'CAT-BOT', 'cathook', 'cathook by nullworks',
-              'made by nullifiedvlad', 'we need some cats']
+          'made by nullifiedvlad', 'we need some cats']
 
 bot = commands.Bot(command_prefix='/')  # префикс для комманд
 bot.remove_command('help')
@@ -33,7 +33,7 @@ async def on_message(message):
     msg = message.content
     if fuzz.ratio(msg, 'cat') >= 50 and message.author.id != 709698597415026707 and message.content != '/card' or \
             message.content != 'cat':
-        await message.channel.send('Someone said the cat?')
+        await message.channel.send('Someone said the cat? :zoomer:')
 
     for _ in _wins:
         chaise = fuzz.ratio(msg, _)
