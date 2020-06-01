@@ -170,7 +170,7 @@ async def card(ctx):
     # получаем фотку бота и подгоняем по размеру
     bot_avatar = Image.open('media/card/cat.jpg')
     bot_avatar = bot_avatar.convert('RGB')
-    bot_avatar = bot_avatar.resize((124, 124), Image.ANTIALIAS)
+    bot_avatar = bot_avatar.resize((124, 124))
 
     # Ник
     font = ImageFont.truetype(font_name, 90, encoding="unic")
