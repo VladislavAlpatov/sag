@@ -14,6 +14,8 @@ import subprocess
 
 _wins = ['windows', 'шиндовс', 'видоувз', 'виндоус', 'винда']
 
+_games = ['/help', 'CAT-BOT', 'cathook', 'cathook by nullworks',
+              'made by nullifiedvlad', 'we need some cats']
 
 bot = commands.Bot(command_prefix='/')  # префикс для комманд
 bot.remove_command('help')
@@ -21,8 +23,6 @@ bot.remove_command('help')
 
 @bot.event
 async def on_ready():
-    _games = ['/help', 'CAT-BOT', 'cathook', 'cathook by nullworks',
-             'made by nullifiedvlad', 'we need some cats']
     await bot.change_presence(activity=discord.Game(_games[0]))
 
 
@@ -48,7 +48,7 @@ async def on_message(message):
 @bot.command()
 async def help(ctx):  # send help message
     date = datetime.datetime.now()
-    embed = discord.Embed(title='**FEATURES**', description='Discord cathook bot.', color=0x0095ff,)
+    embed = discord.Embed(title='**FEATURES**', description='Discord cathook bot.', color=0x0095ff, )
     # заголовки
     embed.add_field(name='**/help**', value='Send this message.', inline=False)
     embed.add_field(name='**/cat**', value='Send random cat image.', inline=False)
@@ -256,7 +256,6 @@ async def rename(ctx, *, name):
 
 @bot.command()
 async def qr(ctx, *, text):
-
     if int(len(text)) <= 100:
         image = qrcode.make(str(text))
         image.save('code.png')
@@ -295,7 +294,7 @@ async def banner(ctx, *, text):
 
 @bot.command()
 async def howgayiam(ctx):
-    await ctx.send(f'Look! {ctx.message.author} is {str(random2.randint(0,100))}% gay!')
+    await ctx.send(f'Look! {ctx.message.author} is {str(random2.randint(0, 100))}% gay!')
 
 
 @bot.command()
@@ -313,4 +312,6 @@ async def py3(ctx, *, code):
         await ctx.send(f'```{out}```')
     else:
         await ctx.send('Access denied!')
+
+
 bot.run(config.Bot_info.token)
