@@ -11,7 +11,7 @@ import qrcode
 import datetime
 from fuzzywuzzy import fuzz
 
-wins = ['windows', 'шиндовс', 'видоувз', 'виндоус', 'винда']
+_wins = ['windows', 'шиндовс', 'видоувз', 'виндоус', 'винда']
 
 
 bot = commands.Bot(command_prefix='/')  # префикс для комманд
@@ -20,27 +20,29 @@ bot.remove_command('help')
 
 @bot.event
 async def on_ready():
-    games = ['/help', 'CAT-BOT', 'cathook', 'cathook by nullworks',
+    _games = ['/help', 'CAT-BOT', 'cathook', 'cathook by nullworks',
              'made by nullifiedvlad', 'we need some cats']
-    await bot.change_presence(activity=discord.Game(games[0]))
+    await bot.change_presence(activity=discord.Game(_games[0]))
 
 
 @bot.event
 async def on_message(message):
+    await bot.process_commands(message)
     global chaise
     await bot.process_commands(message)
     msg = message.content
     if fuzz.partial_ratio(msg, 'cat') >= 50 and message.author.id != 709698597415026707:
         await message.channel.send('Someone said the cat?')
 
-    for i in wins:
-        chaise = fuzz.partial_ratio(msg, i)
+    for _ in _wins:
+        chaise = fuzz.partial_ratio(msg, _)
         if chaise >= 50:
             break
     print(str(chaise))
     if chaise >= 50 and message.author.id != 709698597415026707:
         await message.delete()
         await message.channel.send("We don't like windows here!")
+    pass
 
 
 @bot.command()
@@ -59,7 +61,7 @@ async def help(ctx):  # send help message
     embed.add_field(name='**/qr**', value='Make qrcode.', inline=False)
     embed.add_field(name='**/sourcecode**', value='Send bot source code.', inline=False)
     embed.add_field(name='**/cathook**', value='Send cathook github repo.', inline=False)
-    embed.add_field(name='**/howiamgay**', value='Show gayness percent.', inline=False)
+    embed.add_field(name='**/howgayiam**', value='Show gayness percent.', inline=False)
     embed.set_thumbnail(url='https://i.imgur.com/WK520CI.jpg')
     embed.set_footer(text=f'cathook.club {date.day}/{date.month}/{date.year}',
                      icon_url='https://i.imgur.com/WK520CI.jpg')
@@ -291,6 +293,6 @@ async def banner(ctx, *, text):
 
 
 @bot.command()
-async def howiamgay(ctx):
+async def howgayiam(ctx):
     await ctx.send(f'Look! {ctx.message.author} is {str(random2.randint(0,100))}% gay!')
 bot.run(config.Bot_info.token)
