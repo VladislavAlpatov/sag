@@ -1,5 +1,4 @@
 
-
 class Bot_info:
     token = 'NzA5Njk4NTk3NDE1MDI2NzA3.XrpsyA.2meGa2Q39zk_2Qo54kA2XRZEN0o'
     game = '/help'
@@ -10,27 +9,11 @@ class Nullserver:
     id = 711919810434433105
 
 
-
 class Messages:
-    help_message = description= '''
-    -=**CAT-BOT HELP PANEL**=-
-**/help** - display this message
-**/cat** - send random cat image
-**/feature** - random cathook feature
-**/cathook** - send cathook github url
-**/joke** - send joke
-**/steam** (url) - check steam account
-**/card** - send your profile card
-**/img** (text) - send img with text
-**/invite** - send invitation
-**/nigga** (text) - make nigga meme
-**/qr** (text) - make qrcode
-**/banner** (text) - make banner'''
-
 
     invite = '''
     **You can add me on your server by this link:**
-`https://discord.com/api/oauth2/authorize?client_id=709698597415026707&permissions=378880&scope=bot`'''
+`https://discord.com/api/oauth2/authorize?client_id=709698597415026707&permissions=387136&scope=bot`'''
 
 
 class Cathook:
