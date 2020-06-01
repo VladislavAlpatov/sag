@@ -47,6 +47,7 @@ async def on_message(message):
     pass
 """
 
+
 @bot.command()
 async def help(ctx):  # send help message
     date = datetime.datetime.now()
