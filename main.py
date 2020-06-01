@@ -63,7 +63,7 @@ async def help(ctx):  # send help message
     embed.add_field(name='**/sourcecode**', value='Send bot source code.', inline=False)
     embed.add_field(name='**/cathook**', value='Send cathook github repo.', inline=False)
     embed.add_field(name='**/howgayiam**', value='Show gayness percent.', inline=False)
-    embed.add_field(name='**/py3**', value='Interpritate python3code.', inline=False)
+    embed.add_field(name='**/py3**', value='Interpritate python3 code.', inline=False)
     embed.set_thumbnail(url='https://i.imgur.com/WK520CI.jpg')
     embed.set_footer(text=f'cathook.club {date.day}/{date.month}/{date.year}',
                      icon_url='https://i.imgur.com/WK520CI.jpg')
