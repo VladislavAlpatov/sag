@@ -60,7 +60,6 @@ async def help(ctx):  # send help message
     embed.add_field(name='**/invite**', value='Send bot invitation.', inline=False)
     embed.add_field(name='**/nigga**', value='Make nigga meme.', inline=False)
     embed.add_field(name='**/qr**', value='Make qrcode.', inline=False)
-    embed.add_field(name='**/sourcecode**', value='Send bot source code.', inline=False)
     embed.add_field(name='**/cathook**', value='Send cathook github repo.', inline=False)
     embed.add_field(name='**/howgayiam**', value='Show gayness percent.', inline=False)
     embed.add_field(name='**/py3**', value='Interpritate python3 code.', inline=False)
