@@ -33,6 +33,7 @@ async def on_ready():
 @bot.event
 async def on_message(message):
     await bot.process_commands(message)
+    """
     global chaise
     msg = message.content
     for _ in _wins:
@@ -44,7 +45,7 @@ async def on_message(message):
         await message.delete()
         await message.channel.send("We don't like windows here!")
     pass
-
+"""
 
 @bot.command()
 async def help(ctx):  # send help message
