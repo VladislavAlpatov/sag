@@ -11,7 +11,7 @@ import qrcode
 import datetime
 from fuzzywuzzy import fuzz
 import subprocess
-
+from asyncio import sleep
 _wins = ['windows', 'шиндовс', 'видоувз', 'виндоус', 'винда']
 
 _games = ['/help', 'CAT-BOT', 'cathook', 'cathook by nullworks',
@@ -24,6 +24,10 @@ bot.remove_command('help')
 @bot.event
 async def on_ready():
     await bot.change_presence(activity=discord.Game(_games[0]))
+    while True:
+        for game in _games:
+            await bot.change_presence(activity=discord.Game(game))
+            await sleep(5)
 
 
 @bot.event
