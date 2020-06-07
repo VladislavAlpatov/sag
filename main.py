@@ -9,7 +9,6 @@ from PIL import Image
 from PIL import ImageDraw, ImageFont
 import qrcode
 import datetime
-from fuzzywuzzy import fuzz
 import subprocess
 from asyncio import sleep
 _wins = ['windows', 'шиндовс', 'видоувз', 'виндоус', 'винда']
@@ -23,6 +22,7 @@ bot.remove_command('help')
 
 @bot.event
 async def on_ready():
+
     await bot.change_presence(activity=discord.Game(_games[0]))
     while True:
         for game in _games:
@@ -179,7 +179,7 @@ async def card(ctx):
     draw.text((460, 0), str(author.name), fill=(3, 150, 255), font=font)
     # тег
     font = ImageFont.truetype(font_name, 50, encoding="unic")
-    draw.text((460, 90), 'TAG: #' + str(author.discriminator), fill=(51, 255, 0), font=font)
+    draw.text((460, 92), 'TAG: #' + str(author.discriminator), fill=(51, 255, 0), font=font)
     # id
     font = ImageFont.truetype(font_name, 50, encoding="unic")
     draw.text((460, 150), 'ID: ' + str(author.id), font=font)
