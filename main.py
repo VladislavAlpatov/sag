@@ -10,7 +10,7 @@ from PIL import ImageDraw, ImageFont
 import qrcode
 import datetime
 import subprocess
-from asyncio import sleep
+import asyncio
 _wins = ['windows', 'шиндовс', 'видоувз', 'виндоус', 'винда']
 
 _games = ['/help', 'CAT-BOT', 'cathook', 'cathook by nullworks',
@@ -22,12 +22,30 @@ bot.remove_command('help')
 
 @bot.event
 async def on_ready():
-
+    channel = bot.get_channel(711919810434433105)
     await bot.change_presence(activity=discord.Game(_games[0]))
-    while True:
-        for game in _games:
-            await bot.change_presence(activity=discord.Game(game))
-            await sleep(5)
+    try:
+        with open('/opt/cathook/data/chat-vlad.csv', 'r') as f:
+            line_on_check = f.readlines()[-1]
+            print(line_on_check)
+        while True:
+            with open('/opt/cathook/data/chat-vlad.csv', 'r') as f:
+                line = f.readlines()[-1]
+
+            if line != line_on_check and line != 'RELOAD':
+                line_on_check = line
+                line_on_send = line
+                line_on_send = line_on_send.replace('"', '')
+                a = line_on_send.split(',')
+                await channel.send(str(f'[LOG] {a[2]} : {a[3]}'))
+                print('Message was sent!')
+                with open('/opt/cathook/data/chat-vlad.csv', 'w') as f:
+                    f.write('RELOAD')
+            else:
+                pass
+            await asyncio.sleep(0.5)
+    except Exception as e:
+        print(str(e))
 
 
 @bot.event
