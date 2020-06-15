@@ -166,7 +166,7 @@ async def img(ctx, *, text):
 
 @bot.command()
 async def card(ctx):
-    font_name = 'media/fonts/arialbd.ttf'
+    font_name = 'media\\fonts\\arialbd.ttf'
     # получаем инфу
     author = ctx.message.author
     guild = ctx.message.guild.name
@@ -178,7 +178,7 @@ async def card(ctx):
         f.write(image.content)
 
     # создаём изображение
-    image = Image.open('media/card/background.jpg')
+    image = Image.open('media\\card\\background.jpg')
     draw = ImageDraw.Draw(image)
 
     # получаем аватар и подгоняем размер
@@ -188,7 +188,7 @@ async def card(ctx):
     avatar = avatar.resize((421, 421), Image.ANTIALIAS)
 
     # получаем фотку бота и подгоняем по размеру
-    bot_avatar = Image.open('media/card/cat.jpg')
+    bot_avatar = Image.open('media\\card\\cat.jpg')
     bot_avatar = bot_avatar.convert('RGB')
     bot_avatar = bot_avatar.resize((124, 124), Image.ANTIALIAS)
 
@@ -250,9 +250,9 @@ async def nigga(ctx, *, text):
         else:
             to_sum = 3
 
-        image = Image.open('media/nigga/nigga.jpg')
+        image = Image.open('media\\nigga\\nigga.jpg')
         draw = ImageDraw.Draw(image)
-        font_name = 'media/fonts/arialbd.ttf'
+        font_name = 'media\\fonts\\arialbd.ttf'
         font = ImageFont.truetype(font_name, large, encoding="unic")
         draw.text((200 - int(len(text)) * to_sum, 600 - large), str(text), fill=(0, 0, 0), font=font)
         image.save('nigga-out.jpg')
@@ -300,7 +300,7 @@ async def banner(ctx, *, text):
             y = 15
         image = Image.new('RGB', ((symbols * y), 70), (59, 196, 255))
         draw = ImageDraw.Draw(image)
-        font_name = 'media/fonts/arialbd.ttf'
+        font_name = 'media\\fonts\\arialbd.ttf'
         large = 40
         font = ImageFont.truetype(font_name, large, encoding="unic")
         draw.text((10, 20), str(text), font=font)
@@ -343,7 +343,7 @@ async def think(ctx):
     with open('image.jpg', 'wb') as f:
         f.write(r.content)
 
-    image = Image.open('media/think/гигант_мысли.jpg')
+    image = Image.open('media\\think\\гигант_мысли.jpg')
     image_on_paste = Image.open('image.jpg')
 
     image_on_paste = image_on_paste.resize((500, 400), Image.ANTIALIAS)
