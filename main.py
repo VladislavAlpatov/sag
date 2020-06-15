@@ -334,4 +334,24 @@ async def py3(ctx, *, code):
         await ctx.send('Access denied!')
 
 
+@bot.command(aliases=['мысль', 'гигант'])
+async def think(ctx):
+    url = ctx.message.attachments[0].url
+    print(str(url))
+    r = requests.get(str(url))
+
+    with open('image.jpg', 'wb') as f:
+        f.write(r.content)
+
+    image = Image.open('media/think/гигант_мысли.jpg')
+    image_on_paste = Image.open('image.jpg')
+
+    image_on_paste = image_on_paste.resize((500, 400), Image.ANTIALIAS)
+    image.paste(image_on_paste, (130, 13))
+
+    image.save('think.jpg')
+    await ctx.send(file=discord.File('think.jpg'))
+    os.remove('think.jpg')
+    os.remove('image.jpg')
+
 bot.run(config.Bot_info.token)
