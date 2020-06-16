@@ -1,6 +1,6 @@
 
 class Bot_info:
-    token = 'NzA5Njk4NTk3NDE1MDI2NzA3.XrpsyA.2meGa2Q39zk_2Qo54kA2XRZEN0o'
+    token = 'NzA5Njk4NTk3NDE1MDI2NzA3.XujBMw.vaUynJFwIbpeSvWdnmkVga5M92E'
     game = '/help'
     heads = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:75.0) Gecko/20100101 Firefox/75.0'}
 

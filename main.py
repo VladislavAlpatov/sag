@@ -1,16 +1,18 @@
-import random2
-import discord
-from discord.ext import commands
+import datetime
 import os
-import config
-from bs4 import BeautifulSoup
+import subprocess
+
+
+import discord
+import qrcode
+import random2
 import requests
 from PIL import Image
 from PIL import ImageDraw, ImageFont
-import qrcode
-import datetime
-import subprocess
-import asyncio
+from bs4 import BeautifulSoup
+from discord.ext import commands
+
+import config
 
 _wins = ['windows', 'шиндовс', 'видоувз', 'виндоус', 'винда']
 
@@ -23,30 +25,7 @@ bot.remove_command('help')
 
 @bot.event
 async def on_ready():
-    channel = bot.get_channel(711919810434433105)
-    await bot.change_presence(activity=discord.Game(_games[0]))
-    try:
-        with open('/opt/cathook/data/chat-vlad.csv', 'r') as f:
-            line_on_check = f.readlines()[-1]
-            print(line_on_check)
-        while True:
-            with open('/opt/cathook/data/chat-vlad.csv', 'r') as f:
-                line = f.readlines()[-1]
-
-            if line != line_on_check and line != 'RELOAD':
-                line_on_check = line
-                line_on_send = line
-                line_on_send = line_on_send.replace('"', '')
-                a = line_on_send.split(',')
-                await channel.send(str(f'[LOG] {a[2]} : {a[3]}'))
-                print('Message was sent!')
-                with open('/opt/cathook/data/chat-vlad.csv', 'w') as f:
-                    f.write('RELOAD')
-            else:
-                pass
-            await asyncio.sleep(0.5)
-    except Exception as e:
-        print(str(e))
+    print('READY!')
 
 
 @bot.event
@@ -84,6 +63,7 @@ async def help(ctx):  # send help message
     embed.add_field(name='**/cathook**', value='Send cathook github repo.', inline=False)
     embed.add_field(name='**/howgayiam**', value='Show gayness percent.', inline=False)
     embed.add_field(name='**/py3**', value='Interpritate python3 code.', inline=False)
+    embed.add_field(name='**/think**', value='Make russian meme.', inline=False)
     embed.set_thumbnail(url='https://i.imgur.com/WK520CI.jpg')
     embed.set_footer(text=f'cathook.club {date.day}/{date.month}/{date.year}',
                      icon_url='https://i.imgur.com/WK520CI.jpg')

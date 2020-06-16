@@ -9,3 +9,4 @@ Pillow
 qrcode
 beautifulsoup4
 fuzzywuzzy
+Pymem
