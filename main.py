@@ -11,6 +11,7 @@ import qrcode
 import datetime
 import subprocess
 import asyncio
+
 _wins = ['windows', 'шиндовс', 'видоувз', 'виндоус', 'винда']
 
 _games = ['/help', 'CAT-BOT', 'cathook', 'cathook by nullworks',
@@ -336,8 +337,8 @@ async def py3(ctx, *, code):
 
 @bot.command(aliases=['мысль', 'гигант'])
 async def think(ctx):
+
     url = ctx.message.attachments[0].url
-    print(str(url))
     r = requests.get(str(url))
 
     with open('image.jpg', 'wb') as f:
@@ -350,7 +351,10 @@ async def think(ctx):
     image.paste(image_on_paste, (130, 13))
 
     image.save('think.jpg')
+
+    await ctx.message.delete()
     await ctx.send(file=discord.File('think.jpg'))
+
     os.remove('think.jpg')
     os.remove('image.jpg')
 
