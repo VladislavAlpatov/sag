@@ -101,57 +101,75 @@ async def joke(ctx):
 async def steam(ctx, url_custom):
     class Steam:
         def __init__(self, data):
-            self.data = requests.get(str(data))
+            self.data = BeautifulSoup(requests.get(str(data)).text, 'html.parser')
             self.url = str(data)
 
         def getNick(self):
-            data = BeautifulSoup(self.data.text, 'html.parser')
-            return data.find('span', {'class': 'actual_persona_name'}).text
+            return self.data.find('span', {'class': 'actual_persona_name'}).text
 
         def getLvl(self):
-            data = BeautifulSoup(self.data.text, 'html.parser')
-            return int(data.find('span', {'class': 'friendPlayerLevelNum'}).text)
+            return int(self.data.find('span', {'class': 'friendPlayerLevelNum'}).text)
 
         def getGameStatus(self):
-            data = BeautifulSoup(self.data.text, 'html.parser')
-            return data.find('div', {'class': 'profile_in_game_header'}).text
+            return self.data.find('div', {'class': 'profile_in_game_header'}).text
 
         def getVacStatus(self):
-            data = BeautifulSoup(self.data.text, 'html.parser')
-            return str(data.find('div', {'class': 'profile_ban'}).text[:-7])
+            if bool(self.data.find('div', {'class': 'profile_ban'})):
+                return str(self.data.find('div', {'class': 'profile_ban'}).text[:-7])
+            else:
+                return str('No VAC on record.')
 
         def getProfilePicture(self):
-            data = BeautifulSoup(self.data.text, 'html.parser')
-            image = data.find('div', {'class': 'playerAvatarAutoSizeInner'})
+            image = self.data.find('div', {'class': 'playerAvatarAutoSizeInner'})
             image = str(image.find('img'))
             return image[10:-3]
 
         def getTotalGames(self):
-            data = BeautifulSoup(self.data.text, 'html.parser')
-            games_block = data.find('a', {'href': f'{self.url}games/?tab=all'})
-            return int(games_block.find('span', {'class': 'profile_count_link_total'}).text)
+            try:
+                games_block = self.data.find('a', {'href': f'{self.url}games/?tab=all'})
+                return int(games_block.find('span', {'class': 'profile_count_link_total'}).text)
+
+            except Exception as e:
+                print(e)
+                return str('Not stated')
 
         def getTotalComments(self):
-            data = BeautifulSoup(self.data.text, 'html.parser')
-            comments_block = data.find('a', {'class': 'commentthread_allcommentslink'})
-            return comments_block.find('span').text
+            try:
+                comments_block = self.data.find('a', {'class': 'commentthread_allcommentslink'})
+                return comments_block.find('span').text
+
+            except Exception as e:
+                print(e)
+                return str('Not stated')
+
+        def getTotalScreenshots(self):
+            try:
+                screenshot_block = self.data.find('a', {'href': f'{self.url}screenshots/'})
+                return int(screenshot_block.find('span', {'class': 'profile_count_link_total'}).text)
+            except Exception as e:
+                print(e)
+                return str('Not stated')
 
         def getTotalFriends(self):
-            data = BeautifulSoup(self.data.text, 'html.parser')
-            friend_block = data.find('a', {'href': f'{self.url}friends/'})
-            friends = friend_block.find('span', {'class': 'profile_count_link_total'})
+            try:
+                friend_block = self.data.find('a', {'href': f'{self.url}friends/'})
+                friends = friend_block.find('span', {'class': 'profile_count_link_total'})
 
-            del friend_block
-            return int(friends.text)
+                del friend_block
+                return int(friends.text)
+            except Exception as e:
+                print(e)
     account = Steam(data=url_custom)
 
     embed = discord.Embed(title=f'**{account.getNick()}**', description=account.getGameStatus(), color=0x0095ff)
-    embed.add_field(name='**Profile lvl**', value=str(account.getLvl()), inline=False)
-    embed.add_field(name='**VAC**', value=str(account.getVacStatus()), inline=False)
-    embed.add_field(name='**Total comments**', value=str(account.getTotalComments()), inline=False)
-    embed.add_field(name='**Total friends**', value=str(account.getTotalFriends()), inline=False)
-    embed.add_field(name='**Total games**', value=str(account.getTotalGames()), inline=False)
+    embed.add_field(name='**Profile lvl.**', value=str(account.getLvl()), inline=False)
+    embed.add_field(name='**VAC.**', value=str(account.getVacStatus()), inline=False)
+    embed.add_field(name='**Total comments.**', value=str(account.getTotalComments()), inline=False)
+    embed.add_field(name='**Total friends.**', value=str(account.getTotalFriends()), inline=False)
+    embed.add_field(name='**Total games.**', value=str(account.getTotalGames()), inline=False)
+    embed.add_field(name='**Total screenshots.**', value=str(account.getTotalScreenshots()), inline=False)
     embed.set_thumbnail(url=account.getProfilePicture())
+    embed.set_footer(text=url_custom)
     await ctx.message.delete()
     await ctx.send(embed=embed)
 
