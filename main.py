@@ -2,7 +2,6 @@ import datetime
 import os
 import subprocess
 
-
 import discord
 import qrcode
 import random2
@@ -99,37 +98,62 @@ async def joke(ctx):
 
 
 @bot.command()
-async def steam(ctx, url):
-    await ctx.message.delete()
-    heads = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:75.0) Gecko/20100101 Firefox/75.0'}
-    r = requests.get(url, headers=heads)
-    soup = BeautifulSoup(r.text, 'html.parser')
-    # получаем ник и уровень
-    nick = soup.findAll('span', {'class': 'actual_persona_name'})
-    lvl = soup.findAll('span', {'class': 'friendPlayerLevelNum'})
-    # получаем статус и вак статус
-    status = soup.findAll('div', {'class': 'profile_in_game_header'})
-    isVAC = soup.find('div', {'class': 'profile_ban_status'})
-    # получаем коллтчество коментариев
-    try:
-        comments_block = soup.find('a', {'class': 'commentthread_allcommentslink'})
-        com_count = comments_block.find('span')
+async def steam(ctx, url_custom):
+    class Steam:
+        def __init__(self, data):
+            self.data = requests.get(str(data))
+            self.url = str(data)
 
-        # проверка вак бана
-        if bool(isVAC):
-            isVAC = 'VAC ban on record!'
-        else:
-            isVAC = 'No VAC on record!'
-        # отправка сообщения
-        await ctx.send(f'''
-**Nickname: **{nick[0].text}
-**VAC: **{isVAC}
-**Level: **{lvl[0].text}
-**Status: **{status[0].text}
-**Comments: **{com_count.text}
-    ''')
-    except AttributeError:
-        await ctx.send('Sorry, this profile is private!')
+        def getNick(self):
+            data = BeautifulSoup(self.data.text, 'html.parser')
+            return data.find('span', {'class': 'actual_persona_name'}).text
+
+        def getLvl(self):
+            data = BeautifulSoup(self.data.text, 'html.parser')
+            return int(data.find('span', {'class': 'friendPlayerLevelNum'}).text)
+
+        def getGameStatus(self):
+            data = BeautifulSoup(self.data.text, 'html.parser')
+            return data.find('div', {'class': 'profile_in_game_header'}).text
+
+        def getVacStatus(self):
+            data = BeautifulSoup(self.data.text, 'html.parser')
+            return str(data.find('div', {'class': 'profile_ban'}).text[:-7])
+
+        def getProfilePicture(self):
+            data = BeautifulSoup(self.data.text, 'html.parser')
+            image = data.find('div', {'class': 'playerAvatarAutoSizeInner'})
+            image = str(image.find('img'))
+            return image[10:-3]
+
+        def getTotalGames(self):
+            data = BeautifulSoup(self.data.text, 'html.parser')
+            games_block = data.find('a', {'href': f'{self.url}games/?tab=all'})
+            return int(games_block.find('span', {'class': 'profile_count_link_total'}).text)
+
+        def getTotalComments(self):
+            data = BeautifulSoup(self.data.text, 'html.parser')
+            comments_block = data.find('a', {'class': 'commentthread_allcommentslink'})
+            return comments_block.find('span').text
+
+        def getTotalFriends(self):
+            data = BeautifulSoup(self.data.text, 'html.parser')
+            friend_block = data.find('a', {'href': f'{self.url}friends/'})
+            friends = friend_block.find('span', {'class': 'profile_count_link_total'})
+
+            del friend_block
+            return int(friends.text)
+    account = Steam(data=url_custom)
+
+    embed = discord.Embed(title=f'**{account.getNick()}**', description=account.getGameStatus(), color=0x0095ff)
+    embed.add_field(name='**Profile lvl**', value=str(account.getLvl()), inline=False)
+    embed.add_field(name='**VAC**', value=str(account.getVacStatus()), inline=False)
+    embed.add_field(name='**Total comments**', value=str(account.getTotalComments()), inline=False)
+    embed.add_field(name='**Total friends**', value=str(account.getTotalFriends()), inline=False)
+    embed.add_field(name='**Total games**', value=str(account.getTotalGames()), inline=False)
+    embed.set_thumbnail(url=account.getProfilePicture())
+    await ctx.message.delete()
+    await ctx.send(embed=embed)
 
 
 @bot.command()
@@ -317,7 +341,6 @@ async def py3(ctx, *, code):
 
 @bot.command(aliases=['мысль', 'гигант'])
 async def think(ctx):
-
     url = ctx.message.attachments[0].url
     r = requests.get(str(url))
 
@@ -337,5 +360,6 @@ async def think(ctx):
 
     os.remove('think.jpg')
     os.remove('image.jpg')
+
 
 bot.run(config.Bot_info.token)
