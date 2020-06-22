@@ -45,8 +45,8 @@ async def on_message(message):
 """
 
 
-@bot.command()
-async def help(ctx):  # send help message
+@bot.command(aliases=['help'])
+async def help_message(ctx):  # send help message
     date = datetime.datetime.now()
     embed = discord.Embed(title='**FEATURES**', description='Discord cathook bot.', color=0x0095ff, )
     # заголовки
@@ -102,7 +102,7 @@ async def steam(ctx, url_custom):
     class Steam:
         def __init__(self, data):
             self.data = BeautifulSoup(requests.get(str(data)).text, 'html.parser')
-            self.url = str(data)
+            self.url = str(url_custom)
 
         def getNick(self):
             return self.data.find('span', {'class': 'actual_persona_name'}).text
@@ -159,6 +159,16 @@ async def steam(ctx, url_custom):
                 return int(friends.text)
             except Exception as e:
                 print(e)
+                return str('Not stated')
+
+        def getTotalBages(self):
+            try:
+                bages_block = self.data.find('a', {'href': f'{self.url}badges/'})
+                return bages_block.find('span', {'class': 'profile_count_link_total'}).text
+            except Exception as e:
+                print(e)
+                return str('Not stated')
+
     account = Steam(data=url_custom)
 
     embed = discord.Embed(title=f'**{account.getNick()}**', description=account.getGameStatus(), color=0x0095ff)
@@ -167,6 +177,7 @@ async def steam(ctx, url_custom):
     embed.add_field(name='**Total comments.**', value=str(account.getTotalComments()), inline=False)
     embed.add_field(name='**Total friends.**', value=str(account.getTotalFriends()), inline=False)
     embed.add_field(name='**Total games.**', value=str(account.getTotalGames()), inline=False)
+    embed.add_field(name='**Total bages.**', value=str(account.getTotalBages()), inline=False)
     embed.add_field(name='**Total screenshots.**', value=str(account.getTotalScreenshots()), inline=False)
     embed.set_thumbnail(url=account.getProfilePicture())
     embed.set_footer(text=url_custom)
@@ -193,9 +204,9 @@ async def card(ctx):
     # получаем инфу
     author = ctx.message.author
     guild = ctx.message.guild.name
-    avatar = str(ctx.author.avatar_url)
 
     # парсим и сохраняем аву
+    avatar = str(ctx.author.avatar_url)
     image = requests.get(avatar, headers=config.Bot_info.heads)
     with open('ava.webp', 'wb') as f:
         f.write(image.content)
