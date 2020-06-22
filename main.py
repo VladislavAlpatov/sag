@@ -200,67 +200,73 @@ async def img(ctx, *, text):
 
 @bot.command()
 async def card(ctx):
-    font_name = 'media\\fonts\\arialbd.ttf'
-    # получаем инфу
-    author = ctx.message.author
-    guild = ctx.message.guild.name
+    class Card:
+        def __init__(self, font, wallpaper, bot_avatar):
+            self.font = font  # шрифт
+            self.bot_avatar = bot_avatar  # фотка бота
+            self.wallpaper = wallpaper  # фон картинки
 
-    # парсим и сохраняем аву
-    avatar = str(ctx.author.avatar_url)
-    image = requests.get(avatar, headers=config.Bot_info.heads)
-    with open('ava.webp', 'wb') as f:
-        f.write(image.content)
+        def createCard(self):
+            author = ctx.message.author
+            guild = ctx.message.guild.name
 
-    # создаём изображение
-    image = Image.open('media\\card\\background.jpg')
-    draw = ImageDraw.Draw(image)
+            # парсим и сохраняем аву
+            avatar = str(ctx.author.avatar_url)
+            body = requests.get(avatar, headers=config.Bot_info.heads)
+            with open('ava.webp', 'wb') as f:
+                f.write(body.content)
 
-    # получаем аватар и подгоняем размер
+            body = Image.open(self.wallpaper)  # 'media\\card\\background.jpg'
+            draw = ImageDraw.Draw(body)
 
-    avatar = Image.open('ava.webp')
-    avatar = avatar.convert('RGB')
-    avatar = avatar.resize((421, 421), Image.ANTIALIAS)
+            # получаем аватар и подгоняем размер
 
-    # получаем фотку бота и подгоняем по размеру
-    bot_avatar = Image.open('media\\card\\cat.jpg')
-    bot_avatar = bot_avatar.convert('RGB')
-    bot_avatar = bot_avatar.resize((124, 124), Image.ANTIALIAS)
+            avatar = Image.open('ava.webp')
+            avatar = avatar.convert('RGB')
+            avatar = avatar.resize((421, 421), Image.ANTIALIAS)
+            body.paste(avatar, (0, 0))
 
-    # Ник
-    font = ImageFont.truetype(font_name, 90, encoding="unic")
-    draw.text((460, 0), str(author.name), fill=(3, 150, 255), font=font)
-    # тег
-    font = ImageFont.truetype(font_name, 50, encoding="unic")
-    draw.text((460, 92), 'TAG: #' + str(author.discriminator), fill=(51, 255, 0), font=font)
-    # id
-    font = ImageFont.truetype(font_name, 50, encoding="unic")
-    draw.text((460, 150), 'ID: ' + str(author.id), font=font)
-    # сервер
-    font = ImageFont.truetype(font_name, 50, encoding="unic")
-    draw.text((460, 210), 'SERVER: ' + str(guild), fill=(0, 238, 255), font=font)
-    # текс под фоткой бота
-    font = ImageFont.truetype(font_name, 25, encoding="unic")
-    draw.text((1385, 128), 'CAT-BOT', fill=(255, 255, 255), font=font)
-    # проверка на создателя
-    if author.id == 566653752451399700:
-        font = ImageFont.truetype(font_name, 50, encoding="unic")
-        draw.text((460, 270), 'Creator of this bot', font=font, fill=(255, 0, 229))
-    else:
-        pass
+            # получаем фотку бота и подгоняем по размеру
+            bot_avatar = Image.open(self.bot_avatar)
+            bot_avatar = bot_avatar.convert('RGB')
+            bot_avatar = bot_avatar.resize((124, 124), Image.ANTIALIAS)
+            body.paste(bot_avatar, (1376, 0))
 
-    # вставляем фото
-    image.paste(avatar, (0, 0))
+            # Ник
+            font = ImageFont.truetype(self.font, 90, encoding="unic")
+            draw.text((460, 0), str(author.name), fill=(3, 150, 255), font=font)
+            # тег
+            font = ImageFont.truetype(self.font, 50, encoding="unic")
+            draw.text((460, 92), 'TAG: #' + str(author.discriminator), fill=(51, 255, 0), font=font)
+            # id
+            font = ImageFont.truetype(self.font, 50, encoding="unic")
+            draw.text((460, 150), 'ID: ' + str(author.id), font=font)
+            # сервер
+            font = ImageFont.truetype(self.font, 50, encoding="unic")
+            draw.text((460, 210), 'SERVER: ' + str(guild), fill=(0, 238, 255), font=font)
+            # текс под фоткой бота
+            font = ImageFont.truetype(self.font, 25, encoding="unic")
+            draw.text((1385, 128), 'CAT-BOT', fill=(255, 255, 255), font=font)
+            # проверка на создателя
+            if author.id == 566653752451399700:
+                font = ImageFont.truetype(self.font, 50, encoding="unic")
+                draw.text((460, 270), 'Creator of this bot', font=font, fill=(255, 0, 229))
+            else:
+                pass
 
-    # вставляем фото бота
-    image.paste(bot_avatar, (1376, 0))
+            # сохраняем и отправляем карточку
+            body.save('card.jpg')
 
-    # сохраняем и отправляем карточку
-    image.save('card.jpg')
+        @staticmethod
+        def cleanFiles():
+            # удаление файлов
+            os.remove('card.jpg')
+            os.remove('ava.webp')
+
+    user = Card('media\\fonts\\arialbd.ttf', 'media\\card\\background2.jpg', 'media\\bot\\default.jpg')
+    user.createCard()
     await ctx.send(file=discord.File('card.jpg'))
-
-    # удаление файлов
-    os.remove('card.jpg')
-    os.remove('ava.webp')
+    user.cleanFiles()
 
 
 @bot.command()
@@ -270,7 +276,6 @@ async def invite(ctx):
 
 @bot.command()
 async def nigga(ctx, *, text):
-    print(len(text))
     if int(len(text)) < 40:
         if 8 <= int(len(text)) <= 10:
             large = 65
@@ -389,6 +394,5 @@ async def think(ctx):
 
     os.remove('think.jpg')
     os.remove('image.jpg')
-
 
 bot.run(config.Bot_info.token)
