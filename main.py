@@ -1,7 +1,7 @@
 import datetime
 import os
 import subprocess
-
+import SiteParser
 import discord
 import qrcode
 import random2
@@ -10,10 +10,9 @@ from PIL import Image
 from PIL import ImageDraw, ImageFont
 from bs4 import BeautifulSoup
 from discord.ext import commands
-
+import asyncio
 import config
 
-_wins = ['windows', 'шиндовс', 'видоувз', 'виндоус', 'винда']
 
 _games = ['/help', 'CAT-BOT', 'cathook', 'cathook by nullworks',
           'made by nullifiedvlad', 'we need some cats']
@@ -25,24 +24,28 @@ bot.remove_command('help')
 @bot.event
 async def on_ready():
     print('READY!')
+    date = 'none'
+    channel = bot.get_channel(724987876911218690)
+    while True:
+        site = SiteParser.CtfBans('https://bans.creators.tf/index.php?p=banlist')
+        date_scanned = site.getLastBanTime()
+        if date != date_scanned:
+            name = site.getLastUserName()
+            length = site.getLastBanLength()
+            msg = f'`{date_scanned}` {name[:-15]} {length}'
+
+            print(msg.replace('\n', ''))
+            await channel.send(msg)
+            date = date_scanned
+            print('ok')
+        else:
+            pass
+        await asyncio.sleep(5)
 
 
 @bot.event
 async def on_message(message):
     await bot.process_commands(message)
-    """
-    global chaise
-    msg = message.content
-    for _ in _wins:
-        chaise = fuzz.ratio(msg, _)
-        if chaise >= 50:
-            break
-    print(str(chaise))
-    if chaise >= 50 and message.author.id != 709698597415026707:
-        await message.delete()
-        await message.channel.send("We don't like windows here!")
-    pass
-"""
 
 
 @bot.command(aliases=['help'])
@@ -99,77 +102,8 @@ async def joke(ctx):
 
 @bot.command()
 async def steam(ctx, url_custom):
-    class Steam:
-        def __init__(self, data):
-            self.data = BeautifulSoup(requests.get(str(data)).text, 'html.parser')
-            self.url = str(url_custom)
 
-        def getNick(self):
-            return self.data.find('span', {'class': 'actual_persona_name'}).text
-
-        def getLvl(self):
-            return int(self.data.find('span', {'class': 'friendPlayerLevelNum'}).text)
-
-        def getGameStatus(self):
-            return self.data.find('div', {'class': 'profile_in_game_header'}).text
-
-        def getVacStatus(self):
-            if bool(self.data.find('div', {'class': 'profile_ban'})):
-                return str(self.data.find('div', {'class': 'profile_ban'}).text[:-7])
-            else:
-                return str('No VAC on record.')
-
-        def getProfilePicture(self):
-            image = self.data.find('div', {'class': 'playerAvatarAutoSizeInner'})
-            image = str(image.find('img'))
-            return image[10:-3]
-
-        def getTotalGames(self):
-            try:
-                games_block = self.data.find('a', {'href': f'{self.url}games/?tab=all'})
-                return int(games_block.find('span', {'class': 'profile_count_link_total'}).text)
-
-            except Exception as e:
-                print(e)
-                return str('Not stated')
-
-        def getTotalComments(self):
-            try:
-                comments_block = self.data.find('a', {'class': 'commentthread_allcommentslink'})
-                return comments_block.find('span').text
-
-            except Exception as e:
-                print(e)
-                return str('Not stated')
-
-        def getTotalScreenshots(self):
-            try:
-                screenshot_block = self.data.find('a', {'href': f'{self.url}screenshots/'})
-                return int(screenshot_block.find('span', {'class': 'profile_count_link_total'}).text)
-            except Exception as e:
-                print(e)
-                return str('Not stated')
-
-        def getTotalFriends(self):
-            try:
-                friend_block = self.data.find('a', {'href': f'{self.url}friends/'})
-                friends = friend_block.find('span', {'class': 'profile_count_link_total'})
-
-                del friend_block
-                return int(friends.text)
-            except Exception as e:
-                print(e)
-                return str('Not stated')
-
-        def getTotalBages(self):
-            try:
-                bages_block = self.data.find('a', {'href': f'{self.url}badges/'})
-                return bages_block.find('span', {'class': 'profile_count_link_total'}).text
-            except Exception as e:
-                print(e)
-                return str('Not stated')
-
-    account = Steam(data=url_custom)
+    account = SiteParser.Steam(url_custom)
 
     embed = discord.Embed(title=f'**{account.getNick()}**', description=account.getGameStatus(), color=0x0095ff)
     embed.add_field(name='**Profile lvl.**', value=str(account.getLvl()), inline=False)
@@ -180,7 +114,10 @@ async def steam(ctx, url_custom):
     embed.add_field(name='**Total bages.**', value=str(account.getTotalBages()), inline=False)
     embed.add_field(name='**Total screenshots.**', value=str(account.getTotalScreenshots()), inline=False)
     embed.set_thumbnail(url=account.getProfilePicture())
-    embed.set_footer(text=url_custom)
+    embed.set_author(name='Steam profile checker.', icon_url='https://i.imgur.com/WK520CI.jpg')
+    embed.set_footer(text=url_custom,
+                     icon_url='https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Steam_icon_logo.svg/512px'
+                              '-Steam_icon_logo.svg.png')
     await ctx.message.delete()
     await ctx.send(embed=embed)
 
@@ -263,7 +200,7 @@ async def card(ctx):
             os.remove('card.jpg')
             os.remove('ava.webp')
 
-    user = Card('media\\fonts\\arialbd.ttf', 'media\\card\\background2.jpg', 'media\\bot\\default.jpg')
+    user = Card('media\\fonts\\arialbd.ttf', 'media\\card\\background1.jpg', 'media\\bot\\default.jpg')
     user.createCard()
     await ctx.send(file=discord.File('card.jpg'))
     user.cleanFiles()
