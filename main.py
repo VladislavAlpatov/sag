@@ -4,7 +4,7 @@ import subprocess
 import SiteParser
 import discord
 import qrcode
-import random2
+import random
 import requests
 from PIL import Image
 from PIL import ImageDraw, ImageFont
@@ -12,7 +12,6 @@ from bs4 import BeautifulSoup
 from discord.ext import commands
 import asyncio
 import config
-
 
 _games = ['/help', 'CAT-BOT', 'cathook', 'cathook by nullworks',
           'made by nullifiedvlad', 'we need some cats']
@@ -24,20 +23,26 @@ bot.remove_command('help')
 @bot.event
 async def on_ready():
     print('READY!')
-    date = 'none'
+    sid = 'site.steam_id'
     channel = bot.get_channel(724987876911218690)
     while True:
         site = SiteParser.CtfBans('https://bans.creators.tf/index.php?p=banlist')
-        date_scanned = site.getLastBanTime()
-        if date != date_scanned:
-            name = site.getLastUserName()
-            length = site.getLastBanLength()
-            msg = f'`{date_scanned}` {name[:-15]} {length}'
-
-            print(msg.replace('\n', ''))
-            await channel.send(msg)
-            date = date_scanned
-            print('ok')
+        sid_now = site.steam_id[46:]
+        if sid != sid_now:
+            prof_url = site.steam_ulr.replace('\n', '')
+            profile = SiteParser.Steam(prof_url)
+            print(site.name+'x')
+            image = profile.getProfilePicture()
+            embed = discord.Embed(title=f'**{site.name}**', color=0xff5959, )
+            embed.add_field(name='**LENGTH**', value=site.length, inline=False)
+            embed.add_field(name='**DATE**', value=site.date, inline=False)
+            embed.add_field(name='**STEAM ID**', value=site.steam_id, inline=False)
+            embed.add_field(name='**REASON**', value=site.reason, inline=False)
+            embed.set_footer(text=site.steam_ulr, icon_url='https://bit.ly/2NrVOIk')
+            embed.set_thumbnail(url=image)
+            # await channel.send(msg)
+            await channel.send(embed=embed)
+            sid = sid_now
         else:
             pass
         await asyncio.sleep(5)
@@ -63,7 +68,8 @@ async def help_message(ctx):  # send help message
     embed.add_field(name='**/nigga**', value='Make nigga meme.', inline=False)
     embed.add_field(name='**/qr**', value='Make qrcode.', inline=False)
     embed.add_field(name='**/cathook**', value='Send cathook github repo.', inline=False)
-    embed.add_field(name='**/howgayiam**', value='Show gayness percent.', inline=False)
+    embed.add_field(name='**/howgayami**', value='Show gayness percent.', inline=False)
+    embed.add_field(name='**/howfurryami**', value='Show furry percent.', inline=False)
     embed.add_field(name='**/py3**', value='Interpritate python3 code.', inline=False)
     embed.add_field(name='**/think**', value='Make russian meme.', inline=False)
     embed.set_thumbnail(url='https://i.imgur.com/WK520CI.jpg')
@@ -84,7 +90,7 @@ async def cat(ctx):
 
 @bot.command()
 async def feature(ctx):
-    await ctx.send(random2.choice(config.Cathook.features))
+    await ctx.send(random.choice(config.Cathook.features))
 
 
 @bot.command()
@@ -102,7 +108,6 @@ async def joke(ctx):
 
 @bot.command()
 async def steam(ctx, url_custom):
-
     account = SiteParser.Steam(url_custom)
 
     embed = discord.Embed(title=f'**{account.getNick()}**', description=account.getGameStatus(), color=0x0095ff)
@@ -200,7 +205,7 @@ async def card(ctx):
             os.remove('card.jpg')
             os.remove('ava.webp')
 
-    user = Card('media\\fonts\\arialbd.ttf', 'media\\card\\background1.jpg', 'media\\bot\\default.jpg')
+    user = Card('media\\fonts\\arialbd.ttf', 'media\\card\\background.jpg', 'media\\bot\\default.jpg')
     user.createCard()
     await ctx.send(file=discord.File('card.jpg'))
     user.cleanFiles()
@@ -289,8 +294,17 @@ async def banner(ctx, *, text):
 
 
 @bot.command()
-async def howgayiam(ctx):
-    await ctx.send(f'Look! {ctx.message.author} is {str(random2.randint(0, 100))}% gay!')
+async def howgayami(ctx):
+    await ctx.send(f'Look! {ctx.message.author} is {str(random.randint(0, 100))}% gay!')
+
+
+@bot.command()
+async def howfurryami(ctx):
+    if ctx.message.author.id == 566653752451399700:
+        result = 100
+        await ctx.send(content=f'{ctx.message.author} is **{result}%** furry!')
+    else:
+        await ctx.send(content=f'{ctx.message.author} is **{str(random.randint(0, 100))}%** furry!')
 
 
 @bot.command()
@@ -331,5 +345,6 @@ async def think(ctx):
 
     os.remove('think.jpg')
     os.remove('image.jpg')
+
 
 bot.run(config.Bot_info.token)

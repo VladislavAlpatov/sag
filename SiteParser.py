@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
+from config import Bot_info
 
 
 class Steam:
@@ -32,7 +33,7 @@ class Steam:
             games_block = self.__data.find('a', {'href': f'{self.url}games/?tab=all'})
             return int(games_block.find('span', {'class': 'profile_count_link_total'}).text)
 
-        except Exception as e:
+        except Exception:
             return str('Not stated')
 
     def getTotalComments(self):
@@ -40,7 +41,7 @@ class Steam:
             comments_block = self.__data.find('a', {'class': 'commentthread_allcommentslink'})
             return comments_block.find('span').text
 
-        except Exception as e:
+        except Exception:
             return str('Not stated')
 
     def getTotalScreenshots(self):
@@ -57,21 +58,31 @@ class Steam:
 
             del friend_block
             return int(friends.text)
-        except Exception as e:
+        except Exception:
             return str('Not stated')
 
     def getTotalBages(self):
         try:
             bages_block = self.__data.find('a', {'href': f'{self.url}badges/'})
             return bages_block.find('span', {'class': 'profile_count_link_total'}).text
-        except Exception as e:
+        except Exception:
             return str('Not stated')
 
 
 class CtfBans:
     def __init__(self, url):
-        self.__data = BeautifulSoup(requests.get(str(url)).text, 'html.parser')
+        self.__data = BeautifulSoup(requests.get(url, headers=Bot_info.heads).text, 'html.parser')
+        self.__lines = self.__data.findAll('td', {'height': '16',
+                                    'class': 'listtable_1'})
+        print('ok')
+        self.name = self.__lines[4].text[85:-77]
+        self.steam_id = self.__lines[6].text[39:-35]
+        self.date = self.__lines[12].text
+        self.steam_ulr = 'https://steamcommunity.com/profiles/' + self.__lines[10].text
+        self.length = self.__lines[14].text[:-1]
+        self.reason = self.__lines[18].text
 
+    """
     def getLastUserName(self):
         table = self.__data.find('div', {'style': 'float:left;'}).text
         return str(table[23:])
@@ -87,3 +98,8 @@ class CtfBans:
         return self.__data.find('td', {'width': '20%',
                                        'height': '16',
                                        'align': 'center'}).text
+
+    def getLastUserReason(self):
+        table = self.__data.findAll('td', {'height': '16',
+                                           'class': 'listtable_1'})
+        return table[18].text"""
