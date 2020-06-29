@@ -76,7 +76,7 @@ class CtfBans:
                                     'class': 'listtable_1'})
         print('ok')
         self.name = self.__lines[4].text[85:-77]
-        self.steam_id = self.__lines[6].text[39:-35]
+        self.steam_id = self.__lines[6].text[85:-35]
         self.date = self.__lines[12].text
         self.steam_ulr = 'https://steamcommunity.com/profiles/' + self.__lines[10].text
         self.length = self.__lines[14].text[:-1]

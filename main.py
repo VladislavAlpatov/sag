@@ -23,11 +23,14 @@ bot.remove_command('help')
 @bot.event
 async def on_ready():
     print('READY!')
-    sid = 'site.steam_id'
+    with open('media\\id.txt','r') as f:
+        sid = f.read()
+
     channel = bot.get_channel(724987876911218690)
     while True:
         site = SiteParser.CtfBans('https://bans.creators.tf/index.php?p=banlist')
-        sid_now = site.steam_id[46:]
+        sid_now = site.steam_id
+        print(sid_now)
         if sid != sid_now:
             prof_url = site.steam_ulr.replace('\n', '')
             profile = SiteParser.Steam(prof_url)
@@ -43,6 +46,9 @@ async def on_ready():
             # await channel.send(msg)
             await channel.send(embed=embed)
             sid = sid_now
+            with open('media\\id.txt', 'w') as f:
+                f.write(sid)
+
         else:
             pass
         await asyncio.sleep(5)
