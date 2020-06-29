@@ -30,7 +30,6 @@ async def on_ready():
     while True:
         site = SiteParser.CtfBans('https://bans.creators.tf/index.php?p=banlist')
         sid_now = site.steam_id
-        print(sid_now)
         if sid != sid_now:
             prof_url = site.steam_ulr.replace('\n', '')
             profile = SiteParser.Steam(prof_url)

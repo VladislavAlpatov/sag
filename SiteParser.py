@@ -73,8 +73,7 @@ class CtfBans:
     def __init__(self, url):
         self.__data = BeautifulSoup(requests.get(url, headers=Bot_info.heads).text, 'html.parser')
         self.__lines = self.__data.findAll('td', {'height': '16',
-                                    'class': 'listtable_1'})
-        print('ok')
+                                                  'class': 'listtable_1'})
         self.name = self.__lines[4].text[85:-77]
         self.steam_id = self.__lines[6].text[85:-35]
         self.date = self.__lines[12].text
