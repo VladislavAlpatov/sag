@@ -22,7 +22,7 @@ bot.remove_command('help')
 
 @bot.event
 async def on_ready():
-    print('READY!')
+    """print('READY!')
 
     with open('media/id.txt', 'r') as f:
         sid = f.read()
@@ -54,11 +54,25 @@ async def on_ready():
         else:
             pass
         await asyncio.sleep(5)
+"""
 
 
 @bot.event
 async def on_message(message):
     await bot.process_commands(message)
+
+
+@bot.event
+async def on_member_join(member):
+
+    # выдача ролец для своего сервер (Hacker space)
+    if member.guild.id == 665856387439656972:
+        role = member.guild.get_role(665877780864565249)
+        await member.add_roles(role)
+    else:
+        pass
+
+    await member.send(f'Welcome to {member.guild}!')
 
 
 @bot.command(aliases=['help'])
