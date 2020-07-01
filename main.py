@@ -23,7 +23,7 @@ bot.remove_command('help')
 @bot.event
 async def on_ready():
     print('READY!')
-    with open('media\\id.txt', 'r') as f:
+    with open('media/id.txt', 'r') as f:
         sid = f.read()
 
     channel = bot.get_channel(724987876911218690)
@@ -45,7 +45,7 @@ async def on_ready():
             # await channel.send(msg)
             await channel.send(embed=embed)
             sid = sid_now
-            with open('media\\id.txt', 'w') as f:
+            with open('media/id.txt', 'w') as f:
                 f.write(sid)
 
         else:
@@ -210,9 +210,9 @@ async def card(ctx):
             os.remove('card.jpg')
             os.remove('ava.webp')
 
-    user = Card('media\\fonts\\arialbd.ttf',
-                'media\\card\\background.jpg',
-                'media\\bot\\default.jpg')
+    user = Card('media/fonts/arialbd.ttf',
+                'media/card/background.jpg',
+                'media/bot/default.jpg')
     user.createCard()
     await ctx.send(file=discord.File('card.jpg'))
     user.cleanFiles()
@@ -238,9 +238,9 @@ async def nigga(ctx, *, text):
         else:
             to_sum = 3
 
-        image = Image.open('media\\nigga\\nigga.jpg')
+        image = Image.open('media/nigga/nigga.jpg')
         draw = ImageDraw.Draw(image)
-        font_name = 'media\\fonts\\arialbd.ttf'
+        font_name = 'media/fonts/arialbd.ttf'
         font = ImageFont.truetype(font_name, large, encoding="unic")
         draw.text((200 - int(len(text)) * to_sum, 600 - large), str(text), fill=(0, 0, 0), font=font)
         image.save('nigga-out.jpg')
@@ -288,7 +288,7 @@ async def banner(ctx, *, text):
             y = 15
         image = Image.new('RGB', ((symbols * y), 70), (59, 196, 255))
         draw = ImageDraw.Draw(image)
-        font_name = 'media\\fonts\\arialbd.ttf'
+        font_name = 'media/fonts/arialbd.ttf'
         large = 40
         font = ImageFont.truetype(font_name, large, encoding="unic")
         draw.text((10, 20), str(text), font=font)
@@ -339,7 +339,7 @@ async def think(ctx):
     with open('image.jpg', 'wb') as f:
         f.write(r.content)
 
-    image = Image.open('media\\think\\гигант_мысли.jpg')
+    image = Image.open('media/think/гигант_мысли.jpg')
     image_on_paste = Image.open('image.jpg')
 
     image_on_paste = image_on_paste.resize((500, 400), Image.ANTIALIAS)
