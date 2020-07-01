@@ -19,9 +19,6 @@ _games = ['/help', 'CAT-BOT', 'cathook', 'cathook by nullworks',
 bot = commands.Bot(command_prefix='/')  # префикс для комманд
 bot.remove_command('help')
 
-s = SiteParser.Steam('https://steamcommunity.com/id/544236/')
-print(s.getProfilePicture())
-
 
 @bot.event
 async def on_ready():
