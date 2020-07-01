@@ -89,8 +89,8 @@ async def help_message(ctx):  # send help message
     embed.add_field(name='**/qr**', value='Make qrcode.', inline=False)
     embed.add_field(name='**/cathook**', value='Send cathook github repo.', inline=False)
     embed.add_field(name='**/howgayami**', value='Show gayness percent.', inline=False)
+    embed.add_field(name='**/why**', value='Another russian meme.', inline=False)
     embed.add_field(name='**/howfurryami**', value='Show furry percent.', inline=False)
-    embed.add_field(name='**/py3**', value='Interpritate python3 code.', inline=False)
     embed.add_field(name='**/think**', value='Make russian meme.', inline=False)
     embed.set_thumbnail(url='https://i.imgur.com/WK520CI.jpg')
     embed.set_footer(text=f'cathook.club {date.day}/{date.month}/{date.year}',
@@ -355,5 +355,27 @@ async def think(ctx):
     os.remove('think.jpg')
     os.remove('image.jpg')
 
+
+@bot.command(aliases=['зачем', 'нахуя'])
+async def why(ctx):
+    url = ctx.message.attachments[0].url
+    r = requests.get(str(url))
+
+    with open('image.jpg', 'wb') as f:
+        f.write(r.content)
+
+    image = Image.open('media/think/why.jpg')
+    image_on_paste = Image.open('image.jpg')
+
+    image_on_paste = image_on_paste.resize((614, 336), Image.ANTIALIAS)
+    image.paste(image_on_paste, (72, 42))
+
+    image.save('think.jpg')
+
+    await ctx.message.delete()
+    await ctx.send(file=discord.File('think.jpg'))
+
+    os.remove('think.jpg')
+    os.remove('image.jpg')
 
 bot.run(config.Bot_info.token)
