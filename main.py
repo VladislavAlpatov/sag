@@ -13,8 +13,6 @@ from discord.ext import commands
 import asyncio
 import config
 
-_games = ['/help', 'CAT-BOT', 'cathook', 'cathook by nullworks',
-          'made by nullifiedvlad', 'we need some cats']
 
 bot = commands.Bot(command_prefix='/')  # префикс для комманд
 bot.remove_command('help')
@@ -22,8 +20,8 @@ bot.remove_command('help')
 
 @bot.event
 async def on_ready():
-    """print('READY!')
-
+    print('READY!')
+    """
     with open('media/id.txt', 'r') as f:
         sid = f.read()
 
@@ -52,9 +50,9 @@ async def on_ready():
                 f.write(sid)
 
         else:
-            pass
-        await asyncio.sleep(5)
-"""
+            pass"""
+    await bot.change_presence(activity=discord.Game(f'with {len(bot.guilds)} servers.'))
+    await asyncio.sleep(5)
 
 
 @bot.event
