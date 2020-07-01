@@ -19,22 +19,28 @@ _games = ['/help', 'CAT-BOT', 'cathook', 'cathook by nullworks',
 bot = commands.Bot(command_prefix='/')  # префикс для комманд
 bot.remove_command('help')
 
+s = SiteParser.Steam('https://steamcommunity.com/id/544236/')
+print(s.getProfilePicture())
+
 
 @bot.event
 async def on_ready():
     print('READY!')
+
     with open('media/id.txt', 'r') as f:
         sid = f.read()
 
     channel = bot.get_channel(724987876911218690)
+
     while True:
         site = SiteParser.CtfBans('https://bans.creators.tf/index.php?p=banlist')
         sid_now = site.steam_id
         if sid != sid_now:
+            # информация о забаненом игроке
             prof_url = site.steam_ulr.replace('\n', '')
             profile = SiteParser.Steam(prof_url)
-            print(site.name + 'x')
             image = profile.getProfilePicture()
+            # создание ембиенда
             embed = discord.Embed(title=f'**{site.name}**', color=0xff5959, )
             embed.add_field(name='**LENGTH**', value=site.length, inline=False)
             embed.add_field(name='**DATE**', value=site.date, inline=False)
@@ -42,8 +48,8 @@ async def on_ready():
             embed.add_field(name='**REASON**', value=site.reason, inline=False)
             embed.set_footer(text=site.steam_ulr, icon_url='https://bit.ly/2NrVOIk')
             embed.set_thumbnail(url=image)
-            # await channel.send(msg)
             await channel.send(embed=embed)
+            # обновленик sid
             sid = sid_now
             with open('media/id.txt', 'w') as f:
                 f.write(sid)
@@ -133,19 +139,6 @@ async def steam(ctx, url_custom):
 
 
 @bot.command()
-async def img(ctx, *, text):
-    x = len(text) * 6
-    color = (255, 0, 229)
-    image = Image.new('RGB', (x + 10, 50), color)
-    draw_on_image = ImageDraw.Draw(image)
-    draw_on_image.text((10, 20), str(text), )
-    image.save('img.jpg')
-
-    await ctx.send(file=discord.File('img.jpg'))
-    os.remove('img.jpg')
-
-
-@bot.command()
 async def card(ctx):
     class Card:
         def __init__(self, font, wallpaper, bot_avatar):
@@ -163,7 +156,7 @@ async def card(ctx):
             with open('ava.webp', 'wb') as f:
                 f.write(body.content)
 
-            body = Image.open(self.wallpaper)  # 'media\\card\\background.jpg'
+            body = Image.open(self.wallpaper)
             draw = ImageDraw.Draw(body)
 
             # получаем аватар и подгоняем размер

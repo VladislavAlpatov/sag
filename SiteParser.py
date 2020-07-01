@@ -25,11 +25,20 @@ class Steam:
 
     def getProfilePicture(self):
         image = self.__data.find('div', {'class': 'playerAvatarAutoSizeInner'})
-        image = str(image.find('img'))
-        return image[10:-3]
+        url_list = image.findAll('img')
+
+        del image
+
+        if len(url_list) == 2:
+            url = str(url_list[1])
+            return url[10:-3]
+        else:
+            url = str(url_list[0])
+            return url[10:-3]
 
     def getTotalGames(self):
         try:
+
             games_block = self.__data.find('a', {'href': f'{self.url}games/?tab=all'})
             return int(games_block.find('span', {'class': 'profile_count_link_total'}).text)
 

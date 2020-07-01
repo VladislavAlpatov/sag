@@ -8,5 +8,3 @@ random2
 Pillow
 qrcode
 beautifulsoup4
-fuzzywuzzy
-Pymem
