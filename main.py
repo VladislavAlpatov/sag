@@ -23,7 +23,7 @@ bot.remove_command('help')
 @bot.event
 async def on_ready():
     print('READY!')
-    with open('media\\id.txt','r') as f:
+    with open('media\\id.txt', 'r') as f:
         sid = f.read()
 
     channel = bot.get_channel(724987876911218690)
@@ -33,7 +33,7 @@ async def on_ready():
         if sid != sid_now:
             prof_url = site.steam_ulr.replace('\n', '')
             profile = SiteParser.Steam(prof_url)
-            print(site.name+'x')
+            print(site.name + 'x')
             image = profile.getProfilePicture()
             embed = discord.Embed(title=f'**{site.name}**', color=0xff5959, )
             embed.add_field(name='**LENGTH**', value=site.length, inline=False)
@@ -210,7 +210,9 @@ async def card(ctx):
             os.remove('card.jpg')
             os.remove('ava.webp')
 
-    user = Card('media\\fonts\\arialbd.ttf', 'media\\card\\background.jpg', 'media\\bot\\default.jpg')
+    user = Card('media\\fonts\\arialbd.ttf',
+                'media\\card\\background.jpg',
+                'media\\bot\\default.jpg')
     user.createCard()
     await ctx.send(file=discord.File('card.jpg'))
     user.cleanFiles()

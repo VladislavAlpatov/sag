@@ -48,7 +48,7 @@ class Steam:
         try:
             screenshot_block = self.__data.find('a', {'href': f'{self.url}screenshots/'})
             return int(screenshot_block.find('span', {'class': 'profile_count_link_total'}).text)
-        except Exception as e:
+        except Exception:
             return str('Not stated')
 
     def getTotalFriends(self):
@@ -80,25 +80,3 @@ class CtfBans:
         self.steam_ulr = 'https://steamcommunity.com/profiles/' + self.__lines[10].text
         self.length = self.__lines[14].text[:-1]
         self.reason = self.__lines[18].text
-
-    """
-    def getLastUserName(self):
-        table = self.__data.find('div', {'style': 'float:left;'}).text
-        return str(table[23:])
-
-    def getLastBanTime(self):
-        tbl = self.__data.find('tr', {'class': 'tbl_out'})
-        time = tbl.findAll('td', {'height': '16',
-                                  'align': 'center',
-                                  'class': 'listtable_1'})[1].text
-        return str(time)
-
-    def getLastBanLength(self):
-        return self.__data.find('td', {'width': '20%',
-                                       'height': '16',
-                                       'align': 'center'}).text
-
-    def getLastUserReason(self):
-        table = self.__data.findAll('td', {'height': '16',
-                                           'class': 'listtable_1'})
-        return table[18].text"""
