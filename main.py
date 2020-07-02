@@ -21,7 +21,7 @@ bot.remove_command('help')
 @bot.event
 async def on_ready():
     print('READY!')
-    """
+
     with open('media/id.txt', 'r') as f:
         sid = f.read()
 
@@ -30,6 +30,7 @@ async def on_ready():
     while True:
         site = SiteParser.CtfBans('https://bans.creators.tf/index.php?p=banlist')
         sid_now = site.steam_id
+
         if sid != sid_now:
             # информация о забаненом игроке
             prof_url = site.steam_ulr.replace('\n', '')
@@ -50,9 +51,9 @@ async def on_ready():
                 f.write(sid)
 
         else:
-            pass"""
-    await bot.change_presence(activity=discord.Game(f'with {len(bot.guilds)} servers.'))
-    await asyncio.sleep(5)
+            pass
+        await bot.change_presence(activity=discord.Game(f'with {len(bot.guilds)} servers.'))
+        await asyncio.sleep(5)
 
 
 @bot.event

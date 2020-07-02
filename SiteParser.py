@@ -8,6 +8,9 @@ class Steam:
         self.__data = BeautifulSoup(requests.get(str(url)).text, 'html.parser')
         self.url = str(url)
 
+    def __str__(self):
+        return 'Steam profile parser by NullifiedVlad'
+
     def getNick(self):
         return self.__data.find('span', {'class': 'actual_persona_name'}).text
 
@@ -83,9 +86,9 @@ class CtfBans:
         self.__data = BeautifulSoup(requests.get(url, headers=Bot_info.heads).text, 'html.parser')
         self.__lines = self.__data.findAll('td', {'height': '16',
                                                   'class': 'listtable_1'})
-        self.name = self.__lines[4].text[85:-77]
-        self.steam_id = self.__lines[6].text[85:-35]
+        self.name = self.__lines[4].text.replace('\n', '')
+        self.steam_id = self.__lines[6].text[1:-1]
         self.date = self.__lines[12].text
-        self.steam_ulr = 'https://steamcommunity.com/profiles/' + self.__lines[10].text
+        self.steam_ulr = 'https://steamcommunity.com/profiles/' + self.__lines[10].text.replace('\n', '')
         self.length = self.__lines[14].text[:-1]
         self.reason = self.__lines[18].text
