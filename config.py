@@ -4,10 +4,6 @@ class Bot_info:
     heads = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:75.0) Gecko/20100101 Firefox/75.0'}
 
 
-class Nullserver:
-    id = 711919810434433105
-
-
 class Messages:
 
     invite = '''

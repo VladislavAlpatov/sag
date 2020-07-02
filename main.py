@@ -150,9 +150,8 @@ async def steam(ctx, url_custom):
 @bot.command()
 async def card(ctx):
     class Card:
-        def __init__(self, font, wallpaper, bot_avatar):
+        def __init__(self, font, wallpaper):
             self.font = font  # шрифт
-            self.bot_avatar = bot_avatar  # фотка бота
             self.wallpaper = wallpaper  # фон картинки
 
         def createCard(self):
@@ -170,36 +169,29 @@ async def card(ctx):
 
             # получаем аватар и подгоняем размер
 
-            avatar = Image.open('ava.webp')
-            avatar = avatar.convert('RGB')
-            avatar = avatar.resize((421, 421), Image.ANTIALIAS)
-            body.paste(avatar, (0, 0))
-
-            # получаем фотку бота и подгоняем по размеру
-            bot_avatar = Image.open(self.bot_avatar)
-            bot_avatar = bot_avatar.convert('RGB')
-            bot_avatar = bot_avatar.resize((124, 124), Image.ANTIALIAS)
-            body.paste(bot_avatar, (1376, 0))
+            with Image.open('ava.webp') as avatar:
+                avatar = avatar.convert('RGB')
+                avatar = avatar.resize((164, 164), Image.ANTIALIAS)
+                body.paste(avatar, (27, 34))
 
             # Ник
-            font = ImageFont.truetype(self.font, 90, encoding="unic")
-            draw.text((460, 0), str(author.name), fill=(3, 150, 255), font=font)
+            font = ImageFont.truetype(self.font, 50, encoding="unic")
+            draw.text((207, 18), str(author.name), font=font)
             # тег
-            font = ImageFont.truetype(self.font, 50, encoding="unic")
-            draw.text((460, 92), 'TAG: #' + str(author.discriminator), fill=(51, 255, 0), font=font)
+            font = ImageFont.truetype(self.font, 30, encoding="unic")
+            draw.text((207, 78), 'TAG: #' + str(author.discriminator),font=font)
             # id
-            font = ImageFont.truetype(self.font, 50, encoding="unic")
-            draw.text((460, 150), 'ID: ' + str(author.id), font=font)
-            # сервер
-            font = ImageFont.truetype(self.font, 50, encoding="unic")
-            draw.text((460, 210), 'SERVER: ' + str(guild), fill=(0, 238, 255), font=font)
-            # текс под фоткой бота
             font = ImageFont.truetype(self.font, 25, encoding="unic")
-            draw.text((1385, 128), 'CAT-BOT', fill=(255, 255, 255), font=font)
+            draw.text((207, 118), 'ID: ' + str(author.id), font=font)
+            # сервер
+            font = ImageFont.truetype(self.font, 25, encoding="unic")
+            draw.text((207, 150), 'SERVER: ' + str(guild), font=font)
             # проверка на создателя
             if author.id == 566653752451399700:
-                font = ImageFont.truetype(self.font, 50, encoding="unic")
-                draw.text((460, 270), 'Creator of this bot', font=font, fill=(255, 0, 229))
+                with Image.open('media/card/developer_ico.png') as avatar:
+                    avatar = avatar.resize((100, 100), Image.ANTIALIAS)
+                    avatar.convert('RGB')
+                    body.paste(avatar, (573, 0), avatar)
             else:
                 pass
 
@@ -212,9 +204,8 @@ async def card(ctx):
             os.remove('card.jpg')
             os.remove('ava.webp')
 
-    user = Card('media/fonts/arialbd.ttf',
-                'media/card/background.jpg',
-                'media/bot/default.jpg')
+    user = Card('media/fonts/sans.ttf',
+                'media/card/steam_background.jpg')
     user.createCard()
     await ctx.send(file=discord.File('card.jpg'))
     user.cleanFiles()
