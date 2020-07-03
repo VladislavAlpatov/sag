@@ -13,7 +13,6 @@ from discord.ext import commands
 import asyncio
 import config
 
-
 bot = commands.Bot(command_prefix='/')  # префикс для комманд
 bot.remove_command('help')
 
@@ -63,7 +62,6 @@ async def on_message(message):
 
 @bot.event
 async def on_member_join(member):
-
     # выдача ролец для своего сервер (Hacker space)
     if member.guild.id == 665856387439656972:
         role = member.guild.get_role(665877780864565249)
@@ -86,9 +84,9 @@ async def help_message(ctx):  # send help message
     embed.add_field(name='**/steam**', value='Check steam profile.', inline=False)
     embed.add_field(name='**/card**', value='Send your profile card.', inline=False)
     embed.add_field(name='**/invite**', value='Send bot invitation.', inline=False)
-    #embed.add_field(name='**/nigga**', value='Make nigga meme.', inline=False)
+    embed.add_field(name='**/nigga**', value='Make nigga meme.', inline=False)
     embed.add_field(name='**/qr**', value='Make qrcode.', inline=False)
-   # embed.add_field(name='**/cathook**', value='Send cathook github repo.', inline=False)
+    embed.add_field(name='**/cathook**', value='Send cathook github repo.', inline=False)
     embed.add_field(name='**/howgayami**', value='Show gayness percent.', inline=False)
     embed.add_field(name='**/why**', value='Another russian meme.', inline=False)
     embed.add_field(name='**/howfurryami**', value='Show furry percent.', inline=False)
@@ -154,50 +152,52 @@ async def card(ctx):
         def __init__(self, font, wallpaper):
             self.font = font  # шрифт
             self.wallpaper = wallpaper  # фон картинки
+            self.author = ctx.message.author
+            self.guild = ctx.message.guild.name
+            self.body = Image.open(self.wallpaper)
+            self.draw = ImageDraw.Draw(self.body)
 
-        def createCard(self):
-            author = ctx.message.author
-            guild = ctx.message.guild.name
-
-            # парсим и сохраняем аву
+        def addAvatar(self):
             avatar = str(ctx.author.avatar_url)
-            body = requests.get(avatar, headers=config.Bot_info.heads)
+            img = requests.get(avatar, headers=config.Bot_info.heads)
+
             with open('ava.webp', 'wb') as f:
-                f.write(body.content)
-
-            body = Image.open(self.wallpaper)
-            draw = ImageDraw.Draw(body)
-
-            # получаем аватар и подгоняем размер
+                f.write(img.content)
 
             with Image.open('ava.webp') as avatar:
                 avatar = avatar.convert('RGB')
                 avatar = avatar.resize((164, 164), Image.ANTIALIAS)
-                body.paste(avatar, (27, 34))
+                self.body.paste(avatar, (27, 34))
 
-            # Ник
+        def drawNick(self):
             font = ImageFont.truetype(self.font, 50, encoding="unic")
-            draw.text((207, 18), str(author.name), font=font)
-            # тег
+            self.draw.text((207, 18), str(self.author.name), font=font)
+
+        def drawTeg(self):
             font = ImageFont.truetype(self.font, 30, encoding="unic")
-            draw.text((207, 78), 'TAG: #' + str(author.discriminator),font=font)
-            # id
+            self.draw.text((207, 78), 'TAG: #' + str(self.author.discriminator), font=font)
+
+        def drawID(self):
             font = ImageFont.truetype(self.font, 25, encoding="unic")
-            draw.text((207, 118), 'ID: ' + str(author.id), font=font)
-            # сервер
+            self.draw.text((207, 118), 'ID: ' + str(self.author.id), font=font)
+
+        def drawServer(self):
             font = ImageFont.truetype(self.font, 25, encoding="unic")
-            draw.text((207, 150), 'SERVER: ' + str(guild), font=font)
-            # проверка на создателя
-            if author.id == 566653752451399700:
+            self.draw.text((207, 150), 'SERVER: ' + str(self.guild), font=font)
+
+        def creatorChecker(self):
+            if self.author.id == 566653752451399700:
                 with Image.open('media/card/developer_ico.png') as avatar:
                     avatar = avatar.resize((100, 100), Image.ANTIALIAS)
                     avatar.convert('RGB')
-                    body.paste(avatar, (573, 0), avatar)
+                    self.body.paste(avatar, (573, 0), avatar)
             else:
                 pass
 
             # сохраняем и отправляем карточку
-            body.save('card.jpg')
+
+        def build(self, name: str):
+            self.body.save(name)
 
         @staticmethod
         def cleanFiles():
@@ -207,7 +207,14 @@ async def card(ctx):
 
     user = Card('media/fonts/sans.ttf',
                 'media/card/steam_background.jpg')
-    user.createCard()
+
+    user.addAvatar()
+    user.drawNick()
+    user.drawID()
+    user.drawTeg()
+    user.drawServer()
+    user.creatorChecker()
+    user.build('card.jpg')
     await ctx.send(file=discord.File('card.jpg'))
     user.cleanFiles()
 
@@ -369,5 +376,6 @@ async def why(ctx):
 
     os.remove('think.jpg')
     os.remove('image.jpg')
+
 
 bot.run(config.Bot_info.token)
