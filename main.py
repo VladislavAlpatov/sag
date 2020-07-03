@@ -156,7 +156,7 @@ async def card(ctx):
             self.guild = ctx.message.guild.name
             self.body = Image.open(self.wallpaper)
             self.draw = ImageDraw.Draw(self.body)
-
+        
         def addAvatar(self):
             avatar = str(ctx.author.avatar_url)
             img = requests.get(avatar, headers=config.Bot_info.heads)
@@ -171,7 +171,7 @@ async def card(ctx):
 
         def drawNick(self):
             font = ImageFont.truetype(self.font, 50, encoding="unic")
-            self.draw.text((207, 18), str(self.author.name), font=font)
+            self.draw.text((207, 18), self.author.name, font=font)
 
         def drawTeg(self):
             font = ImageFont.truetype(self.font, 30, encoding="unic")
@@ -183,7 +183,7 @@ async def card(ctx):
 
         def drawServer(self):
             font = ImageFont.truetype(self.font, 25, encoding="unic")
-            self.draw.text((207, 150), 'SERVER: ' + str(self.guild), font=font)
+            self.draw.text((207, 150), 'SERVER: ' + self.guild, font=font)
 
         def creatorChecker(self):
             if self.author.id == 566653752451399700:
