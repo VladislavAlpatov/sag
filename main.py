@@ -309,8 +309,7 @@ async def howgayami(ctx):
 @bot.command()
 async def howfurryami(ctx):
     if ctx.message.author.id == 566653752451399700:
-        result = 100
-        await ctx.send(content=f'{ctx.message.author} is **{result}%** furry!')
+        await ctx.send(content=f'{ctx.message.author} is **100** furry!')
     else:
         await ctx.send(content=f'{ctx.message.author} is **{str(random.randint(0, 100))}%** furry!')
 
