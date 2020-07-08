@@ -31,6 +31,7 @@ async def on_ready():
         sid_now = site.steam_id
 
         if sid != sid_now:
+            print(sid)
             # информация о забаненом игроке
             prof_url = site.steam_ulr.replace('\n', '')
             profile = SiteParser.Steam(prof_url)
