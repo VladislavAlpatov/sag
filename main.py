@@ -278,7 +278,6 @@ async def qr(ctx, *, text):
 @bot.command()
 async def banner(ctx, *, text):
     symbols = int(len(text))
-    print(str(symbols))
     if symbols < 30:
 
         if 1 <= symbols < 12:
