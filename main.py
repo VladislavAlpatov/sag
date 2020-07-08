@@ -21,7 +21,7 @@ bot.remove_command('help')
 async def on_ready():
     print('READY!')
 
-    with open('media/id.txt', 'r') as f:
+   """ with open('media/id.txt', 'r') as f:
         sid = f.read()
 
     channel = bot.get_channel(724987876911218690)
@@ -51,7 +51,7 @@ async def on_ready():
                 f.write(sid)
 
         else:
-            pass
+            pass"""
         await bot.change_presence(activity=discord.Game(f'with {len(bot.guilds)} servers.'))
         await asyncio.sleep(5)
 
