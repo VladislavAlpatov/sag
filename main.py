@@ -20,40 +20,8 @@ bot.remove_command('help')
 @bot.event
 async def on_ready():
     print('READY!')
-
-   """ with open('media/id.txt', 'r') as f:
-        sid = f.read()
-
-    channel = bot.get_channel(724987876911218690)
-
-    while True:
-        site = SiteParser.CtfBans('https://bans.creators.tf/index.php?p=banlist')
-        sid_now = site.steam_id
-
-        if sid != sid_now:
-            print(sid)
-            # информация о забаненом игроке
-            prof_url = site.steam_ulr.replace('\n', '')
-            profile = SiteParser.Steam(prof_url)
-            image = profile.getProfilePicture()
-            # создание ембиенда
-            embed = discord.Embed(title=f'**{site.name}**', color=0xff5959, )
-            embed.add_field(name='**LENGTH**', value=site.length, inline=False)
-            embed.add_field(name='**DATE**', value=site.date, inline=False)
-            embed.add_field(name='**STEAM ID**', value=site.steam_id, inline=False)
-            embed.add_field(name='**REASON**', value=site.reason, inline=False)
-            embed.set_footer(text=site.steam_ulr, icon_url='https://bit.ly/2NrVOIk')
-            embed.set_thumbnail(url=image)
-            await channel.send(embed=embed)
-            # обновленик sid
-            sid = sid_now
-            with open('media/id.txt', 'w') as f:
-                f.write(sid)
-
-        else:
-            pass"""
-        await bot.change_presence(activity=discord.Game(f'with {len(bot.guilds)} servers.'))
-        await asyncio.sleep(5)
+    await bot.change_presence(activity=discord.Game(f'with {len(bot.guilds)} servers.'))
+    await asyncio.sleep(5)
 
 
 @bot.event
