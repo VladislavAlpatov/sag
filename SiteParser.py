@@ -100,7 +100,7 @@ class Covid:
     __data = BeautifulSoup(requests.get(__url, headers=Bot_info.heads).text, 'html.parser')
 
     def getInfected(self):
-        return self.__data.findAll('div', {'jsname': 'fUyIqc'})[0].text
+        return self.__data.findAll('div', {'jsname': 'fUyIqc'})[6].text
 
     def getHealed(self):
         return self.__data.findAll('div', {'jsname': 'fUyIqc'})[2].text
