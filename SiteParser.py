@@ -92,3 +92,18 @@ class CtfBans:
         self.steam_ulr = 'https://steamcommunity.com/profiles/' + self.__lines[10].text.replace('\n', '')
         self.length = self.__lines[14].text[:-1]
         self.reason = self.__lines[18].text
+
+
+class Covid:
+    __url = 'https://www.google.com/search?q=covid+19+statistics&oq=covid+19+s&aqs=chrome.1.69i57j0l7.6379j0j15' \
+            '&sourceid=chrome&ie=UTF-8 '
+    __data = BeautifulSoup(requests.get(__url, headers=Bot_info.heads).text, 'html.parser')
+
+    def getInfected(self):
+        return self.__data.findAll('div', {'jsname': 'fUyIqc'})[0].text[:-3] + 'millions'
+
+    def getHealed(self):
+        return self.__data.findAll('div', {'jsname': 'fUyIqc'})[2].text[:-4] + 'millions'
+
+    def getDeath(self):
+        return self.__data.findAll('div', {'jsname': 'fUyIqc'})[3].text[:-3] + 'millions'

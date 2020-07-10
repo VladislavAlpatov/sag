@@ -13,6 +13,9 @@ from discord.ext import commands
 import asyncio
 import config
 
+
+site = SiteParser.Covid()
+print(site.getDeath())
 bot = commands.Bot(command_prefix='/')  # префикс для комманд
 bot.remove_command('help')
 
@@ -60,6 +63,7 @@ async def help_message(ctx):  # send help message
     embed.add_field(name='**/why**', value='Another russian meme.', inline=False)
     embed.add_field(name='**/howfurryami**', value='Show furry percent.', inline=False)
     embed.add_field(name='**/think**', value='Make russian meme.', inline=False)
+    embed.add_field(name='**/covid**', value='Show covid stats.', inline=False)
     embed.set_thumbnail(url='https://i.imgur.com/WK520CI.jpg')
     embed.set_footer(text=f'cathook.club {date.day}/{date.month}/{date.year}',
                      icon_url='https://i.imgur.com/WK520CI.jpg')
@@ -345,4 +349,16 @@ async def why(ctx):
     os.remove('image.jpg')
 
 
+@bot.command(aliases=['ковид,коронавирус'])
+async def covid(ctx):
+    covidsite = SiteParser.Covid()
+    embed = discord.Embed(title=f'**COVID-19 STATS**', description='Information about COVID-19.', color=0x3f0)
+    embed.add_field(name='**Total infected**', value=covidsite.getInfected(), inline=False)
+    embed.add_field(name='**Total died**', value=covidsite.getDeath(), inline=False)
+    embed.add_field(name='**Total recovered**', value=covidsite.getHealed(), inline=False)
+    embed.set_footer(text=f'cat-bot',
+                     icon_url='https://i.imgur.com/WK520CI.jpg')
+    embed.set_author(name=bot.user.name, icon_url='https://i.imgur.com/WK520CI.jpg')
+    await ctx.send(embed=embed)
+    del covidsite
 bot.run(config.Bot_info.token)
