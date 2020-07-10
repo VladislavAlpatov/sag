@@ -15,7 +15,7 @@ import config
 
 
 site = SiteParser.Covid()
-print(site.getDeath())
+print(len(site.getDeath()))
 print(site.getInfected())
 bot = commands.Bot(command_prefix='/')  # префикс для комманд
 bot.remove_command('help')
