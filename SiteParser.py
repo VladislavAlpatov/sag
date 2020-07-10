@@ -106,4 +106,4 @@ class Covid:
         return self.__data.findAll('div', {'jsname': 'fUyIqc'})[2].text
 
     def getDeath(self):
-        return self.__data.findAll('div', {'jsname': 'fUyIqc'})[3].text
+        return self.__data.findAll('div', {'jsname': 'fUyIqc'})
