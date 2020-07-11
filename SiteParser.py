@@ -111,9 +111,7 @@ class Covid:
 
 class Weather:
     def __init__(self, url):
-        self.__url = url
-    __url = ''
-    __data = BeautifulSoup(requests.get(__url, headers=Bot_info.heads).text, 'html.parser')
+        self.__data = BeautifulSoup(requests.get(url, headers=Bot_info.heads).text, 'html.parser')
 
     def getC(self):
         return self.__data.find('span', {'class': 'wob_t',
