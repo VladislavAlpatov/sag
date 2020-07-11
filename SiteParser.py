@@ -102,10 +102,10 @@ class Covid:
     def getInfected(self):
         return self.__data.findAll('div', {'jsname': 'fUyIqc'})[37].text
 
-    def getHealed(self):
+    def getDeath(self):
         return self.__data.findAll('div', {'jsname': 'fUyIqc'})[40].text
 
-    def getDeath(self):
+    def getHealed(self):
         return self.__data.findAll('div', {'jsname': 'fUyIqc'})[39].text
 
 
