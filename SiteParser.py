@@ -110,12 +110,9 @@ class Covid:
 
 
 class Weather:
-    __url = 'https://www.google.com/search?sxsrf=ALeKk01uDQjWT1-eO6ZYHF0V1a93ms76Rw%3A1594451706758&ei' \
-            '=-mYJX9XMLeqYk74PnIWOiAc&q=%D0%BF%D0%BE%D0%B3%D0%BE%D0%B4%D0%B0+%D0%BC%D0%BE%D1%81%D0%BA%D0%B2%D0%B0&oq' \
-            '=%D0%BF%D0%BE%D0%B3%D0%BE%D0%B4%D0%B0+%D0%BC%D0%BE%D1%81&gs_lcp' \
-            '=CgZwc3ktYWIQARgAMg0IABCxAxCDARBGEIACMgIIADICCAAyCAgAELEDEIMBMgIIADIICAAQsQMQgwEyAggAMgIIADICCAAyAggA' \
-            'OgQIA' \
-            'BBHOgUIABCxA1DSIljtJGCrLmgAcAF4AIAB9QGIAdMFkgEFMC4yLjKYAQCgAQGqAQdnd3Mtd2l6&sclient=psy-ab '
+    def __init__(self, url):
+        self.__url = url
+    __url = ''
     __data = BeautifulSoup(requests.get(__url, headers=Bot_info.heads).text, 'html.parser')
 
     def getC(self):

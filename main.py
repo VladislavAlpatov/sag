@@ -363,15 +363,42 @@ async def covid(ctx):
 
 
 @bot.command()
-async def weather(ctx):
-    weather_site = SiteParser.Weather()
-    print(site.getPrecipitation())
+async def weather(ctx,city):
 
-    embed = discord.Embed(title=f'**Moscow weather.**', color=0x3f0)
-    embed.add_field(name='**Temperature**', value=weather_site.getC(), inline=False)
-    embed.add_field(name='**Chance of precipitation**', value=weather_site.getPrecipitation(), inline=False)
-    embed.add_field(name='**Interpreter**', value=weather_site.getInterpreter(), inline=False)
-    embed.add_field(name='**Speed of wind**', value=weather_site.getWindSpeed(), inline=False)
-    embed.set_thumbnail(url=weather_site.getWeatherImageUrl())
-    await ctx.send(embed=embed)
+    print(site.getPrecipitation())
+    if city == 'moscow' or city == 'москва':
+        weather_site = SiteParser.Weather('https://www.google.com/search?sxsrf=ALeKk020_rxsX-TG9fdlfzc9lHcOmOKpXQ'
+                                          '%3A1594454517301&ei=9XEJX9zyEbrnmwWMtpqAAw&q=%D0%BF%D0%BE%D0%B3%D0%BE%D0'
+                                          '%B4%D0%B0+%D0%BC%D0%BE%D1%81%D0%BA%D0%B2%D0%B0&oq=%D0%BF%D0%BE%D0%B3%D0%BE'
+                                          '%D0%B4%D0%B0+%D0%BC%D0%BB&gs_lcp'
+                                          '=CgZwc3ktYWIQARgAMgkIABAKEEYQgAIyBAgAEAoyBAgAEAoyBAgA'
+                                          'EAoyBAgAEAoyBAgAEAoyBAgAEAoyAggAMgQIABAKMgIIADoECCMQJzoICAAQsQMQgwE6BQgAE'
+                                          'LEDOgQIABBDOgcIABCxAxBDOgcIIxDqAhAnOg'
+                                          'oIABCxAxAUEIcCOgwIIxAnEJ0CEEYQgAJQiwpYhi'
+                                          '9glDdoAnAAeACAAdEEiAH1HJIBCTItNC41LjAuMpgBAKABAaoBB2d3cy13a'
+                                          'XqwAQo&sclient=psy-ab')
+        embed = discord.Embed(title=f'**Moscow weather.**', color=0x3f0)
+        embed = discord.Embed(title=f'**Moscow weather.**', color=0x3f0)
+        embed.add_field(name='**Temperature**', value=weather_site.getC(), inline=False)
+        embed.add_field(name='**Chance of precipitation**', value=weather_site.getPrecipitation(), inline=False)
+        embed.add_field(name='**Interpreter**', value=weather_site.getInterpreter(), inline=False)
+        embed.add_field(name='**Speed of wind**', value=weather_site.getWindSpeed(), inline=False)
+        embed.set_thumbnail(url=weather_site.getWeatherImageUrl())
+        await ctx.send(embed=embed)
+    elif city == 'Petersburg' or city == 'питер':
+        weather_site = SiteParser.Weather('https://www.google.com/search?sxsrf=ALeKk03NA57zc70LHVnYwRkBC2lk0hovdw'
+                                          '%3A1594454710717&ei=tnIJX7alK9LQmwWa9pu4BQ&q=%D0%BF%D0%BE%D0%B3%D0%BE%D0'
+                                          '%B4%D0%B0+%D0%BF%D0%B8%D1%82%D0%B5%D1%80&oq=%D0%BF%D0%BE%D0%B3%D0%BE%D0%B4'
+                                          '%D0%B0+gbn&gs_lcp=CgZwc3ktYWIQARgAMgsIABAKECoQRhCAAjIICAAQFhAKEB'
+                                          '46BAgAEEc6DAgjECcQnQIQRhCAAjoECCMQJzoFCAAQsQM6BAgAEEM6CAgAELEDEIMBO'
+                                          'gIIADoNCAAQsQMQgwEQFBCHAjoGCAAQChAqOgQIABAKOgYIABAWEB46DwgjELACECcQnQ'
+                                          'IQRhCAAjoECAAQDVDWrRZYi7gWYPq_FmgBcAF4AIABlwSIAdgLkgELMC4xLjIuMS4wLjGYA'
+                                          'QCgAQGqAQdnd3Mtd2l6&sclient=psy-ab')
+        embed = discord.Embed(title=f'**Petersburg weather.**', color=0x3f0)
+        embed.add_field(name='**Temperature**', value=weather_site.getC(), inline=False)
+        embed.add_field(name='**Chance of precipitation**', value=weather_site.getPrecipitation(), inline=False)
+        embed.add_field(name='**Interpreter**', value=weather_site.getInterpreter(), inline=False)
+        embed.add_field(name='**Speed of wind**', value=weather_site.getWindSpeed(), inline=False)
+        embed.set_thumbnail(url=weather_site.getWeatherImageUrl())
+        await ctx.send(embed=embed)
 bot.run(config.Bot_info.token)
