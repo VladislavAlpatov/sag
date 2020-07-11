@@ -13,8 +13,6 @@ from discord.ext import commands
 import asyncio
 import config
 
-site = SiteParser.Weather()
-print(site.getWeatherImageUrl())
 bot = commands.Bot(command_prefix='/')  # префикс для комманд
 bot.remove_command('help')
 
