@@ -13,10 +13,8 @@ from discord.ext import commands
 import asyncio
 import config
 
-
-site = SiteParser.Covid()
-print(len(site.getDeath()))
-print(site.getInfected())
+site = SiteParser.Weather()
+print(site.getWeatherImageUrl())
 bot = commands.Bot(command_prefix='/')  # префикс для комманд
 bot.remove_command('help')
 
@@ -130,7 +128,7 @@ async def card(ctx):
             self.guild = ctx.message.guild.name
             self.body = Image.open(self.wallpaper)
             self.draw = ImageDraw.Draw(self.body)
-        
+
         def addAvatar(self):
             avatar = str(ctx.author.avatar_url)
             img = requests.get(avatar, headers=config.Bot_info.heads)
@@ -362,4 +360,18 @@ async def covid(ctx):
     embed.set_author(name=bot.user.name, icon_url='https://i.imgur.com/WK520CI.jpg')
     await ctx.send(embed=embed)
     del covidsite
+
+
+@bot.command()
+async def weather(ctx):
+    weather_site = SiteParser.Weather()
+    print(site.getPrecipitation())
+
+    embed = discord.Embed(title=f'**Moscow weather.**', color=0x3f0)
+    embed.add_field(name='**Temperature**', value=weather_site.getC(), inline=False)
+    embed.add_field(name='**Chance of precipitation**', value=weather_site.getPrecipitation(), inline=False)
+    embed.add_field(name='**Interpreter**', value=weather_site.getInterpreter(), inline=False)
+    embed.add_field(name='**Speed of wind**', value=weather_site.getWindSpeed(), inline=False)
+    embed.set_thumbnail(url=weather_site.getWeatherImageUrl())
+    await ctx.send(embed=embed)
 bot.run(config.Bot_info.token)

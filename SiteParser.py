@@ -107,3 +107,32 @@ class Covid:
 
     def getDeath(self):
         return self.__data.findAll('div', {'jsname': 'fUyIqc'})[39].text
+
+
+class Weather:
+    __url = 'https://www.google.com/search?sxsrf=ALeKk01uDQjWT1-eO6ZYHF0V1a93ms76Rw%3A1594451706758&ei' \
+            '=-mYJX9XMLeqYk74PnIWOiAc&q=%D0%BF%D0%BE%D0%B3%D0%BE%D0%B4%D0%B0+%D0%BC%D0%BE%D1%81%D0%BA%D0%B2%D0%B0&oq' \
+            '=%D0%BF%D0%BE%D0%B3%D0%BE%D0%B4%D0%B0+%D0%BC%D0%BE%D1%81&gs_lcp' \
+            '=CgZwc3ktYWIQARgAMg0IABCxAxCDARBGEIACMgIIADICCAAyCAgAELEDEIMBMgIIADIICAAQsQMQgwEyAggAMgIIADICCAAyAggA' \
+            'OgQIA' \
+            'BBHOgUIABCxA1DSIljtJGCrLmgAcAF4AIAB9QGIAdMFkgEFMC4yLjKYAQCgAQGqAQdnd3Mtd2l6&sclient=psy-ab '
+    __data = BeautifulSoup(requests.get(__url, headers=Bot_info.heads).text, 'html.parser')
+
+    def getC(self):
+        return self.__data.find('span', {'class': 'wob_t',
+                                         'id': 'wob_tm',
+                                         'style': 'display:inline'}).text
+
+    def getWeatherImageUrl(self):
+        url = str(self.__data.findAll('img', {'style': 'float:left;height:64px;width:64px'})).split(' ')[4]
+        return 'https:' + url[5:-1]
+
+    def getWindSpeed(self):
+        return self.__data.find('span', {'class': 'wob_t',
+                                         'id': 'wob_ws'}).text
+
+    def getInterpreter(self):
+        return self.__data.find('span', {'id': 'wob_hm'}).text
+
+    def getPrecipitation(self):
+        return self.__data.find('span', {'id': 'wob_pp'}).text
