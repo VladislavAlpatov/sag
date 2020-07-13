@@ -347,8 +347,9 @@ async def tf2stats(ctx):
     site = SiteParser.Tf2stats()
 
     class Stats:
-        def __init__(self, font):
+        def __init__(self, font,color):
             self.font = font
+            self.color =color
             self.body = Image.open('media/stats.png')
             self.draw = ImageDraw.Draw(self.body)
 
@@ -362,16 +363,16 @@ async def tf2stats(ctx):
                 self.body.paste(f, (0, 50), f)
 
             font = ImageFont.truetype(self.font, 80, encoding="unic")
-            self.draw.text((0, 200), f'Last hour ago: {site.getMinutesOnline()}', font=font)
-            self.draw.text((0, 305), f'24-hour peak: {site.getDayOnline()}', font=font)
-            self.draw.text((0, 400), f'All-time peak: {site.getAllTimeOnline()}', font=font)
+            self.draw.text((0, 200), f'Last hour ago: {site.getMinutesOnline()}', font=font, fill=self.color)
+            self.draw.text((0, 305), f'24-hour peak: {site.getDayOnline()}', font=font, fill=self.color)
+            self.draw.text((0, 400), f'All-time peak: {site.getAllTimeOnline()}', font=font, fill=self.color)
             self.body.save('stats.png')
 
         @staticmethod
         def cleanfiles():
             os.remove('stats.png')
 
-    img = Stats('media/fonts/tf2build.ttf')
+    img = Stats('media/fonts/tf2build.ttf', (70, 119, 194))
     img.build()
     await ctx.send(file=discord.File('stats.png'))
     img.cleanfiles()
