@@ -372,7 +372,7 @@ async def tf2stats(ctx):
         def cleanfiles():
             os.remove('stats.png')
 
-    img = Stats('media/fonts/tf2build.ttf', (70, 119, 194))
+    img = Stats('media/fonts/tf2build.ttf', (90, 157, 192))
     img.build()
     await ctx.send(file=discord.File('stats.png'))
     img.cleanfiles()
