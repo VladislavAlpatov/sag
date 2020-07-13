@@ -1,6 +1,5 @@
 import datetime
 import os
-import subprocess
 import SiteParser
 import discord
 import qrcode
@@ -55,6 +54,7 @@ async def help_message(ctx):  # send help message
     embed.add_field(name='**/invite**', value='Send bot invitation.', inline=False)
     embed.add_field(name='**/nigga**', value='Make nigga meme.', inline=False)
     embed.add_field(name='**/qr**', value='Make qrcode.', inline=False)
+    embed.add_field(name='**/tf2stats**', value='Show TF2 online stats.', inline=False)
     embed.add_field(name='**/cathook**', value='Send cathook github repo.', inline=False)
     embed.add_field(name='**/howgayami**', value='Show gayness percent.', inline=False)
     embed.add_field(name='**/why**', value='Another russian meme.', inline=False)
@@ -121,10 +121,9 @@ async def card(ctx):
     class Card:
         def __init__(self, font, wallpaper):
             self.font = font  # шрифт
-            self.wallpaper = wallpaper  # фон картинки
             self.author = ctx.message.author
             self.guild = ctx.message.guild.name
-            self.body = Image.open(self.wallpaper)
+            self.body = Image.open(wallpaper)
             self.draw = ImageDraw.Draw(self.body)
 
         def addAvatar(self):
@@ -283,23 +282,6 @@ async def howfurryami(ctx):
         await ctx.send(content=f'{ctx.message.author} is **{str(random.randint(0, 100))}%** furry!')
 
 
-@bot.command()
-async def py3(ctx, *, code):
-    if ctx.message.author.id == 566653752451399700:
-        _banned_commands = ['os.remove', 'os.system', 'os.kill', 'subprocess.check_output']
-        code = code[:-3]
-        code = code[5:]
-        for command in _banned_commands:
-            code = code.replace(command, 'print')
-        with open('code.py', 'w') as f:
-            f.write(str(code))
-        out = subprocess.check_output(['python3', 'code.py'])
-        os.remove('code.py')
-        await ctx.send(f'```{out}```')
-    else:
-        await ctx.send('Access denied!')
-
-
 @bot.command(aliases=['мысль', 'гигант'])
 async def think(ctx):
     url = ctx.message.attachments[0].url
@@ -348,35 +330,51 @@ async def why(ctx):
 
 @bot.command(aliases=['ковид,коронавирус'])
 async def covid(ctx):
-    covidsite = SiteParser.Covid()
+    site = SiteParser.Covid()
     embed = discord.Embed(title=f'**COVID-19 STATS**', description='Information about COVID-19.', color=0x3f0)
-    embed.add_field(name='**Total infected**', value=covidsite.getInfected(), inline=False)
-    embed.add_field(name='**Total died**', value=covidsite.getDeath(), inline=False)
-    embed.add_field(name='**Total recovered**', value=covidsite.getHealed(), inline=False)
+    embed.add_field(name='**Total infected**', value=site.getInfected(), inline=False)
+    embed.add_field(name='**Total died**', value=site.getDeath(), inline=False)
+    embed.add_field(name='**Total recovered**', value=site.getHealed(), inline=False)
     embed.set_footer(text=f'cat-bot',
                      icon_url='https://i.imgur.com/WK520CI.jpg')
     embed.set_author(name=bot.user.name, icon_url='https://i.imgur.com/WK520CI.jpg')
     await ctx.send(embed=embed)
-    del covidsite
+    del site
 
 
 @bot.command()
-async def weather(ctx):
-    weather_site = SiteParser.Weather('https://www.google.com/search?sxsrf=ALeKk020_rxsX-TG9fdlfzc9lHcOmOKpXQ'
-                                          '%3A1594454517301&ei=9XEJX9zyEbrnmwWMtpqAAw&q=%D0%BF%D0%BE%D0%B3%D0%BE%D0'
-                                          '%B4%D0%B0+%D0%BC%D0%BE%D1%81%D0%BA%D0%B2%D0%B0&oq=%D0%BF%D0%BE%D0%B3%D0%BE'
-                                          '%D0%B4%D0%B0+%D0%BC%D0%BB&gs_lcp'
-                                          '=CgZwc3ktYWIQARgAMgkIABAKEEYQgAIyBAgAEAoyBAgAEAoyBAgA'
-                                          'EAoyBAgAEAoyBAgAEAoyBAgAEAoyAggAMgQIABAKMgIIADoECCMQJzoICAAQsQMQgwE6BQgAE'
-                                          'LEDOgQIABBDOgcIABCxAxBDOgcIIxDqAhAnOg'
-                                          'oIABCxAxAUEIcCOgwIIxAnEJ0CEEYQgAJQiwpYhi'
-                                          '9glDdoAnAAeACAAdEEiAH1HJIBCTItNC41LjAuMpgBAKABAaoBB2d3cy13a'
-                                          'XqwAQo&sclient=psy-ab')
-    embed = discord.Embed(title=f'**Moscow weather.**', color=0x3f0)
-    embed.add_field(name='**Temperature**', value=weather_site.getC(), inline=False)
-    embed.add_field(name='**Chance of precipitation**', value=weather_site.getPrecipitation(), inline=False)
-    embed.add_field(name='**Interpreter**', value=weather_site.getInterpreter(), inline=False)
-    embed.add_field(name='**Speed of wind**', value=weather_site.getWindSpeed(), inline=False)
-    embed.set_thumbnail(url=weather_site.getWeatherImageUrl())
-    await ctx.send(embed=embed)
+async def tf2stats(ctx):
+    site = SiteParser.Tf2stats()
+
+    class Stats:
+        def __init__(self, font):
+            self.font = font
+            self.body = Image.open('media/stats.png')
+            self.draw = ImageDraw.Draw(self.body)
+
+        def build(self):
+            """with Image.open('media/tf2label.png') as f:
+                label = f.convert('RGB').resize((164, 164), Image.ANTIALIAS)
+                self.body.paste(label, (0, 0), label)"""
+            with Image.open('media/tf2label.png') as f:
+                f = f.resize((600, 137), Image.ANTIALIAS)
+                f.convert('RGB')
+                self.body.paste(f, (0, 50), f)
+
+            font = ImageFont.truetype(self.font, 80, encoding="unic")
+            self.draw.text((0, 200), f'Last hour ago: {site.getMinutesOnline()}', font=font)
+            self.draw.text((0, 305), f'24-hour peak: {site.getDayOnline()}', font=font)
+            self.draw.text((0, 400), f'All-time peak: {site.getAllTimeOnline()}', font=font)
+            self.body.save('stats.png')
+
+        @staticmethod
+        def cleanfiles():
+            os.remove('stats.png')
+
+    img = Stats('media/fonts/tf2build.ttf')
+    img.build()
+    await ctx.send(file=discord.File('stats.png'))
+    img.cleanfiles()
+    del img
+
 bot.run(config.Bot_info.token)

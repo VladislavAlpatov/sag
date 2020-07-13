@@ -109,25 +109,15 @@ class Covid:
         return self.__data.findAll('div', {'jsname': 'fUyIqc'})[39].text
 
 
-class Weather:
-    def __init__(self, url):
-        self.__data = BeautifulSoup(requests.get(url, headers=Bot_info.heads).text, 'html.parser')
+class Tf2stats:
+    __url = "https://steamcharts.com/app/440#All"
+    __data = BeautifulSoup(requests.get(__url, headers=Bot_info.heads).text, 'html.parser')
 
-    def getC(self):
-        return self.__data.find('span', {'class': 'wob_t',
-                                         'id': 'wob_tm',
-                                         'style': 'display:inline'}).text
+    def getMinutesOnline(self):
+        return self.__data.findAll('div', {'class': 'app-stat'})[0].text[1:-10]
 
-    def getWeatherImageUrl(self):
-        url = str(self.__data.findAll('img', {'style': 'float:left;height:64px;width:64px'})).split(' ')[4]
-        return 'https:' + url[5:-1]
+    def getDayOnline(self):
+        return self.__data.findAll('div', {'class': 'app-stat'})[1].text[1:-15]
 
-    def getWindSpeed(self):
-        return self.__data.find('span', {'class': 'wob_t',
-                                         'id': 'wob_ws'}).text
-
-    def getInterpreter(self):
-        return self.__data.find('span', {'id': 'wob_hm'}).text
-
-    def getPrecipitation(self):
-        return self.__data.find('span', {'id': 'wob_pp'}).text
+    def getAllTimeOnline(self):
+        return self.__data.findAll('div', {'class': 'app-stat'})[2].text[1:-16]
