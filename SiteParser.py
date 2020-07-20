@@ -110,6 +110,10 @@ class Covid:
 
 
 class Tf2stats:
+    """
+            Парсит статистику tf2 через сайт:
+            https://steamcharts.com/app/440#All
+            """
     __url = "https://steamcharts.com/app/440#All"
     __data = BeautifulSoup(requests.get(__url, headers=Bot_info.heads).text, 'html.parser')
 

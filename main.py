@@ -54,7 +54,7 @@ async def help_message(ctx):  # send help message
     embed.add_field(name='**/invite**', value='Send bot invitation.', inline=False)
     embed.add_field(name='**/nigga**', value='Make nigga meme.', inline=False)
     embed.add_field(name='**/qr**', value='Make qrcode.', inline=False)
-    embed.add_field(name='**/tf2stats**', value='Show TF2 online stats.', inline=False)
+    embed.add_field(name='**/online**', value='Show TF2 online stats.', inline=False)
     embed.add_field(name='**/cathook**', value='Send cathook github repo.', inline=False)
     embed.add_field(name='**/howgayami**', value='Show gayness percent.', inline=False)
     embed.add_field(name='**/why**', value='Another russian meme.', inline=False)
@@ -331,6 +331,7 @@ async def why(ctx):
 @bot.command(aliases=['ковид,коронавирус'])
 async def covid(ctx):
     site = SiteParser.Covid()
+
     embed = discord.Embed(title=f'**COVID-19 STATS**', description='Information about COVID-19.', color=0x3f0)
     embed.add_field(name='**Total infected**', value=site.getInfected(), inline=False)
     embed.add_field(name='**Total died**', value=site.getDeath(), inline=False)
@@ -338,18 +339,18 @@ async def covid(ctx):
     embed.set_footer(text=f'cat-bot',
                      icon_url='https://i.imgur.com/WK520CI.jpg')
     embed.set_author(name=bot.user.name, icon_url='https://i.imgur.com/WK520CI.jpg')
+
     await ctx.send(embed=embed)
-    del site
 
 
-@bot.command()
+@bot.command(aliases=['stats', 'tf2', 'online'])
 async def tf2stats(ctx):
-    site = SiteParser.Tf2stats()
 
-    class Stats:
-        def __init__(self, font,color):
+    class Stats(SiteParser.Tf2stats):
+
+        def __init__(self, font, color):
             self.font = font
-            self.color =color
+            self.color = color
             self.body = Image.open('media/stats.png')
             self.draw = ImageDraw.Draw(self.body)
 
@@ -363,19 +364,18 @@ async def tf2stats(ctx):
                 self.body.paste(f, (0, 50), f)
 
             font = ImageFont.truetype(self.font, 80, encoding="unic")
-            self.draw.text((0, 200), f'Last hour ago: {site.getMinutesOnline()}', font=font, fill=self.color)
-            self.draw.text((0, 305), f'24-hour peak: {site.getDayOnline()}', font=font, fill=self.color)
-            self.draw.text((0, 400), f'All-time peak: {site.getAllTimeOnline()}', font=font, fill=self.color)
+            self.draw.text((0, 200), f'Last hour: {self.getMinutesOnline()}', font=font, fill=self.color)
+            self.draw.text((0, 305), f'24-hour peak: {self.getDayOnline()}', font=font, fill=self.color)
+            self.draw.text((0, 400), f'All-time peak: {self.getAllTimeOnline()}', font=font, fill=self.color)
             self.body.save('stats.png')
 
         @staticmethod
         def cleanfiles():
             os.remove('stats.png')
 
-    img = Stats('media/fonts/tf2build.ttf', (90, 157, 192))
+    img = Stats('media/fonts/tf2build.ttf', (255, 255, 255))
     img.build()
     await ctx.send(file=discord.File('stats.png'))
     img.cleanfiles()
-    del img
 
 bot.run(config.Bot_info.token)
