@@ -47,7 +47,7 @@ async def help_message(ctx):  # send help message
     # заголовки
     embed.add_field(name='**/help**', value='Send this message.', inline=False)
     embed.add_field(name='**/cat**', value='Send random cat image.', inline=False)
-    # embed.add_field(name='**/feature**', value='Random cathook feature.', inline=False)
+    embed.add_field(name='**/feature**', value='Random cathook feature.', inline=False)
     embed.add_field(name='**/joke**', value='Send joke.', inline=False)
     embed.add_field(name='**/steam**', value='Check steam profile.', inline=False)
     embed.add_field(name='**/card**', value='Send your profile card.', inline=False)
