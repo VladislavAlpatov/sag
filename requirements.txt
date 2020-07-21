@@ -4,7 +4,6 @@ bs4
 aiohttp
 websockets
 chardet
-random2
 Pillow
 qrcode
 beautifulsoup4

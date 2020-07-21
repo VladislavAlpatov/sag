@@ -111,7 +111,7 @@ class Covid:
 
 class Tf2stats:
     """
-            Парсит статистику tf2 через сайт:
+            Get tf2 stats fro this site:
             https://steamcharts.com/app/440#All
             """
     __url = "https://steamcharts.com/app/440#All"

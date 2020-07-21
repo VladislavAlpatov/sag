@@ -119,12 +119,19 @@ async def steam(ctx, url_custom):
 @bot.command()
 async def card(ctx):
     class Card:
+        """
+        User card generator
+        Draw:nick,id,teg,avatar,server,creator checker
+        """
         def __init__(self, font, wallpaper):
             self.font = font  # шрифт
             self.author = ctx.message.author
             self.guild = ctx.message.guild.name
             self.body = Image.open(wallpaper)
             self.draw = ImageDraw.Draw(self.body)
+
+        def __del__(self):
+            print(f'{self} was deleted!')
 
         def addAvatar(self):
             avatar = str(ctx.author.avatar_url)
@@ -186,6 +193,8 @@ async def card(ctx):
     user.build('card.jpg')
     await ctx.send(file=discord.File('card.jpg'))
     user.cleanFiles()
+    print(str(user))
+    del user
 
 
 @bot.command()
@@ -296,12 +305,12 @@ async def think(ctx):
     image_on_paste = image_on_paste.resize((500, 400), Image.ANTIALIAS)
     image.paste(image_on_paste, (130, 13))
 
-    image.save('think.jpg')
+    image.save(f'{str(ctx.author.id)}.png')
 
     await ctx.message.delete()
-    await ctx.send(file=discord.File('think.jpg'))
+    await ctx.send(file=discord.File(f'{str(ctx.author.id)}.png'))
 
-    os.remove('think.jpg')
+    os.remove(f'{str(ctx.author.id)}.png')
     os.remove('image.jpg')
 
 
@@ -319,12 +328,12 @@ async def why(ctx):
     image_on_paste = image_on_paste.resize((614, 336), Image.ANTIALIAS)
     image.paste(image_on_paste, (72, 42))
 
-    image.save('think.jpg')
+    image.save(f'{str(ctx.author.id)}.png')
 
     await ctx.message.delete()
-    await ctx.send(file=discord.File('think.jpg'))
+    await ctx.send(file=discord.File(f'{str(ctx.author.id)}.png'))
 
-    os.remove('think.jpg')
+    os.remove(f'{str(ctx.author.id)}.png')
     os.remove('image.jpg')
 
 
@@ -345,7 +354,6 @@ async def covid(ctx):
 
 @bot.command(aliases=['stats', 'tf2', 'online'])
 async def tf2stats(ctx):
-
     class Stats(SiteParser.Tf2stats):
 
         def __init__(self, font, color):
@@ -367,15 +375,16 @@ async def tf2stats(ctx):
             self.draw.text((0, 200), f'Last hour: {self.getMinutesOnline()}', font=font, fill=self.color)
             self.draw.text((0, 305), f'24-hour peak: {self.getDayOnline()}', font=font, fill=self.color)
             self.draw.text((0, 400), f'All-time peak: {self.getAllTimeOnline()}', font=font, fill=self.color)
-            self.body.save('stats.png')
+            self.body.save(f'{str(ctx.author.id)}.png')
 
         @staticmethod
         def cleanfiles():
-            os.remove('stats.png')
+            os.remove(f'{str(ctx.author.id)}.png')
 
     img = Stats('media/fonts/tf2build.ttf', (255, 255, 255))
     img.build()
-    await ctx.send(file=discord.File('stats.png'))
+    await ctx.send(file=discord.File(f'{str(ctx.author.id)}.png'))
     img.cleanfiles()
+
 
 bot.run(config.Bot_info.token)
