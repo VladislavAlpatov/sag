@@ -117,7 +117,7 @@ async def steam(ctx, url_custom):
 
 
 @bot.command()
-async def lobby(ctx, label):
+async def lobby(ctx, *, label):
     # создаём класс и наследуем класс Embed
     class MyEmbed(discord.Embed):
         """
@@ -128,20 +128,20 @@ async def lobby(ctx, label):
 
             self.title = label
             # получаем канал и создаём пустую строку для ников
-            self.__voice = ctx.guild.get_channel(channel_id)
+            self._voice = ctx.guild.get_channel(channel_id)
             self.__string = ''
             # записываем ники в строку
-            if len(self.__voice.members) == 0:
+            if len(self._voice.members) == 0:
                 self.__string = 'Waiting for players...'
             else:
                 counter = 0
-                for member in self.__voice.members:
+                for member in self._voice.members:
                     counter += 1
                     self.__string += f'[{counter}] {member}\n'
 
-            self.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+            self.set_author(name=f"{ctx.author.name}'s lobby", icon_url=ctx.author.avatar_url)
             self.add_field(name=f'**MEMBERS**', value=f'**{self.__string}**', inline=False)
-            self.set_footer(text=f'Channel: **{self.__voice.name}**.')
+            self.set_footer(text=f'Channel: {self._voice.name}.')
 
     msg = await ctx.send(embed=MyEmbed(channel_id=735934429985374318, color=0x07f))
     # время до которого ембиенд отслеживает пользователей в войс чате
@@ -324,7 +324,7 @@ async def howgayami(ctx):
 @bot.command()
 async def howfurryami(ctx):
     if ctx.message.author.id == 566653752451399700:
-        await ctx.send(content=f'{ctx.message.author} is **100** furry!')
+        await ctx.send(content=f'{ctx.message.author} is **100%** furry!')
     else:
         await ctx.send(content=f'{ctx.message.author} is **{str(random.randint(0, 100))}%** furry!')
 
