@@ -117,6 +117,44 @@ async def steam(ctx, url_custom):
 
 
 @bot.command()
+async def lobby(ctx, label):
+    # создаём класс и наследуем класс Embed
+    class MyEmbed(discord.Embed):
+        """
+        Шаблон эмбиента для сообщения
+        """
+        def __init__(self, channel_id: int, **kwargs):
+            super().__init__(**kwargs)
+
+            self.title = label
+            # получаем канал и создаём пустую строку для ников
+            self.__voice = ctx.guild.get_channel(channel_id)
+            self.__string = ''
+            # записываем ники в строку
+            if len(self.__voice.members) == 0:
+                self.__string = 'Waiting for players...'
+            else:
+                counter = 0
+                for member in self.__voice.members:
+                    counter += 1
+                    self.__string += f'[{counter}] {member}\n'
+
+            self.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+            self.add_field(name=f'**MEMBERS**', value=f'**{self.__string}**', inline=False)
+            self.set_footer(text=f'Channel: **{self.__voice.name}**.')
+
+    msg = await ctx.send(embed=MyEmbed(channel_id=735934429985374318, color=0x07f))
+    # время до которого ембиенд отслеживает пользователей в войс чате
+    time_to_end = datetime.datetime.now().minute + 3
+    # цикл проверки
+    while time_to_end != datetime.datetime.now().minute:
+
+        await msg.edit(embed=MyEmbed(channel_id=735934429985374318, color=0x07f))
+        await asyncio.sleep(1)
+    await msg.delete()
+
+
+@bot.command()
 async def card(ctx):
     class Card:
         """
