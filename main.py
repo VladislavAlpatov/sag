@@ -14,7 +14,6 @@ import config
 
 bot = commands.Bot(command_prefix='c!')  # префикс для комманд
 bot.remove_command('help')
-print(bot.command_prefix)
 
 
 @bot.event
@@ -85,7 +84,7 @@ async def feature(ctx):
 
 @bot.command()
 async def cathook(ctx):
-    await ctx.send(config.Cathook.download)
+    await ctx.send("https://github.com/nullworks/cathook'")
 
 
 @bot.command()
@@ -176,7 +175,7 @@ async def card(ctx):
         def __del__(self):
             print(f'{self} was deleted!')
 
-        def addAvatar(self):
+        def addavatar(self):
             avatar = str(ctx.author.avatar_url)
             img = requests.get(avatar, headers=config.Bot_info.heads)
 
@@ -395,4 +394,4 @@ async def tf2stats(ctx):
     img.cleanfiles()
 
 
-bot.run(config.Bot_info.token, bot=False)
+bot.run(config.Bot_info.token)
