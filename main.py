@@ -11,10 +11,24 @@ from bs4 import BeautifulSoup
 from discord.ext import commands
 import asyncio
 import config
+import markovify
+import googletrans
 
-bot = commands.Bot(command_prefix='c!')  # префикс для комманд
+def sentense(file: str):
+    with open(file, 'r') as f:
+        text = f.read()
+
+    out = None
+    text_model = markovify.Text(text
+                                )
+    while out is None:
+        out = text_model.make_sentence()
+    return out
+
+
+print(sentense("text-models/features-model.txt"))
+bot = commands.Bot(command_prefix='cat_')  # префикс для комманд
 bot.remove_command('help')
-
 
 @bot.event
 async def on_ready():
@@ -38,6 +52,12 @@ async def on_member_join(member):
         pass
 
     await member.send(f'Welcome to {member.guild}!')
+
+
+@bot.command()
+async def killsay(ctx):
+    text = googletrans.Translator().translate(text=sentense("text-models/features-model.txt"), dest='ru')
+    await ctx.send(text.text)
 
 
 @bot.command(aliases=['help'])
