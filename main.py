@@ -12,7 +12,7 @@ from discord.ext import commands
 import asyncio
 import config
 import markovify
-import googletrans
+
 
 def sentense(file: str):
     with open(file, 'r') as f:
@@ -26,9 +26,9 @@ def sentense(file: str):
     return out
 
 
-print(sentense("text-models/features-model.txt"))
-bot = commands.Bot(command_prefix='cat_')  # префикс для комманд
+bot = commands.Bot(command_prefix='cat_', intents=discord.Intents.all())  # префикс для комманд
 bot.remove_command('help')
+
 
 @bot.event
 async def on_ready():
@@ -45,19 +45,9 @@ async def on_message(message):
 @bot.event
 async def on_member_join(member):
     # выдача ролец для своего сервер (Hacker space)
-    if member.guild.id == 665856387439656972:
-        role = member.guild.get_role(665877780864565249)
-        await member.add_roles(role)
-    else:
-        pass
-
-    await member.send(f'Welcome to {member.guild}!')
-
-
-@bot.command()
-async def killsay(ctx):
-    text = googletrans.Translator().translate(text=sentense("text-models/features-model.txt"), dest='ru')
-    await ctx.send(text.text)
+    print(member)
+    role = member.guild.get_role(353602980874027010)
+    await member.add_roles(role)
 
 
 @bot.command(aliases=['help'])
@@ -414,4 +404,4 @@ async def tf2stats(ctx):
     img.cleanfiles()
 
 
-bot.run(config.Bot_info.token)
+bot.run('NzgxODQwNTYzNTgxNjE2MTI4.X8DfxA.x_1EPv5ZG-goW24ZvHGDga_rGK4')
