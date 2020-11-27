@@ -8,3 +8,4 @@ Pillow
 qrcode
 beautifulsoup4
 markovify
+googletrans
