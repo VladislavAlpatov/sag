@@ -4,9 +4,13 @@ from config import Bot_info
 
 
 class Steam:
-    def __init__(self, url):
+    def __init__(self, url: str):
         self.__data = BeautifulSoup(requests.get(str(url)).text, 'html.parser')
-        self.url = str(url)
+
+        if url[-1] != '/':
+            self.url = url + '/'
+        else:
+            self.url = url
 
     def __str__(self):
         return 'Steam profile parser by NullifiedVlad'
@@ -70,6 +74,7 @@ class Steam:
 
             del friend_block
             return int(friends.text)
+
         except Exception:
             return str('Not stated')
 
@@ -86,27 +91,12 @@ class CtfBans:
         self.__data = BeautifulSoup(requests.get(url, headers=Bot_info.heads).text, 'html.parser')
         self.__lines = self.__data.findAll('td', {'height': '16',
                                                   'class': 'listtable_1'})
-        self.name = self.__lines[4].text.replace('\n', '')
+        self.name = self.__lines[4].text.replace('\n', '')[84:-76]
         self.steam_id = self.__lines[6].text[1:-1]
         self.date = self.__lines[12].text
         self.steam_ulr = 'https://steamcommunity.com/profiles/' + self.__lines[10].text.replace('\n', '')
         self.length = self.__lines[14].text[:-1]
         self.reason = self.__lines[18].text
-
-
-class Covid:
-    __url = 'https://www.google.com/search?q=covid+19+statistics&oq=covid+19+s&aqs=chrome.1.69i57j0l7.6379j0j15' \
-            '&sourceid=chrome&ie=UTF-8 '
-    __data = BeautifulSoup(requests.get(__url, headers=Bot_info.heads).text, 'html.parser')
-
-    def getInfected(self):
-        return self.__data.findAll('div', {'jsname': 'fUyIqc'})[37].text
-
-    def getDeath(self):
-        return self.__data.findAll('div', {'jsname': 'fUyIqc'})[40].text
-
-    def getHealed(self):
-        return self.__data.findAll('div', {'jsname': 'fUyIqc'})[39].text
 
 
 class Tf2stats:

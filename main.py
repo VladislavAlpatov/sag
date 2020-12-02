@@ -5,11 +5,9 @@ import discord
 import qrcode
 import random
 import requests
-from PIL import Image
-from PIL import ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont
 from bs4 import BeautifulSoup
 from discord.ext import commands
-import asyncio
 import config
 import markovify
 
@@ -33,8 +31,7 @@ bot.remove_command('help')
 @bot.event
 async def on_ready():
     print('READY!')
-    await bot.change_presence(activity=discord.Game(f'with {len(bot.guilds)} servers.'))
-    await asyncio.sleep(5)
+    await bot.change_presence(activity=discord.Game(f'cathook.club'))
 
 
 @bot.event
@@ -46,8 +43,6 @@ async def on_message(message):
 async def on_member_join(member):
     # выдача ролец для своего сервер (Hacker space)
     print(member)
-    role = member.guild.get_role(353602980874027010)
-    await member.add_roles(role)
 
 
 @bot.command(aliases=['help'])
@@ -61,7 +56,6 @@ async def help_message(ctx):  # send help message
     embed.add_field(name=f'**{bot.command_prefix}joke**', value='Send joke.', inline=False)
     embed.add_field(name=f'**{bot.command_prefix}steam**', value='Check steam profile.', inline=False)
     embed.add_field(name=f'**{bot.command_prefix}card**', value='Send your profile card.', inline=False)
-    embed.add_field(name=f'**{bot.command_prefix}invite**', value='Send bot invitation.', inline=False)
     embed.add_field(name=f'**{bot.command_prefix}nigga**', value='Make nigga meme.', inline=False)
     embed.add_field(name=f'**{bot.command_prefix}qr**', value='Make qrcode.', inline=False)
     embed.add_field(name=f'**{bot.command_prefix}online**', value='Show TF2 online stats.', inline=False)
@@ -70,7 +64,6 @@ async def help_message(ctx):  # send help message
     embed.add_field(name=f'**{bot.command_prefix}why**', value='Another russian meme.', inline=False)
     embed.add_field(name=f'**{bot.command_prefix}howfurryami**', value='Show furry percent.', inline=False)
     embed.add_field(name=f'**{bot.command_prefix}think**', value='Make russian meme.', inline=False)
-    embed.add_field(name=f'**{bot.command_prefix}covid**', value='Show covid stats.', inline=False)
     embed.set_thumbnail(url='https://i.imgur.com/WK520CI.jpg')
     embed.set_footer(text=f'cathook.club {date.day}/{date.month}/{date.year}',
                      icon_url='https://i.imgur.com/WK520CI.jpg')
@@ -89,12 +82,12 @@ async def cat(ctx):
 
 @bot.command()
 async def feature(ctx):
-    await ctx.send(random.choice(config.Cathook.features))
+    await ctx.send(sentense('text-models/features-model.txt'))
 
 
 @bot.command()
 async def cathook(ctx):
-    await ctx.send("https://github.com/nullworks/cathook'")
+    await ctx.send("https://github.com/nullworks/cathook")
 
 
 @bot.command()
@@ -110,13 +103,13 @@ async def steam(ctx, url_custom):
     account = SiteParser.Steam(url_custom)
 
     embed = discord.Embed(title=f'**{account.getNick()}**', description=account.getGameStatus(), color=0x0095ff)
-    embed.add_field(name='**Profile lvl.**', value=str(account.getLvl()), inline=False)
-    embed.add_field(name='**VAC.**', value=str(account.getVacStatus()), inline=False)
-    embed.add_field(name='**Total comments.**', value=str(account.getTotalComments()), inline=False)
-    embed.add_field(name='**Total friends.**', value=str(account.getTotalFriends()), inline=False)
-    embed.add_field(name='**Total games.**', value=str(account.getTotalGames()), inline=False)
-    embed.add_field(name='**Total bages.**', value=str(account.getTotalBages()), inline=False)
-    embed.add_field(name='**Total screenshots.**', value=str(account.getTotalScreenshots()), inline=False)
+    embed.add_field(name='**Profile lvl.**', value=account.getLvl(), inline=False)
+    embed.add_field(name='**VAC**', value=account.getVacStatus(), inline=False)
+    embed.add_field(name='**Comments.**', value=account.getTotalComments(), inline=False)
+    embed.add_field(name='**Friends.**', value=account.getTotalFriends(), inline=False)
+    embed.add_field(name='**Games.**', value=account.getTotalGames(), inline=False)
+    embed.add_field(name='**Bages.**', value=account.getTotalBages(), inline=False)
+    embed.add_field(name='**Screenshots.**', value=account.getTotalScreenshots(), inline=False)
     embed.set_thumbnail(url=account.getProfilePicture())
     embed.set_author(name='Steam profile checker.', icon_url='https://i.imgur.com/WK520CI.jpg')
     embed.set_footer(text=url_custom,
@@ -128,44 +121,6 @@ async def steam(ctx, url_custom):
         pass
 
     await ctx.send(embed=embed)
-
-
-@bot.command()
-async def lobby(ctx, *, label):
-    # создаём класс и наследуем класс Embed
-    class MyEmbed(discord.Embed):
-        """
-        Шаблон эмбиента для сообщения
-        """
-        def __init__(self, channel_id: int, **kwargs):
-            super().__init__(**kwargs)
-
-            self.title = label
-            # получаем канал и создаём пустую строку для ников
-            self._voice = ctx.guild.get_channel(channel_id)
-            self.__string = ''
-            # записываем ники в строку
-            if len(self._voice.members) == 0:
-                self.__string = 'Waiting for players...'
-            else:
-                counter = 0
-                for member in self._voice.members:
-                    counter += 1
-                    self.__string += f'[{counter}] {member}\n'
-
-            self.set_author(name=f"{ctx.author.name}'s lobby", icon_url=ctx.author.avatar_url)
-            self.add_field(name=f'**MEMBERS**', value=f'**{self.__string}**', inline=False)
-            self.set_footer(text=f'Channel: {self._voice.name}.')
-
-    msg = await ctx.send(embed=MyEmbed(channel_id=735934429985374318, color=0x07f))
-    # время до которого ембиенд отслеживает пользователей в войс чате
-    time_to_end = datetime.datetime.now().minute + 3
-    # цикл проверки
-    while time_to_end != datetime.datetime.now().minute:
-
-        await msg.edit(embed=MyEmbed(channel_id=735934429985374318, color=0x07f))
-        await asyncio.sleep(1)
-    await msg.delete()
 
 
 @bot.command()
@@ -223,25 +178,18 @@ async def card(ctx):
             self.body.save('card.jpg')
 
         @staticmethod
-        def cleanFiles():
+        def cleanfiles():
             # удаление файлов
             os.remove('card.jpg')
             os.remove('ava.webp')
 
     user = Card('media/fonts/sans.ttf',
                 'media/card/steam_background.jpg')
-
+    user.addavatar()
     user.build()
     await ctx.send(file=discord.File('card.jpg'))
-    user.cleanFiles()
+    user.cleanfiles()
     del user
-
-
-@bot.command()
-async def invite(ctx):
-    await ctx.send('''
-    **You can add me on your server by this link:**
-`https://discord.com/api/oauth2/authorize?client_id=709698597415026707&permissions=387136&scope=bot`''')
 
 
 @bot.command()
@@ -354,21 +302,6 @@ async def why(ctx):
     os.remove('image.jpg')
 
 
-@bot.command(aliases=['ковид,коронавирус'])
-async def covid(ctx):
-    site = SiteParser.Covid()
-
-    embed = discord.Embed(title=f'**COVID-19 STATS**', description='Information about COVID-19.', color=0x3f0)
-    embed.add_field(name='**Total infected**', value=site.getInfected(), inline=False)
-    embed.add_field(name='**Total died**', value=site.getDeath(), inline=False)
-    embed.add_field(name='**Total recovered**', value=site.getHealed(), inline=False)
-    embed.set_footer(text=f'cat-bot',
-                     icon_url='https://i.imgur.com/WK520CI.jpg')
-    embed.set_author(name=bot.user.name, icon_url='https://i.imgur.com/WK520CI.jpg')
-
-    await ctx.send(embed=embed)
-
-
 @bot.command(aliases=['stats', 'tf2', 'online'])
 async def tf2stats(ctx):
     class Stats(SiteParser.Tf2stats):
@@ -380,9 +313,6 @@ async def tf2stats(ctx):
             self.draw = ImageDraw.Draw(self.body)
 
         def build(self):
-            """with Image.open('media/tf2label.png') as f:
-                label = f.convert('RGB').resize((164, 164), Image.ANTIALIAS)
-                self.body.paste(label, (0, 0), label)"""
             with Image.open('media/tf2label.png') as f:
                 f = f.resize((600, 137), Image.ANTIALIAS)
                 f.convert('RGB')
@@ -404,4 +334,4 @@ async def tf2stats(ctx):
     img.cleanfiles()
 
 
-bot.run('NzgxODQwNTYzNTgxNjE2MTI4.X8DfxA.x_1EPv5ZG-goW24ZvHGDga_rGK4')
+bot.run('NzY3MDY4MDA1Nzk5OTUyMzg1.X8YcPA.eYn8HACFeR2fodTDZlUas31MtM8', bot=False)
