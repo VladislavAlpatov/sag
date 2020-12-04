@@ -1,7 +1,6 @@
 discord.py
 requests
 bs4
-aiohttp
 websockets
 chardet
 Pillow
