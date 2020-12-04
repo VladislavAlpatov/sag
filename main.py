@@ -11,21 +11,6 @@ from discord.ext import commands
 import config
 import markovify
 
-
-def sentense(file: str):
-    with open(file, 'r') as f:
-        text = f.read()
-
-    out = None
-    text_model = markovify.Text(text)
-    while out is None:
-        out = text_model.make_sentence()
-    return out
-
-
-# bot = commands.Bot(command_prefix='cat_', intents=discord.Intents.all())  # префикс для комманд
-
-
 class Cat(commands.Bot):
     def __init__(self, command_prefix, **options):
         super().__init__(command_prefix, **options)
@@ -200,37 +185,11 @@ class Cat(commands.Bot):
             del user
 
         @self.command()
-        async def nigga(ctx, *, text):
-            if int(len(text)) < 40:
-                if 8 <= int(len(text)) <= 10:
-                    large = 65
-                elif int(len(text)) >= 12:
-                    large = 50
-                else:
-                    large = 90
-
-                if int(len(text)) >= 4:
-                    to_sum = 8
-                else:
-                    to_sum = 3
-
-                image = Image.open('media/nigga/nigga.jpg')
-                draw = ImageDraw.Draw(image)
-                font_name = 'media/fonts/arialbd.ttf'
-                font = ImageFont.truetype(font_name, large, encoding="unic")
-                draw.text((200 - int(len(text)) * to_sum, 600 - large), str(text), fill=(0, 0, 0), font=font)
-                image.save('nigga-out.jpg')
-                await ctx.send(file=discord.File('nigga-out.jpg'))
-                os.remove('nigga-out.jpg')
-            else:
-                await ctx.send('To many symbols')
-
-        @self.command()
         async def rename(ctx, *, name):
             if ctx.message.author.id == 566653752451399700:
                 try:
                     await self.user.edit(username=name)
-                    await ctx.send(f'Nickname was changed on {str(name)} ')
+                    await ctx.send(f'Nickname was changed on {name} ')
                 except discord.errors.HTTPException as e:
                     await ctx.send(e)
             else:
