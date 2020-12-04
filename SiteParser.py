@@ -1,11 +1,10 @@
 from bs4 import BeautifulSoup
 import requests
-from config import Bot_info
 
 
 class Steam:
     def __init__(self, url: str):
-        self.__data = BeautifulSoup(requests.get(str(url)).text, 'html.parser')
+        self.__data = BeautifulSoup(requests.get(url).text, 'html.parser')
 
         if url[-1] != '/':
             self.url = url + '/'
@@ -26,9 +25,9 @@ class Steam:
 
     def getVacStatus(self):
         if bool(self.__data.find('div', {'class': 'profile_ban'})):
-            return str(self.__data.find('div', {'class': 'profile_ban'}).text[:-7])
+            return self.__data.find('div', {'class': 'profile_ban'}).text[:-7]
         else:
-            return str('No VAC on record.')
+            return 'No VAC on record.'
 
     def getProfilePicture(self):
         image = self.__data.find('div', {'class': 'playerAvatarAutoSizeInner'})
@@ -58,14 +57,14 @@ class Steam:
             return comments_block.find('span').text
 
         except Exception:
-            return str('Not stated')
+            return 'Not stated'
 
     def getTotalScreenshots(self):
         try:
             screenshot_block = self.__data.find('a', {'href': f'{self.url}screenshots/'})
             return int(screenshot_block.find('span', {'class': 'profile_count_link_total'}).text)
         except Exception:
-            return str('Not stated')
+            return 'Not stated'
 
     def getTotalFriends(self):
         try:
@@ -76,36 +75,26 @@ class Steam:
             return int(friends.text)
 
         except Exception:
-            return str('Not stated')
+            return 'Not stated'
 
     def getTotalBages(self):
         try:
             bages_block = self.__data.find('a', {'href': f'{self.url}badges/'})
             return bages_block.find('span', {'class': 'profile_count_link_total'}).text
         except Exception:
-            return str('Not stated')
-
-
-class CtfBans:
-    def __init__(self, url):
-        self.__data = BeautifulSoup(requests.get(url, headers=Bot_info.heads).text, 'html.parser')
-        self.__lines = self.__data.findAll('td', {'height': '16',
-                                                  'class': 'listtable_1'})
-        self.name = self.__lines[4].text.replace('\n', '')[84:-76]
-        self.steam_id = self.__lines[6].text[1:-1]
-        self.date = self.__lines[12].text
-        self.steam_ulr = 'https://steamcommunity.com/profiles/' + self.__lines[10].text.replace('\n', '')
-        self.length = self.__lines[14].text[:-1]
-        self.reason = self.__lines[18].text
+            return 'Not stated'
 
 
 class Tf2stats:
     """
-            Get tf2 stats fro this site:
-            https://steamcharts.com/app/440#All
-            """
-    __url = "https://steamcharts.com/app/440#All"
-    __data = BeautifulSoup(requests.get(__url, headers=Bot_info.heads).text, 'html.parser')
+    Get tf2 stats fro this site:
+    https://steamcharts.com/app/440#All"""
+
+    def __init__(self):
+        self.headers = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:75.0) Gecko/20100101 Firefox/75.0'}
+        self.__data = BeautifulSoup(requests.get("https://steamcharts.com/app/440#All",
+                                                 headers=self.headers).text,
+                                    'html.parser')
 
     def getMinutesOnline(self):
         return self.__data.findAll('div', {'class': 'app-stat'})[0].text[1:-10]

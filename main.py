@@ -8,13 +8,14 @@ import requests
 from PIL import Image, ImageDraw, ImageFont
 from bs4 import BeautifulSoup
 from discord.ext import commands
-import config
 import markovify
 
+
 class Cat(commands.Bot):
-    def __init__(self, command_prefix, **options):
+    def __init__(self, command_prefix, token: str, **options):
         super().__init__(command_prefix, **options)
         self.remove_command('help')
+        self.__token = token
 
     @staticmethod
     def __sentence(file: str):
@@ -264,8 +265,8 @@ class Cat(commands.Bot):
         @self.command(aliases=['stats', 'tf2', 'online'])
         async def tf2stats(ctx):
             class Stats(SiteParser.Tf2stats):
-
                 def __init__(self, font, color):
+                    super().__init__()
                     self.font = font
                     self.color = color
                     self.body = Image.open('media/stats.png')
@@ -292,4 +293,8 @@ class Cat(commands.Bot):
             await ctx.send(file=discord.File(f'{str(ctx.author.id)}.png'))
             img.cleanfiles()
 
-        self.run('NzY3MDY4MDA1Nzk5OTUyMzg1.X8YcPA.eYn8HACFeR2fodTDZlUas31MtM8', bot=False)
+        self.run(self.__token, bot=False)
+
+
+if __name__ == '__main__':
+    Cat('cat_', 'NzY3MDY4MDA1Nzk5OTUyMzg1.X8YcPA.eYn8HACFeR2fodTDZlUas31MtM8').start_bot()
