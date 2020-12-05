@@ -78,7 +78,7 @@ class Cat(commands.Bot):
 
         @self.command()
         async def feature(ctx):
-            if ctx.message.guild.id != 782371338961682444:
+            if ctx.message.guild.id != 782371338961682444 or ctx.message.guild is None:
                 await ctx.send(self.__sentence('text-models/features-model.txt'))
             else:
                 pass
