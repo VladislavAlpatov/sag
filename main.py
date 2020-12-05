@@ -55,7 +55,6 @@ class Cat(commands.Bot):
             embed.add_field(name=f'**{self.command_prefix}joke**', value='Send joke.', inline=False)
             embed.add_field(name=f'**{self.command_prefix}steam**', value='Check steam profile.', inline=False)
             embed.add_field(name=f'**{self.command_prefix}card**', value='Send your profile card.', inline=False)
-            embed.add_field(name=f'**{self.command_prefix}nigga**', value='Make nigga meme.', inline=False)
             embed.add_field(name=f'**{self.command_prefix}qr**', value='Make qrcode.', inline=False)
             embed.add_field(name=f'**{self.command_prefix}online**', value='Show TF2 online stats.', inline=False)
             embed.add_field(name=f'**{self.command_prefix}cathook**', value='Send cathook github repo.', inline=False)
