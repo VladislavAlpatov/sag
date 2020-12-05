@@ -26,11 +26,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a3170bfd-db58-4973-9a82-447044cdba48" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sag.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sag.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SiteParser.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/SiteParser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Procfile" beforeDir="false" afterPath="$PROJECT_DIR$/Procfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,7 +137,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607093846649</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="code refactoring">
+      <created>1607198807314</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1607198807314</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -211,9 +214,10 @@
       <screen x="0" y="36" width="1366" height="732" />
     </state>
     <state x="179" y="38" key="SettingsEditor/0.36.1366.732@0.36.1366.732" timestamp="1607198698058" />
-    <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1607092441541">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="275" y="134" width="804" height="528" key="Vcs.Push.Dialog.v2" timestamp="1607198821144">
+      <screen x="0" y="36" width="1366" height="732" />
     </state>
     <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1607092441541" />
+    <state x="275" y="134" width="804" height="528" key="Vcs.Push.Dialog.v2/0.36.1366.732@0.36.1366.732" timestamp="1607198821144" />
   </component>
 </project>
