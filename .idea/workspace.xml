@@ -26,9 +26,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a3170bfd-db58-4973-9a82-447044cdba48" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sag.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sag.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SiteParser.py" beforeDir="false" afterPath="$PROJECT_DIR$/SiteParser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SiteParser.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/SiteParser.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -54,6 +55,12 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/module" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -168,7 +175,8 @@
     <MESSAGE value="создана папка src" />
     <MESSAGE value="удаление файлов из общей директории" />
     <MESSAGE value="удаление src" />
-    <option name="LAST_COMMIT_MESSAGE" value="удаление src" />
+    <MESSAGE value="code refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="code refactoring" />
   </component>
   <component name="WindowStateProjectService">
     <state x="137" y="19" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1607094480748">
@@ -179,22 +187,30 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1607093628436" />
-    <state width="1345" height="196" key="GridCell.Tab.0.bottom" timestamp="1607093037688">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1343" height="172" key="GridCell.Tab.0.bottom" timestamp="1607198728024">
+      <screen x="0" y="36" width="1366" height="732" />
     </state>
     <state width="1345" height="196" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1607093037688" />
-    <state width="1345" height="196" key="GridCell.Tab.0.center" timestamp="1607093037688">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1343" height="172" key="GridCell.Tab.0.bottom/0.36.1366.732@0.36.1366.732" timestamp="1607198728024" />
+    <state width="1343" height="172" key="GridCell.Tab.0.center" timestamp="1607198728022">
+      <screen x="0" y="36" width="1366" height="732" />
     </state>
     <state width="1345" height="196" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1607093037688" />
-    <state width="1345" height="196" key="GridCell.Tab.0.left" timestamp="1607093037688">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1343" height="172" key="GridCell.Tab.0.center/0.36.1366.732@0.36.1366.732" timestamp="1607198728022" />
+    <state width="1343" height="172" key="GridCell.Tab.0.left" timestamp="1607198728005">
+      <screen x="0" y="36" width="1366" height="732" />
     </state>
     <state width="1345" height="196" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1607093037688" />
-    <state width="1345" height="196" key="GridCell.Tab.0.right" timestamp="1607093037688">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1343" height="172" key="GridCell.Tab.0.left/0.36.1366.732@0.36.1366.732" timestamp="1607198728005" />
+    <state width="1343" height="172" key="GridCell.Tab.0.right" timestamp="1607198728023">
+      <screen x="0" y="36" width="1366" height="732" />
     </state>
     <state width="1345" height="196" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1607093037688" />
+    <state width="1343" height="172" key="GridCell.Tab.0.right/0.36.1366.732@0.36.1366.732" timestamp="1607198728023" />
+    <state x="179" y="38" key="SettingsEditor" timestamp="1607198698058">
+      <screen x="0" y="36" width="1366" height="732" />
+    </state>
+    <state x="179" y="38" key="SettingsEditor/0.36.1366.732@0.36.1366.732" timestamp="1607198698058" />
     <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1607092441541">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
