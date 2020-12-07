@@ -214,6 +214,8 @@ class Cat(commands.Bot):
         async def howfurryami(ctx):
             if ctx.message.author.id == 566653752451399700:
                 await ctx.send(content=f'{ctx.message.author} is **100%** furry!')
+            elif ctx.message.author.id == 782347202437709866:
+                await ctx.send(content=f'{ctx.message.author} is **0%** furry!')
             else:
                 await ctx.send(content=f'{ctx.message.author} is **{random.randint(0, 100)}%** furry!')
 
