@@ -82,10 +82,7 @@ class Cat(commands.Bot):
 
         @self.command()
         async def cathook(ctx):
-            if ctx.message.guild.id != 782371338961682444:
-                await ctx.send("https://github.com/nullworks/cathook")
-            else:
-                pass
+            await ctx.send("https://github.com/nullworks/cathook")
 
         @self.command()
         async def joke(ctx):
@@ -112,7 +109,7 @@ class Cat(commands.Bot):
             embed.set_author(name='Steam profile checker.', icon_url='https://i.imgur.com/WK520CI.jpg')
             embed.set_footer(text=url_custom,
                              icon_url='https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Steam_icon_logo.svg'
-                                      '/512px '
+                                      '/512px'
                                       '-Steam_icon_logo.svg.png')
             try:
                 await ctx.message.delete()

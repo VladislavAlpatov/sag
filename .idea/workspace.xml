@@ -26,6 +26,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a3170bfd-db58-4973-9a82-447044cdba48" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -172,7 +173,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607199625885</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="cat_feature разблокирова">
+      <created>1607362233078</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1607362233078</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -211,7 +219,8 @@
     <MESSAGE value="oops forgot remove command" />
     <MESSAGE value="tos bypass" />
     <MESSAGE value="feature command dm fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="feature command dm fix" />
+    <MESSAGE value="cat_feature разблокирова" />
+    <option name="LAST_COMMIT_MESSAGE" value="cat_feature разблокирова" />
   </component>
   <component name="WindowStateProjectService">
     <state x="137" y="19" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1607094480748">
@@ -251,5 +260,9 @@
     </state>
     <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1607092441541" />
     <state x="275" y="134" width="804" height="528" key="Vcs.Push.Dialog.v2/0.36.1366.732@0.36.1366.732" timestamp="1607199311974" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1607362219079">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1607362219079" />
   </component>
 </project>
