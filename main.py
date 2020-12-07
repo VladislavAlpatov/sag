@@ -48,7 +48,7 @@ class Cat(commands.Bot):
         async def help_message(ctx):  # send help message
             date = datetime.datetime.now()
             embed = discord.Embed(title='**FEATURES**', description='Discord cathook self.', color=0x0095ff, )
-            # заголовки
+            # headers
             embed.add_field(name=f'**{self.command_prefix}help**', value='Send this message.', inline=False)
             embed.add_field(name=f'**{self.command_prefix}cat**', value='Send random cat image.', inline=False)
             embed.add_field(name=f'**{self.command_prefix}feature**', value='Random cathook feature.', inline=False)
@@ -173,12 +173,11 @@ class Cat(commands.Bot):
 
                 @staticmethod
                 def cleanfiles():
-                    # удаление файлов
+                    # clean up
                     os.remove('card.jpg')
                     os.remove('ava.webp')
 
-            user = Card('media/fonts/sans.ttf',
-                        'media/card/steam_background.jpg')
+            user = Card('media/fonts/sans.ttf', 'media/card/steam_background.jpg')
             user.addavatar()
             user.build()
             await ctx.send(file=discord.File('card.jpg'))
@@ -253,4 +252,4 @@ class Cat(commands.Bot):
 
 
 if __name__ == '__main__':
-    Cat('cat_', 'NzY3MDY4MDA1Nzk5OTUyMzg1.X8YcPA.eYn8HACFeR2fodTDZlUas31MtM8', False).start_bot()
+    Cat('cat_', os.environ.get('TOKEN'), False).start_bot()

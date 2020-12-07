@@ -3,6 +3,7 @@ import requests
 
 
 class Steam:
+    """parse steam profile info"""
     def __init__(self, url: str):
         self.__data = BeautifulSoup(requests.get(url).text, 'html.parser')
 
