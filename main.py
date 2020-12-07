@@ -16,11 +16,11 @@ class Cat(commands.Bot):
     """
     bot: False - official bot , True - self bot
     """
-    def __init__(self, command_prefix, token: str, bot: bool = False, **options):
+    def __init__(self, command_prefix, token: str, user_bot: bool = False, **options):
         super().__init__(command_prefix, **options)
         self.remove_command('help')
         self.__token = token
-        self.bot = bot
+        self.user_bot = user_bot
 
     @staticmethod
     def __sentence(file: str):
@@ -71,10 +71,10 @@ class Cat(commands.Bot):
             image = requests.get('https://thiscatdoesnotexist.com/',
                                  headers={'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; '
                                                         'rv:75.0) Gecko/20100101 Firefox/75.0'})
-            with open('cat.jpg', 'wb') as f:
+            with open(f'{ctx.message.id}.jpg', 'wb') as f:
                 f.write(image.content)
-            await ctx.send(file=discord.File('cat.jpg'))
-            os.remove('cat.jpg')
+            await ctx.send(file=discord.File(f'{ctx.message.id}.jpg'))
+            os.remove(f'{ctx.message.id}.jpg')
 
         @self.command()
         async def feature(ctx):
@@ -248,7 +248,7 @@ class Cat(commands.Bot):
             await ctx.send(file=discord.File(f'{str(ctx.author.id)}.png'))
             img.cleanfiles()
 
-        self.run(self.__token, bot=self.bot)
+        self.run(self.__token, bot=self.user_bot)
 
 
 if __name__ == '__main__':

@@ -28,7 +28,6 @@
     <list default="true" id="a3170bfd-db58-4973-9a82-447044cdba48" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/SiteParser.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/SiteParser.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -188,7 +187,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607363411526</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="token was removed, add some comments">
+      <created>1607365750619</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1607365750619</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -229,7 +235,8 @@
     <MESSAGE value="feature command dm fix" />
     <MESSAGE value="cat_feature разблокирова" />
     <MESSAGE value="фикс steam" />
-    <option name="LAST_COMMIT_MESSAGE" value="фикс steam" />
+    <MESSAGE value="token was removed, add some comments" />
+    <option name="LAST_COMMIT_MESSAGE" value="token was removed, add some comments" />
   </component>
   <component name="WindowStateProjectService">
     <state x="137" y="19" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1607094480748">
