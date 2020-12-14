@@ -107,7 +107,7 @@ class Cat(commands.Bot):
             embed.add_field(name='**Screenshots**', value=account.getTotalScreenshots())
             embed.set_thumbnail(url=account.getProfilePicture())
             embed.set_author(name='Steam profile checker.', icon_url='https://i.imgur.com/WK520CI.jpg')
-            embed.set_footer(text=f'f[Profile]({url_custom})',
+            embed.set_footer(text=f'[Profile]({url_custom})',
                              icon_url='https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Steam_icon_logo.svg'
                                       '/512px'
                                       '-Steam_icon_logo.svg.png')
