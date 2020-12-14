@@ -1,15 +1,15 @@
 # created by NullifiedVlad 2020.
 import datetime
 import os
-from modules import SiteParser
+from modules import siteParser
 import discord
 import qrcode
 import random
 import requests
-from PIL import Image, ImageDraw, ImageFont
 from bs4 import BeautifulSoup
 from discord.ext import commands
 import markovify
+from modules import imageMaker
 
 
 class Cat(commands.Bot):
@@ -47,19 +47,20 @@ class Cat(commands.Bot):
         @self.command(aliases=['help'])
         async def help_message(ctx):  # send help message
             date = datetime.datetime.now()
-            embed = discord.Embed(title='**FEATURES**', description='Discord cathook self.', color=0x0095ff, )
+            embed = discord.Embed(title='**FEATURES**', description='Discord cathook self-bot.', color=0x0095ff, )
             # headers
-            embed.add_field(name=f'**{self.command_prefix}help**', value='Send this message.', inline=False)
-            embed.add_field(name=f'**{self.command_prefix}cat**', value='Send random cat image.', inline=False)
-            embed.add_field(name=f'**{self.command_prefix}feature**', value='Random cathook feature.', inline=False)
-            embed.add_field(name=f'**{self.command_prefix}joke**', value='Send joke.', inline=False)
-            embed.add_field(name=f'**{self.command_prefix}steam**', value='Check steam profile.', inline=False)
-            embed.add_field(name=f'**{self.command_prefix}card**', value='Send your profile card.', inline=False)
-            embed.add_field(name=f'**{self.command_prefix}qr**', value='Make qrcode.', inline=False)
-            embed.add_field(name=f'**{self.command_prefix}online**', value='Show TF2 online stats.', inline=False)
-            embed.add_field(name=f'**{self.command_prefix}cathook**', value='Send cathook github repo.', inline=False)
-            embed.add_field(name=f'**{self.command_prefix}howgayami**', value='Show gayness percent.', inline=False)
-            embed.add_field(name=f'**{self.command_prefix}howfurryami**', value='Show furry percent.', inline=False)
+            embed.add_field(name=f'**{self.command_prefix}help**', value='Send this message.')
+            embed.add_field(name=f'**{self.command_prefix}cat**', value='Send random cat image.')
+            embed.add_field(name=f'**{self.command_prefix}feature**', value='Random cathook feature.')
+            embed.add_field(name=f'**{self.command_prefix}joke**', value='Send joke.')
+            embed.add_field(name=f'**{self.command_prefix}steam**', value='Check steam profile.')
+            embed.add_field(name=f'**{self.command_prefix}card**', value='Send your profile card.')
+            embed.add_field(name=f'**{self.command_prefix}qr**', value='Make qrcode.')
+            embed.add_field(name=f'**{self.command_prefix}online**', value='Show TF2 online stats.')
+            embed.add_field(name=f'**{self.command_prefix}cathook**', value='Send cathook github repo.')
+            embed.add_field(name=f'**{self.command_prefix}howgayami**', value='Show gayness percent.')
+            embed.add_field(name=f'**{self.command_prefix}howfurryami**', value='Show furry percent.')
+            embed.add_field(name=f'**{self.command_prefix}rage**', value='Generate a random killsay..')
             embed.set_thumbnail(url='https://i.imgur.com/WK520CI.jpg')
             embed.set_footer(text=f'cathook.club {date.day}/{date.month}/{date.year}',
                              icon_url='https://i.imgur.com/WK520CI.jpg')
@@ -95,7 +96,7 @@ class Cat(commands.Bot):
 
         @self.command()
         async def steam(ctx, url_custom):
-            account = SiteParser.Steam(url_custom)
+            account = siteParser.Steam(url_custom)
 
             embed = discord.Embed(title=f'**{account.getNick()}**', description=account.getGameStatus(), color=0x0095ff)
             embed.add_field(name='**Profile lvl.**', value=account.getLvl(), inline=False)
@@ -120,67 +121,13 @@ class Cat(commands.Bot):
 
         @self.command()
         async def card(ctx):
-            class Card:
-                """
-                User card generator
-                Draw:nick,id,teg,avatar,server,creator checker
-                """
-
-                def __init__(self, font, wallpaper):
-                    self.font = font  # шрифт
-                    self.author = ctx.message.author
-                    self.guild = ctx.message.guild.name
-                    self.body = Image.open(wallpaper)
-                    self.draw = ImageDraw.Draw(self.body)
-
-                def __del__(self):
-                    print(f'{self} was deleted!')
-
-                def addavatar(self):
-                    avatar = str(ctx.author.avatar_url)
-                    img = requests.get(avatar)
-
-                    with open('ava.webp', 'wb') as f:
-                        f.write(img.content)
-
-                    with Image.open('ava.webp') as avatar:
-                        avatar = avatar.resize((164, 164), Image.ANTIALIAS)
-                        self.body.paste(avatar, (27, 34))
-
-                def build(self):
-                    # name
-                    font = ImageFont.truetype(self.font, 50, encoding="unic")
-                    self.draw.text((207, 18), ctx.message.author.name, font=font)
-                    # tag
-                    font = ImageFont.truetype(self.font, 30, encoding="unic")
-                    self.draw.text((207, 78), 'TAG: #' + str(self.author.discriminator), font=font)
-                    # id
-                    font = ImageFont.truetype(self.font, 25, encoding="unic")
-                    self.draw.text((207, 118), 'ID: ' + str(self.author.id), font=font)
-                    # server
-                    font = ImageFont.truetype(self.font, 25, encoding="unic")
-                    self.draw.text((207, 150), 'SERVER: ' + self.guild, font=font)
-                    # creator mark
-                    if self.author.id == 566653752451399700:
-                        with Image.open('media/card/developer_ico.png') as avatar:
-                            avatar = avatar.resize((50, 50), Image.ANTIALIAS)
-                            self.body.paste(avatar, (625, 0), avatar)
-                    else:
-                        pass
-
-                    # сохраняем
-                    self.body.save('card.jpg')
-
-                @staticmethod
-                def cleanfiles():
-                    # clean up
-                    os.remove('card.jpg')
-                    os.remove('ava.webp')
-
-            user = Card('media/fonts/sans.ttf', 'media/card/steam_background.jpg')
-            user.addavatar()
+            user = imageMaker.Card('media/fonts/sans.ttf',
+                                   ctx.message.author,
+                                   ctx.message.guild,
+                                   'media/card/steam_background.jpg')
             user.build()
             await ctx.send(file=discord.File('card.jpg'))
+
             user.cleanfiles()
             del user
 
@@ -208,7 +155,7 @@ class Cat(commands.Bot):
 
         @self.command()
         async def howgayami(ctx):
-            await ctx.send(f'Look! {ctx.message.author} is {str(random.randint(0, 100))}% gay!')
+            await ctx.send(f'Look! {ctx.message.author} is {random.randint(0, 100)}% gay!')
 
         @self.command()
         async def howfurryami(ctx):
@@ -225,33 +172,11 @@ class Cat(commands.Bot):
 
         @self.command(aliases=['stats', 'tf2', 'online'])
         async def tf2stats(ctx):
-            class Stats(SiteParser.Tf2stats):
-                def __init__(self, font, color):
-                    super().__init__()
-                    self.font = font
-                    self.color = color
-                    self.body = Image.open('media/stats.png')
-                    self.draw = ImageDraw.Draw(self.body)
 
-                def build(self):
-                    with Image.open('media/tf2label.png') as f:
-                        f = f.resize((600, 137), Image.ANTIALIAS)
-                        f.convert('RGB')
-                        self.body.paste(f, (0, 50), f)
+            img = imageMaker.Stats('media/fonts/tf2build.ttf', (255, 255, 255), ctx.author)
 
-                    font = ImageFont.truetype(self.font, 80, encoding="unic")
-                    self.draw.text((0, 200), f'Last hour: {self.getMinutesOnline()}', font=font, fill=self.color)
-                    self.draw.text((0, 305), f'24-hour peak: {self.getDayOnline()}', font=font, fill=self.color)
-                    self.draw.text((0, 400), f'All-time peak: {self.getAllTimeOnline()}', font=font, fill=self.color)
-                    self.body.save(f'{str(ctx.author.id)}.png')
-
-                @staticmethod
-                def cleanfiles():
-                    os.remove(f'{str(ctx.author.id)}.png')
-
-            img = Stats('media/fonts/tf2build.ttf', (255, 255, 255))
             img.build()
-            await ctx.send(file=discord.File(f'{str(ctx.author.id)}.png'))
+            await ctx.send(file=discord.File(f'{ctx.author.id}.png'))
             img.cleanfiles()
 
         self.run(self.__token, bot=self.user_bot)

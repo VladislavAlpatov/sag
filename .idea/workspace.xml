@@ -26,12 +26,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a3170bfd-db58-4973-9a82-447044cdba48" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/text-models/killsays-model.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sag.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sag.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_07_12_2020_20_28__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_07_12_2020_20_28__Default_Changelist_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/imageMaker.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/SiteParser.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/siteParser.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -198,7 +196,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607365750619</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="killsays generation feature">
+      <created>1607980799493</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1607980799493</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -240,7 +245,8 @@
     <MESSAGE value="cat_feature разблокирова" />
     <MESSAGE value="фикс steam" />
     <MESSAGE value="token was removed, add some comments" />
-    <option name="LAST_COMMIT_MESSAGE" value="token was removed, add some comments" />
+    <MESSAGE value="killsays generation feature" />
+    <option name="LAST_COMMIT_MESSAGE" value="killsays generation feature" />
   </component>
   <component name="WindowStateProjectService">
     <state x="137" y="19" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1607094480748">
@@ -251,34 +257,34 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1607786060419" />
-    <state width="1328" height="173" key="GridCell.Tab.0.bottom" timestamp="1607787020379">
+    <state width="1345" height="195" key="GridCell.Tab.0.bottom" timestamp="1607983205967">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1328" height="173" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1607787020379" />
+    <state width="1345" height="195" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1607983205967" />
     <state width="1343" height="172" key="GridCell.Tab.0.bottom/0.36.1366.732@0.36.1366.732" timestamp="1607199637904" />
-    <state width="1328" height="173" key="GridCell.Tab.0.center" timestamp="1607787020379">
+    <state width="1345" height="195" key="GridCell.Tab.0.center" timestamp="1607983205966">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1328" height="173" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1607787020379" />
+    <state width="1345" height="195" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1607983205966" />
     <state width="1343" height="172" key="GridCell.Tab.0.center/0.36.1366.732@0.36.1366.732" timestamp="1607199637904" />
-    <state width="1328" height="173" key="GridCell.Tab.0.left" timestamp="1607787020379">
+    <state width="1345" height="195" key="GridCell.Tab.0.left" timestamp="1607983205966">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1328" height="173" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1607787020379" />
+    <state width="1345" height="195" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1607983205966" />
     <state width="1343" height="172" key="GridCell.Tab.0.left/0.36.1366.732@0.36.1366.732" timestamp="1607199637903" />
-    <state width="1328" height="173" key="GridCell.Tab.0.right" timestamp="1607787020379">
+    <state width="1345" height="195" key="GridCell.Tab.0.right" timestamp="1607983205967">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1328" height="173" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1607787020379" />
+    <state width="1345" height="195" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1607983205967" />
     <state width="1343" height="172" key="GridCell.Tab.0.right/0.36.1366.732@0.36.1366.732" timestamp="1607199637904" />
     <state x="179" y="38" key="SettingsEditor" timestamp="1607198698058">
       <screen x="0" y="36" width="1366" height="732" />
     </state>
     <state x="179" y="38" key="SettingsEditor/0.36.1366.732@0.36.1366.732" timestamp="1607198698058" />
-    <state x="275" y="97" width="804" height="528" key="Vcs.Push.Dialog.v2" timestamp="1607363415596">
+    <state x="275" y="97" width="804" height="528" key="Vcs.Push.Dialog.v2" timestamp="1607980818106">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1607363415596" />
+    <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1607980818106" />
     <state x="275" y="134" width="804" height="528" key="Vcs.Push.Dialog.v2/0.36.1366.732@0.36.1366.732" timestamp="1607199311974" />
     <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1607362219079">
       <screen x="0" y="0" width="1366" height="728" />
