@@ -219,6 +219,10 @@ class Cat(commands.Bot):
             else:
                 await ctx.send(content=f'{ctx.message.author} is **{random.randint(0, 100)}%** furry!')
 
+        @self.command(aliases=['killsays', 'rage'])
+        async def kill_say(ctx):
+            await ctx.send(self.__sentence('text-models/killsays-model.txt'))
+
         @self.command(aliases=['stats', 'tf2', 'online'])
         async def tf2stats(ctx):
             class Stats(SiteParser.Tf2stats):
