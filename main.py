@@ -98,16 +98,16 @@ class Cat(commands.Bot):
             account = siteParser.Steam(url_custom)
 
             embed = discord.Embed(title=f'**{account.getNick()}**', description=account.getGameStatus(), color=0x0095ff)
-            embed.add_field(name='**Profile lvl**', value=account.getLvl())
-            embed.add_field(name='**VAC**', value=account.getVacStatus())
-            embed.add_field(name='**Comments**', value=account.getTotalComments())
-            embed.add_field(name='**Friends**', value=account.getTotalFriends())
-            embed.add_field(name='**Games**', value=account.getTotalGames())
-            embed.add_field(name='**Bages**', value=account.getTotalBages())
+            embed.add_field(name='**Profile lvl**', value=account.getLvl(), inline=False)
+            embed.add_field(name='**VAC**', value=account.getVacStatus(), inline=False)
+            embed.add_field(name='**Comments**', value=account.getTotalComments(), inline=False)
+            embed.add_field(name='**Friends**', value=account.getTotalFriends(), inline=False)
+            embed.add_field(name='**Games**', value=account.getTotalGames(), inline=False)
+            embed.add_field(name='**Bages**', value=account.getTotalBages(), inline=False)
             embed.add_field(name='**Screenshots**', value=account.getTotalScreenshots())
             embed.set_thumbnail(url=account.getProfilePicture())
             embed.set_author(name='Steam profile checker.', icon_url='https://i.imgur.com/WK520CI.jpg')
-            embed.set_footer(text=url_custom,
+            embed.set_footer(text=f'f[Profile]({url_custom})',
                              icon_url='https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Steam_icon_logo.svg'
                                       '/512px'
                                       '-Steam_icon_logo.svg.png')
