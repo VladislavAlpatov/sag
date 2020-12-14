@@ -46,7 +46,6 @@ class Cat(commands.Bot):
 
         @self.command(aliases=['help'])
         async def help_message(ctx):  # send help message
-            date = datetime.datetime.now()
             embed = discord.Embed(title='**FEATURES**', description='Discord cathook self-bot.', color=0x0095ff, )
             # headers
             embed.add_field(name=f'**{self.command_prefix}help**', value='Send this message.')
