@@ -62,7 +62,7 @@ class Cat(commands.Bot):
             embed.add_field(name=f'**{self.command_prefix}howfurryami**', value='Show furry percent.')
             embed.add_field(name=f'**{self.command_prefix}rage**', value='Generate a random killsay..')
             embed.set_thumbnail(url='https://i.imgur.com/WK520CI.jpg')
-            embed.set_footer(text=f'cathook.club {date.day}/{date.month}/{date.year}',
+            embed.set_footer(text=f'Powered by NullifiedVlad',
                              icon_url='https://i.imgur.com/WK520CI.jpg')
             embed.set_author(name=self.user.name, icon_url='https://i.imgur.com/WK520CI.jpg')
             await ctx.send(embed=embed)
