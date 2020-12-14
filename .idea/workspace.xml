@@ -27,7 +27,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a3170bfd-db58-4973-9a82-447044cdba48" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/text-models/killsays-model.txt" beforeDir="false" afterPath="$PROJECT_DIR$/text-models/killsays-model.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -229,7 +229,21 @@
       <option name="project" value="LOCAL" />
       <updated>1607984032646</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="steam command was changed again...">
+      <created>1607984364328</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1607984364328</updated>
+    </task>
+    <task id="LOCAL-00021" summary="link fix">
+      <created>1607984639745</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1607984639745</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -276,7 +290,9 @@
     <MESSAGE value="help message footer was changed" />
     <MESSAGE value="steam message refactored" />
     <MESSAGE value="forgot delete date" />
-    <option name="LAST_COMMIT_MESSAGE" value="forgot delete date" />
+    <MESSAGE value="steam command was changed again..." />
+    <MESSAGE value="link fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="link fix" />
   </component>
   <component name="WindowStateProjectService">
     <state x="137" y="19" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1607094480748">
@@ -311,10 +327,10 @@
       <screen x="0" y="36" width="1366" height="732" />
     </state>
     <state x="179" y="38" key="SettingsEditor/0.36.1366.732@0.36.1366.732" timestamp="1607198698058" />
-    <state x="275" y="97" width="804" height="528" key="Vcs.Push.Dialog.v2" timestamp="1607984037810">
+    <state x="275" y="97" width="804" height="528" key="Vcs.Push.Dialog.v2" timestamp="1607984663697">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1607984037810" />
+    <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1607984663697" />
     <state x="275" y="134" width="804" height="528" key="Vcs.Push.Dialog.v2/0.36.1366.732@0.36.1366.732" timestamp="1607199311974" />
     <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1607362219079">
       <screen x="0" y="0" width="1366" height="728" />
