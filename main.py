@@ -1,5 +1,4 @@
 # created by NullifiedVlad 2020.
-import datetime
 import os
 from modules import siteParser
 import discord
@@ -14,7 +13,7 @@ from modules import imageMaker
 
 class Cat(commands.Bot):
     """
-    bot: False - official bot , True - self bot
+    bot: True - official bot , False - self bot
     """
     def __init__(self, command_prefix, token: str, user_bot: bool = False, **options):
         super().__init__(command_prefix, **options)
