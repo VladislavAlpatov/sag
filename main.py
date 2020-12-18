@@ -182,4 +182,4 @@ class Cat(commands.Bot):
 
 
 if __name__ == '__main__':
-    Cat('cat_', os.environ.get('TOKEN'), False).start_bot()
+    Cat('cat_', os.environ.get('TOKEN'), True).start_bot()
