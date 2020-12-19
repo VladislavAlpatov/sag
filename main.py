@@ -45,7 +45,7 @@ class Cat(commands.Bot):
 
         @self.command(aliases=['help'])
         async def help_message(ctx):  # send help message
-            embed = discord.Embed(title='**FEATURES**', description='Discord cathook self-bot.', color=0x0095ff, )
+            embed = discord.Embed(title='**FEATURES**', description='Discord cathook bot.', color=0x0095ff, )
             # headers
             embed.add_field(name=f'**{self.command_prefix}help**', value='Send this message.')
             embed.add_field(name=f'**{self.command_prefix}cat**', value='Send random cat image.')
@@ -58,9 +58,9 @@ class Cat(commands.Bot):
             embed.add_field(name=f'**{self.command_prefix}cathook**', value='Send cathook github repo.')
             embed.add_field(name=f'**{self.command_prefix}howgayami**', value='Show gayness percent.')
             embed.add_field(name=f'**{self.command_prefix}howfurryami**', value='Show furry percent.')
-            embed.add_field(name=f'**{self.command_prefix}rage**', value='Generate a random killsay..')
+            embed.add_field(name=f'**{self.command_prefix}rage**', value='Generate a random killsay.')
             embed.set_thumbnail(url='https://i.imgur.com/WK520CI.jpg')
-            embed.set_footer(text=f'Powered by NullifiedVlad',
+            embed.set_footer(text=f'Powered by Nullworks',
                              icon_url='https://i.imgur.com/WK520CI.jpg')
             embed.set_author(name=self.user.name, icon_url='https://i.imgur.com/WK520CI.jpg')
             await ctx.send(embed=embed)
@@ -102,7 +102,7 @@ class Cat(commands.Bot):
             embed.add_field(name='**Comments**', value=account.getTotalComments(), inline=False)
             embed.add_field(name='**Friends**', value=account.getTotalFriends(), inline=False)
             embed.add_field(name='**Games**', value=account.getTotalGames(), inline=False)
-            embed.add_field(name='**Bages**', value=account.getTotalBages(), inline=False)
+            embed.add_field(name='**Badges**', value=account.getTotalBages(), inline=False)
             embed.add_field(name='**Screenshots**', value=account.getTotalScreenshots())
             embed.set_thumbnail(url=account.getProfilePicture())
             embed.set_author(name='Steam profile checker.', icon_url='https://i.imgur.com/WK520CI.jpg')
