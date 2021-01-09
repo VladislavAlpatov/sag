@@ -44,7 +44,7 @@ class Cat(commands.Bot):
             await self.process_commands(message)
 
         @self.command(aliases=['help'])
-        async def help_message(ctx):  # send help message
+        async def help_message(ctx, context=None):  # send help message
             embed = discord.Embed(title='**FEATURES**', description='Discord cathook bot.', color=0x0095ff, )
             # headers
             embed.add_field(name=f'**{self.command_prefix}help**', value='Send this message.')
@@ -59,10 +59,11 @@ class Cat(commands.Bot):
             embed.add_field(name=f'**{self.command_prefix}howgayami**', value='Show gayness percent.')
             embed.add_field(name=f'**{self.command_prefix}howfurryami**', value='Show furry percent.')
             embed.add_field(name=f'**{self.command_prefix}rage**', value='Generate a random killsay.')
-            embed.set_thumbnail(url='https://i.imgur.com/WK520CI.jpg')
+            embed.add_field(name=f'**{self.command_prefix}ask**', value='Ask something.')
+            embed.set_thumbnail(url=self.user.avatar_url)
             embed.set_footer(text=f'Powered by Nullworks',
-                             icon_url='https://i.imgur.com/WK520CI.jpg')
-            embed.set_author(name=self.user.name, icon_url='https://i.imgur.com/WK520CI.jpg')
+                             icon_url=self.user.avatar_url)
+            embed.set_author(name=self.user.name, icon_url=self.user.avatar_url)
             await ctx.send(embed=embed)
 
         @self.command()
@@ -93,7 +94,9 @@ class Cat(commands.Bot):
             await ctx.send(soup.text[:-15])
 
         @self.command()
-        async def steam(ctx, url_custom):
+        async def steam(ctx, url_custom: str = None):
+            if not url_custom:
+                await ctx.send("Enter url!")
             account = siteParser.Steam(url_custom)
 
             embed = discord.Embed(title=f'**{account.getNick()}**', description=account.getGameStatus(), color=0x0095ff)
@@ -151,18 +154,21 @@ class Cat(commands.Bot):
             else:
                 await ctx.send('You cant create qrcode with 100 symbols or more!')
 
-        @self.command()
+        @self.command(aliases=['gay'])
         async def howgayami(ctx):
-            await ctx.send(f'Look! {ctx.message.author} is {random.randint(0, 100)}% gay!')
+            await ctx.send(f':rainbow_flag: {ctx.message.author} is {random.randint(0, 100)}% gay!')
 
-        @self.command()
+        @self.command(aliases=['furry'])
         async def howfurryami(ctx):
             if ctx.message.author.id == 566653752451399700:
                 await ctx.send(content=f'{ctx.message.author} is **100%** furry!')
-            elif ctx.message.author.id == 782347202437709866:
-                await ctx.send(content=f'{ctx.message.author} is **0%** furry!')
             else:
                 await ctx.send(content=f'{ctx.message.author} is **{random.randint(0, 100)}%** furry!')
+
+        @self.command()
+        async def ask(ctx):
+            asks = ('Yes', 'No', '100% yes', 'Nope', 'i dont know', 'Stop asking idiotic questions')
+            await ctx.send(random.choice(asks))
 
         @self.command(aliases=['killsays', 'rage'])
         async def kill_say(ctx):
