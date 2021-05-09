@@ -80,9 +80,9 @@ class Cat(commands.Bot):
         async def feature(ctx):
             await ctx.send(self.__sentence('text-models/features-model.txt'))
 
-        @self.command()
+        """@self.command()
         async def cathook(ctx):
-            await ctx.send("https://github.com/nullworks/cathook")
+            await ctx.send("https://github.com/nullworks/cathook")"""
 
         @self.command()
         async def joke(ctx):
